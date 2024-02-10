@@ -294,7 +294,7 @@ if (isset($_POST["Common"])) {
 			$n = 0;
 			while ($row = mysqli_fetch_array($query)) {
 				$n++;
-				$a;
+		
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
