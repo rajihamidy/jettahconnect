@@ -155,12 +155,13 @@ $(document).ready(function(){
 	//Add Product into Cart
 	$("body").delegate("#product","click",function(event){
 		var pid = $(this).attr("pid");
+		var sid = $(this).attr("sellerid");
 		event.preventDefault();
 		$(".overlay").show();
 		$.ajax({
 			url : "action.php",
 			method : "POST",
-			data : {addToCart:1,proId:pid},
+			data : {addToCart:1,proId:pid,sellerId:sid},
 			success : function(data){
 				count_item();
 				getCartItem();

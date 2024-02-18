@@ -14,6 +14,7 @@ require "config/constants.php";
 		<script src="main.js"></script>
 		<script src="main2.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script>
 
 </script>
@@ -37,7 +38,9 @@ require "config/constants.php";
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
 				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Product</a></li>
+				<li><a href="logout.php" style="text-decoration:none; "> <span class="glyphicon glyphicon-log-out "></span>Logout</a></li>
 			</ul>
+			
 		</div>
 	</div>
 	</div>
@@ -59,6 +62,8 @@ require "config/constants.php";
 					<div class="panel-heading">Cart Checkout</div>
 					<div class="panel-body">
 						<div class="row">
+						
+							
 							<div class="col-md-2 col-xs-2"><b>Action</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Image</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Name</b></div>

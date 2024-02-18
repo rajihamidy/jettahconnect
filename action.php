@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'uniqueref.php';
 $ip_add = getenv("REMOTE_ADDR");
 include "db.php";
 if (isset($_POST["category"])) {
@@ -57,7 +58,7 @@ if (isset($_POST["getProduct"])) {
 	} else {
 		$start = 0;
 	}
-	$product_query = "SELECT * FROM products LIMIT $start,$limit";
+	$product_query = "SELECT * FROM products ";//LIMIT $start,$limit
 	$run_query = mysqli_query($con, $product_query);
 	if (mysqli_num_rows($run_query) > 0) {
 		while ($row = mysqli_fetch_array($run_query)) {
@@ -66,7 +67,7 @@ if (isset($_POST["getProduct"])) {
 			$pro_brand = $row['product_brand'];
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
-			$userid = $row['user_id'];
+			$sellerid = $row['user_id'];
 			$pro_image = $row['product_image'];
 			echo "
 				<div class='col-md-4'>
@@ -76,9 +77,9 @@ if (isset($_POST["getProduct"])) {
 									<img src='product_images/$pro_image' style='width:220px; height:250px;'/>
 								</div>
 								<div class='panel-heading'>" . CURRENCY . " $pro_price.00
-									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
+									<button pid='$pro_id'  style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
 									
-									<button userid='$userid' style='float:right;'  id='contacts' class='btn btn-danger btn-xs'>Contact</button>
+									<button userid='$sellerid' style='float:right;'  id='contacts' class='btn btn-danger btn-xs'>Contact</button>
 								</div>
 							</div>
 						</div>	
@@ -140,18 +141,18 @@ if (isset($_POST["contats"])) {
 
 	//	$user_id = $_SESSION["uid"];
 
-		$sql = "SELECT * FROM admin WHERE id = '$userid'";
-		$run_query = mysqli_query($con, $sql);
-		$row = mysqli_fetch_array($run_query);
-		
-		$count = mysqli_num_rows($run_query);
-		if ($count > 0) {
-			$name = $row['name'];
-			$shopname = $row['shopname'];
-			$email = $row['email'];
-			$mobile = $row['mobile'];
-			$address = $row['shopaddress'];
-			echo "
+	$sql = "SELECT * FROM admin WHERE id = '$userid'";
+	$run_query = mysqli_query($con, $sql);
+	$row = mysqli_fetch_array($run_query);
+
+	$count = mysqli_num_rows($run_query);
+	if ($count > 0) {
+		$name = $row['name'];
+		$shopname = $row['shopname'];
+		$email = $row['email'];
+		$mobile = $row['mobile'];
+		$address = $row['shopaddress'];
+		echo "
 			
 				<div class='alert alert-success'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -163,13 +164,10 @@ if (isset($_POST["contats"])) {
 						<b>Mobile: $mobile</b><br>
 						<b>Contact Address: $address</b>
 				</div>
-				"; 
-				
-				
-		} else {
-			
-		}
-	} 
+				";
+	} else {
+	}
+}
 //}
 
 
@@ -177,14 +175,19 @@ if (isset($_POST["addToCart"])) {
 
 
 	$p_id = $_POST["proId"];
+	//$seller_id = $_POST["sellerId"];
 
-
+//i need to get user id from product table
 	if (isset($_SESSION["uid"])) {
 
 		$user_id = $_SESSION["uid"];
 
-		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id'";
+		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id' and order_status!='Ordered'";
+		$sql2 = "SELECT * FROM products WHERE product_id = '$p_id' ";
 		$run_query = mysqli_query($con, $sql);
+		$run_query2 = mysqli_query($con, $sql2);
+		$row = mysqli_fetch_assoc($run_query2);
+		$sellerid=$row['user_id'];// from product table
 		$count = mysqli_num_rows($run_query);
 		if ($count > 0) {
 			echo "
@@ -195,8 +198,8 @@ if (isset($_POST["addToCart"])) {
 			"; //not in video
 		} else {
 			$sql = "INSERT INTO `cart`
-			(`p_id`, `ip_add`, `user_id`, `qty`) 
-			VALUES ('$p_id','$ip_add','$user_id','1')";
+			(`p_id`, `ip_add`, `user_id`, `seller_id`, `qty`) 
+			VALUES ('$p_id','$ip_add','$user_id','$sellerid','1')";
 			if (mysqli_query($con, $sql)) {
 				echo "
 					<div class='alert alert-success'>
@@ -207,7 +210,7 @@ if (isset($_POST["addToCart"])) {
 			}
 		}
 	} else {
-		$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id = -1";
+		$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id = -1 and order_status!='Ordered'";
 		$query = mysqli_query($con, $sql);
 		if (mysqli_num_rows($query) > 0) {
 			echo "
@@ -236,10 +239,10 @@ if (isset($_POST["addToCart"])) {
 if (isset($_POST["count_item"])) {
 	//When user is logged in then we will count number of item in cart by using user session id
 	if (isset($_SESSION["uid"])) {
-		$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE user_id = $_SESSION[uid]";
+		$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE user_id = $_SESSION[uid] and order_status!='Ordered'";
 	} else {
 		//When user is not logged in then we will count number of item in cart by using users unique ip address
-		$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE ip_add = '$ip_add' AND user_id < 0";
+		$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE ip_add = '$ip_add' AND user_id < 0 and order_status!='Ordered'";
 	}
 
 	$query = mysqli_query($con, $sql);
@@ -250,14 +253,15 @@ if (isset($_POST["count_item"])) {
 //Count User cart item
 
 //Get Cart Item From Database to Dropdown menu
-if (isset($_POST["Common"])) { 
+//Get Cart Item From Database to Dropdown menu
+if (isset($_POST["Common"])) {
 
 	if (isset($_SESSION["uid"])) {
 		//When user is logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,a.user_id, b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'AND b.order_status!='Ordered'";
 	} else {
 		//When user is not logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,a.user_id,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0 AND b.order_status!='Ordered'";
 	}
 	$query = mysqli_query($con, $sql);
 	if (isset($_POST["getCartItem"])) {
@@ -272,7 +276,6 @@ if (isset($_POST["Common"])) {
 				$product_image = $row["product_image"];
 				$cart_item_id = $row["id"];
 				$qty = $row["qty"];
-				$sellerid=$row["user_id"];
 				echo '
 					<div class="row">
 						<div class="col-md-3">' . $n . '</div>
@@ -294,28 +297,39 @@ if (isset($_POST["Common"])) {
 			$n = 0;
 			while ($row = mysqli_fetch_array($query)) {
 				$n++;
-		
+				$user_id = $_SESSION["uid"]; //user id of the customer
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
 				$product_image = $row["product_image"];
 				$cart_item_id = $row["id"];
 				$qty = $row["qty"];
-				$sellerid=$row["user_id"];
+				$sellerid = $row["seller_id"]; // seller_id from cart
+
+				// Generate a unique reference number
+				$trx_id = generateUniqueReference();
+				$p_status = "Not Completed";
 
 				echo
-				'<div class="row">
+				'<div class="row" id="rollings">
+
 								<div class="col-md-2">
+								
 									<div class="btn-group">
 										<a href="#" remove_id="' . $product_id . '" class="btn btn-danger remove"><span class="glyphicon glyphicon-trash"></span></a>
 										<a href="#" update_id="' . $product_id . '" class="btn btn-primary update"><span class="glyphicon glyphicon-ok-sign"></span></a>
 									</div>
 								</div>
-								<input type="hidden" name="product_id[]" value="' . $product_id . '"/>
+						
+								<input type="hidden" name="user_id[]" id="user_id" value="' . $user_id . '"/>
+								<input type="hidden" name="product_id[]" id="product_id" value="' . $product_id . '"/>
 								<input type="hidden" name="" value="' . $cart_item_id . '"/>
 								<div class="col-md-2"><img class="img-responsive" src="product_images/' . $product_image . '"></div>
 								<div class="col-md-2">' . $product_title . '</div>
-								<div class="col-md-2"><input type="text" class="form-control qty" value="' . $qty . '" ></div>
+								<div class="col-md-2"><input type="text" class="form-control qty" name="qty[]" id="qty" value="' . $qty . '" ></div>
+								<input type="hidden" name="trx_id[]" id="trx_id" value="' . $trx_id . '"/>
+								<input type="hidden" name="p_status[]" id="p_status" value="' . $p_status . '"/>
+								<input type="hidden" name="seller_id[]" id="seller_id" value="' . $sellerid . '"/>
 								<div class="col-md-2"><input type="text" class="form-control price" value="' . $product_price . '" readonly="readonly"></div>
 								<div class="col-md-2"><input type="text" class="form-control total" value="' . $product_price . '" readonly="readonly"></div>
 							</div>';
@@ -408,6 +422,43 @@ if (isset($_POST["updateCartItem"])) {
 }
 
 
+if (isset($_POST['postvalue'])) {
 
+	$user_id = $_POST['user_id'];
+	$product_id = $_POST['product_id'];
+	$qty = $_POST['qty'];
+	$trx_id = $_POST['trx_id'];
+	$p_status = $_POST['p_status'];
+	$seller_id = $_POST['seller_id'];
+
+	$qry = '';
+	for ($count = 0; $count < count($product_id); $count++) {
+		// Escape variables to prevent SQL injection
+		$cuser_id = mysqli_real_escape_string($con, $user_id[$count]);
+		$cproduct_id = mysqli_real_escape_string($con, $product_id[$count]);
+		$cqty = mysqli_real_escape_string($con, $qty[$count]);
+		$ctrx_id = mysqli_real_escape_string($con, $trx_id[$count]);
+		$cp_status = mysqli_real_escape_string($con, $p_status[$count]);
+		$cseller_id = mysqli_real_escape_string($con, $seller_id[$count]);
+
+		// Build the query
+		echo $count;
+		$qry .= "INSERT  INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id) VALUES ('$cuser_id', '$cproduct_id', '$cqty', '$ctrx_id', '$cp_status', '$cseller_id');";
+
+		$qry .= '
+        UPDATE cart SET p_status=0 WHERE user_id="' . $cuser_id . '";
+        ';
+	}
+
+	if (!empty($qry)) {
+		if (mysqli_multi_query($con, $qry)) {
+			echo "Order(s) placed successfully";
+		} else {
+			echo "Error: " . mysqli_error($con);
+		}
+	} else {
+		echo "No data received";
+	}
+}
 
 ?>
