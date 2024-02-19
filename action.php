@@ -422,43 +422,4 @@ if (isset($_POST["updateCartItem"])) {
 }
 
 
-if (isset($_POST['postvalue'])) {
-
-	$user_id = $_POST['user_id'];
-	$product_id = $_POST['product_id'];
-	$qty = $_POST['qty'];
-	$trx_id = $_POST['trx_id'];
-	$p_status = $_POST['p_status'];
-	$seller_id = $_POST['seller_id'];
-
-	$qry = '';
-	for ($count = 0; $count < count($product_id); $count++) {
-		// Escape variables to prevent SQL injection
-		$cuser_id = mysqli_real_escape_string($con, $user_id[$count]);
-		$cproduct_id = mysqli_real_escape_string($con, $product_id[$count]);
-		$cqty = mysqli_real_escape_string($con, $qty[$count]);
-		$ctrx_id = mysqli_real_escape_string($con, $trx_id[$count]);
-		$cp_status = mysqli_real_escape_string($con, $p_status[$count]);
-		$cseller_id = mysqli_real_escape_string($con, $seller_id[$count]);
-
-		// Build the query
-		echo $count;
-		$qry .= "INSERT  INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id) VALUES ('$cuser_id', '$cproduct_id', '$cqty', '$ctrx_id', '$cp_status', '$cseller_id');";
-
-		$qry .= '
-        UPDATE cart SET p_status=0 WHERE user_id="' . $cuser_id . '";
-        ';
-	}
-
-	if (!empty($qry)) {
-		if (mysqli_multi_query($con, $qry)) {
-			echo "Order(s) placed successfully";
-		} else {
-			echo "Error: " . mysqli_error($con);
-		}
-	} else {
-		echo "No data received";
-	}
-}
-
 ?>

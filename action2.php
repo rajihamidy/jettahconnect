@@ -39,10 +39,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
             $pStatus = mysqli_real_escape_string($con, $record['p_status']);
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
+            // Set the time zone
+            $timeZone = new DateTimeZone('Africa/Lagos');
+
+            // Create a DateTime object with the current date and time in the specified time zone
+            $dateTime = new DateTime('now', $timeZone);
+
+            // Format the date and time
+            $currentDateTime = $dateTime->format('Y-m-d H:i:s');
+
 
             // Insert the record into the orders table
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id) 
-                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$pStatus', '$sellerId');";
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id,orderdate) 
+                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$pStatus', '$sellerId', '$currentDateTime');";
 
             // Update the cart table for each record individually
             $sql .= "UPDATE cart SET order_status = 'Ordered' WHERE user_id = '$userId';";
@@ -69,4 +78,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Request method is not POST
     echo "Invalid request method";
 }
-?>
