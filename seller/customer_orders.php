@@ -3,6 +3,7 @@ if (!isset($_SESSION['admin_id'])) {
 	header("location:login.php");
   }
 ?>
+<script src="../js/bootstrap.min.js"></script>
 <?php include_once("./templates/top.php"); ?>
 <?php include_once("./templates/navbar.php"); ?>
 <div class="container-fluid">
@@ -21,12 +22,16 @@ if (!isset($_SESSION['admin_id'])) {
           <thead>
             <tr>
               <th>#</th>
-              <th>Order #</th>
-              <th>Product Id</th>
+			  <th>Buyer Name</th>
+			  <th>Address</th>
+			  <th>Mobile</th>
+			  <th>Email</th>
               <th>Product Name</th>
               <th>Quantity</th>
               <th>Trx Id</th>
+			  <th>Order Date</th>
               <th>Payment Status</th>
+			  
             </tr>
           </thead>
           <tbody id="customer_order_list">
@@ -117,3 +122,4 @@ if (!isset($_SESSION['admin_id'])) {
 
 
 <script type="text/javascript" src="./js/customers.js"></script>
+<script type="text/javascript" src="./js/update_pay.js"></script>

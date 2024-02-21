@@ -22,3 +22,4 @@ $conn = mysqli_connect("localhost", "root", "", "jettahconnect");
 if (!$conn) {
     die("Cannot connect to the database. Error: " . mysqli_connect_error());
 }
+
