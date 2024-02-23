@@ -6,6 +6,13 @@ if (!isset($_SESSION['admin_id'])) {
 <script src="../js/bootstrap.min.js"></script>
 <?php include_once("./templates/top.php"); ?>
 <?php include_once("./templates/navbar.php"); ?>
+<style>
+    /* Custom CSS to ensure text wrapping */
+    .table-wrap {
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
+  </style>
 <div class="container-fluid">
   <div class="row">
     
@@ -18,10 +25,10 @@ if (!isset($_SESSION['admin_id'])) {
       </div>
       
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm table-wrap style='width: 70%;'">
           <thead>
             <tr>
-              <th>#</th>
+              <th class="col-auto">#</th>
 			  <th>Buyer Name</th>
 			  <th>Address</th>
 			  <th>Mobile</th>
@@ -31,6 +38,7 @@ if (!isset($_SESSION['admin_id'])) {
               <th>Trx Id</th>
 			  <th>Order Date</th>
               <th>Payment Status</th>
+			  <th>Delivery</th>
 			  
             </tr>
           </thead>
@@ -123,3 +131,6 @@ if (!isset($_SESSION['admin_id'])) {
 
 <script type="text/javascript" src="./js/customers.js"></script>
 <script type="text/javascript" src="./js/update_pay.js"></script>
+<script type="text/javascript" src="./js/delivery_status.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

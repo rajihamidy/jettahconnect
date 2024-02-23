@@ -31,7 +31,7 @@ class Customers
 
 	public function getCustomersOrder(){
 		$admin_id =$_SESSION['admin_id'];
-		$query = $this->con->query("SELECT o.order_id, o.product_id, o.qty,o.user_id, o.trx_id, o.seller_id, o.orderdate, o.p_status, p.product_title, p.product_image, u.first_name, u.last_name,u.email,u.mobile,u.address1,u.address2 FROM orders o 
+		$query = $this->con->query("SELECT o.order_id, o.product_id, o.qty,o.user_id, o.trx_id, o.seller_id, o.orderdate,o.deliveryStatus, o.p_status, p.product_title, p.product_image, u.first_name, u.last_name,u.email,u.mobile,u.address1,u.address2 FROM orders o 
 		JOIN products p ON o.product_id = p.product_id
 		INNER JOIN user_info u ON o.user_id = u.user_id
 		 where seller_id='$admin_id'");

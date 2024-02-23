@@ -57,10 +57,10 @@ $(document).ready(function () {
 
 					$.each(resp.message, function (index, value) {
 						sn++;
-						if (value.p_status === "Not Completed") {
+						if ((value.p_status === "Not Completed") && (value.deliveryStatus === "Not Delivered Yet"))  {
 							
 							customerOrderHTML += '<tr>' +
-								'<td>' + sn + '</td>' +
+								'<td class="col-auto">' + sn + '</td>' +
 
 								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
 								'<td class="text-wrap">' + value.address1 + '</td>' +
@@ -71,11 +71,13 @@ $(document).ready(function () {
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
 								'<td class="text-wrap">' + value.orderdate + '</td>' +
 								'<td><button class="btn btn-danger" onclick="submitPaymentInfo(\'' + value.trx_id + '\')">Payment Received?</button></td>' +
+								'<td><button class="btn btn-danger" onclick="UpdateDeliveryInfo(\'' + value.trx_id + '\')">Delivered?</button></td>' +
 
 								'</tr>';
-						} else {
+						}else if ((value.p_status === "Completed") && (value.deliveryStatus === "Not Delivered Yet"))  {
+							
 							customerOrderHTML += '<tr>' +
-								'<td>' + sn + '</td>' +
+								'<td class="col-auto">' + sn + '</td>' +
 
 								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
 								'<td class="text-wrap">' + value.address1 + '</td>' +
@@ -86,6 +88,25 @@ $(document).ready(function () {
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
 								'<td class="text-wrap">' + value.orderdate + '</td>' +
 								'<td class="text-wrap text-primary">' + value.p_status + '</td>' +
+								'<td><button class="btn btn-danger" onclick="UpdateDeliveryInfo(\'' + value.trx_id + '\')">Delivered?</button></td>' +
+
+								'</tr>';
+						}
+						
+						else {
+							customerOrderHTML += '<tr>' +
+								'<td class="col-auto">' + sn + '</td>' +
+
+								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
+								'<td class="text-wrap">' + value.address1 + '</td>' +
+								'<td class="text-wrap">' + value.mobile + '</td>' +
+								'<td class="text-wrap">' + value.email + '</td>' +
+								'<td class="text-wrap">' + value.product_title + '</td>' +
+								'<td class="text-wrap">' + value.qty + '</td>' +
+								'<td class="text-wrap">' + value.trx_id + '</td>' +
+								'<td class="text-wrap">' + value.orderdate + '</td>' +
+								'<td class="text-wrap text-primary">' + value.p_status + '</td>' +
+								'<td class="text-wrap text-primary">' + value.deliveryStatus + '</td>' +
 								'</tr>';
 						}
 					});

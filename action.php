@@ -297,7 +297,12 @@ if (isset($_POST["Common"])) {
 			$n = 0;
 			while ($row = mysqli_fetch_array($query)) {
 				$n++;
-				$user_id = $_SESSION["uid"]; //user id of the customer
+				if(isset($_SESSION['uid'])){
+					$user_id = $_SESSION["uid"]; //user id of the customer
+				} else {
+					$user_id='';
+				}
+				
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];

@@ -110,7 +110,20 @@ if (!isset($_SESSION["uid"])) {
 											</tr>
 											<tr>
 												<td>Delivery</td>
-												<td class=" text-danger"><b><?php echo $row["deliveryStatus"]; ?></b></td>
+												<?php
+												if ($row["deliveryStatus"]==="Delivered"){
+													$del=$row["deliveryStatus"];
+													echo "
+													<td class=' text-primary'><b>$del </b></td>
+													";
+												} else{
+													$del=$row["deliveryStatus"];
+													echo "
+													<td class=' text-danger'><b>$del </b></td>
+													";
+												}
+												?>
+												
 											</tr>
 
 										</table>

@@ -73,7 +73,7 @@ include "classes/Database.php";
 $today = new DateTime();
 
 // Example registration date (replace this with your actual registration date)
-
+$Regdate = new DateTime($_SESSION['regdate']);
 $expdate = new DateTime($_SESSION['expdate']);
 
 // Calculate the difference in days
@@ -82,7 +82,7 @@ $daysRemaining = $interval->format('%r%a');
 
 // Display the result
 //echo "Today's date: " . $today->format('Y-m-d') . "<br>";
-echo "Registration date: " . $expdate->format('Y-m-d') . "<br>";
+echo "Registration date: " . $Regdate->format('Y-m-d') . "<br>";
 echo "Number of days remaining: " . $daysRemaining. "<br>";
 if($_SESSION['acctstatus']=="Not Activated"){
   $adminid = $_SESSION['admin_id'];
