@@ -58,7 +58,7 @@ if (isset($_POST["getProduct"])) {
 	} else {
 		$start = 0;
 	}
-	$product_query = "SELECT * FROM products ";//LIMIT $start,$limit
+	$product_query = "SELECT * FROM products "; //LIMIT $start,$limit
 	$run_query = mysqli_query($con, $product_query);
 	if (mysqli_num_rows($run_query) > 0) {
 		while ($row = mysqli_fetch_array($run_query)) {
@@ -177,7 +177,7 @@ if (isset($_POST["addToCart"])) {
 	$p_id = $_POST["proId"];
 	//$seller_id = $_POST["sellerId"];
 
-//i need to get user id from product table
+	//i need to get user id from product table
 	if (isset($_SESSION["uid"])) {
 
 		$user_id = $_SESSION["uid"];
@@ -187,7 +187,7 @@ if (isset($_POST["addToCart"])) {
 		$run_query = mysqli_query($con, $sql);
 		$run_query2 = mysqli_query($con, $sql2);
 		$row = mysqli_fetch_assoc($run_query2);
-		$sellerid=$row['user_id'];// from product table
+		$sellerid = $row['user_id']; // from product table
 		$count = mysqli_num_rows($run_query);
 		if ($count > 0) {
 			echo "
@@ -297,12 +297,12 @@ if (isset($_POST["Common"])) {
 			$n = 0;
 			while ($row = mysqli_fetch_array($query)) {
 				$n++;
-				if(isset($_SESSION['uid'])){
+				if (isset($_SESSION['uid'])) {
 					$user_id = $_SESSION["uid"]; //user id of the customer
 				} else {
-					$user_id='';
+					$user_id = '';
 				}
-				
+				$buyer_Email = $_SESSION["buyer_email"];
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
@@ -337,14 +337,17 @@ if (isset($_POST["Common"])) {
 								<input type="hidden" name="seller_id[]" id="seller_id" value="' . $sellerid . '"/>
 								<div class="col-md-2"><input type="text" class="form-control price" value="' . $product_price . '" readonly="readonly"></div>
 								<div class="col-md-2"><input type="text" class="form-control total" value="' . $product_price . '" readonly="readonly"></div>
+								
 							</div>';
 			}
 
 			echo '<div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">
+							<input type="hidden" class="form-control" id="user_email" value="' . $buyer_Email . '" readonly="readonly">
 								<b class="net_total" style="font-size:20px;"> </b>
 					</div>';
+					
 			if (!isset($_SESSION["uid"])) {
 				echo '<input type="submit" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Ready to Checkout" >
 							</form>';

@@ -15,6 +15,7 @@ require "config/constants.php";
 		<script src="main2.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
 		<script>
 
 </script>
@@ -101,6 +102,7 @@ require "config/constants.php";
 
 <script>var CURRENCY = '<?php echo CURRENCY; ?>';</script>
 </body>	
+
 </html>
 
 

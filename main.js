@@ -246,7 +246,7 @@ $("body").delegate("#contacts","click",function(event){
 		$('.total').each(function(){
 			net_total += ($(this).val()-0);
 		})
-		$('.net_total').html("Total : $ " +net_total);
+		$('.net_total').html("Total : N " +net_total);
 
 	})
 	//Change Quantity end here 

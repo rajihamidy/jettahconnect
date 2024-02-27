@@ -71,6 +71,7 @@ $daysRemaining = $interval->format('%r%a');
 				$_SESSION['shopname'] = $row['shopname'];
 				$_SESSION['admin_name'] = $row['name'];
 				$_SESSION['admin_id'] = $row['id'];
+				$_SESSION['accountbalance'] = $row['wallet'];
 				$_SESSION['regdate'] = $row['regdate'];
 				$_SESSION['expdate'] = $row['expdate'];
 				$_SESSION['acctstatus'] = $row['acctstatus'];

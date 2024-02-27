@@ -17,6 +17,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
 		$row = mysqli_fetch_array($run_query);
 		$_SESSION["uid"] = $row["user_id"];
 		$_SESSION["name"] = $row["first_name"];
+		$_SESSION["buyer_email"] = $row["email"];
 		$ip_add = getenv("REMOTE_ADDR");
 		//we have created a cookie in login_form.php page so if that cookie is available means user is not login
 			if (isset($_COOKIE["product_list"])) {
