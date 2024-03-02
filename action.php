@@ -303,6 +303,8 @@ if (isset($_POST["Common"])) {
 					$user_id = '';
 				}
 				$buyer_Email = $_SESSION["buyer_email"];
+				$buyer_name = $_SESSION["buyer_name"];
+				$buyer_mobile=$_SESSION["buyer_mobile"];
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
@@ -344,7 +346,11 @@ if (isset($_POST["Common"])) {
 			echo '<div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">
-							<input type="hidden" class="form-control" id="user_email" value="' . $buyer_Email . '" readonly="readonly">
+							<input type="hidden" class="form-control" id="buyer_email" value="' . $buyer_Email . '" readonly="readonly">
+							<input type="hidden" class="form-control" id="buyer_name" value="' . $buyer_name . '" readonly="readonly">
+							<input type="hidden" class="form-control" id="buyer_mobile" value="' . $buyer_mobile . '" readonly="readonly">
+							
+							<input type="hidden" id="net_totals" readonly>
 								<b class="net_total" style="font-size:20px;"> </b>
 					</div>';
 					
@@ -355,10 +361,7 @@ if (isset($_POST["Common"])) {
 				//Paypal checkout form
 				echo '
 						</form>
-						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="business" value="shoppingcart@ecommerceastro.com">
-							<input type="hidden" name="upload" value="1">';
+						';
 
 				$x = 0;
 				$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
@@ -374,18 +377,11 @@ if (isset($_POST["Common"])) {
 
 				echo
 				'
-<input style="float:right;margin-right:80px;" type="button" id="payonline" class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 
+<input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 
 <input style="float:right;margin-right:80px;" type="button" id="delivarypay" class=" btn btn-primary btn-lg" name="submit2" value="Payment at Delivery"> 
 								</form>';
 				//echo   
-				'<input type="hidden" name="return" value="http://localhost/Jettahconnect/payment_success.php"/>
-					                <input type="hidden" name="notify_url" value="http://localhost/Jettahconnect/payment_success.php">
-									<input type="hidden" name="cancel_return" value="http://localhost/Jettahconnect/cancel.php"/>
-									<input type="hidden" name="currency_code" value="USD"/>
-									<input type="hidden" name="custom" value="' . $_SESSION["uid"] . '"/>
-									<input style="float:right;margin-right:80px;" type="image" name="submit"
-										src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/blue-rect-paypalcheckout-60px.png" alt="PayPal Checkout"
-										alt="PayPal - The safer, easier way to pay online">
+				'
 										
 								</form>';
 			}
@@ -431,3 +427,4 @@ if (isset($_POST["updateCartItem"])) {
 
 
 ?>
+

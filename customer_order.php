@@ -15,6 +15,7 @@ if (!isset($_SESSION["uid"])) {
 	<title>Jettah Connect</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<script src="js/jquery2.js"></script>
+	<script type="text/javascript" src="js/updateReceivedStatus.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="main.js"></script>
 	<style>
@@ -44,12 +45,12 @@ if (!isset($_SESSION["uid"])) {
 							include_once("db.php");
 							$user_id = $_SESSION["uid"];
 
-							$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate,o.deliveryStatus, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
+							$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate,o.deliveryStatus,o.received_Status, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
 							FROM orders o
 							INNER JOIN products p ON o.product_id = p.product_id
 							INNER JOIN admin a ON o.seller_id = a.id
 							WHERE o.user_id = '$user_id'
-							ORDER BY o.order_id DESC";
+							ORDER BY o.orderdate DESC";//order_id
 
 						$query = mysqli_query($con, $orders_list);
 						$count = mysqli_num_rows($query);
@@ -109,6 +110,23 @@ if (!isset($_SESSION["uid"])) {
 												<td><b><?php echo $row["mobile"] . ", " . $row["shopaddress"]; ?></b></td>
 											</tr>
 											<tr>
+												<td>Payment Status</td>
+												<?php
+												if ($row["p_status"]==="Completed"){
+													$del=$row["p_status"];
+													echo "
+													<td class=' text-primary'><b>$del </b></td>
+													";
+												} else{
+													$del=$row["p_status"];
+													echo "
+													<td class=' text-danger'><b>$del </b></td>
+													";
+												}
+												?>
+												
+											</tr>
+											<tr>
 												<td>Delivery</td>
 												<?php
 												if ($row["deliveryStatus"]==="Delivered"){
@@ -125,7 +143,25 @@ if (!isset($_SESSION["uid"])) {
 												?>
 												
 											</tr>
+											<tr>
 
+											<?php 
+												if ($row["received_Status"]==="Item Received"){
+													$received_Status = $row["received_Status"];
+													echo "
+													<td class=' text-primary'><b>$received_Status </b></td>
+													";
+												} else{
+													$del=$row["received_Status"];
+													$trx_id = $row["trx_id"];
+													echo '
+<td colspan="2"><button class="btn btn-primary btn-block" onclick="UpdateReceived_Status(\''.$trx_id.'\')"> Item Received ?</button>
+';
+												}
+												?>
+					
+												
+											</tr>
 										</table>
 
 									</div>

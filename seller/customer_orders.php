@@ -131,6 +131,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 <script type="text/javascript" src="./js/customers.js"></script>
 <script type="text/javascript" src="./js/update_pay.js"></script>
+
 <script type="text/javascript" src="./js/delivery_status.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

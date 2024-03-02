@@ -247,6 +247,7 @@ $("body").delegate("#contacts","click",function(event){
 			net_total += ($(this).val()-0);
 		})
 		$('.net_total').html("Total : N " +net_total);
+		$('#net_totals').val(net_total);
 
 	})
 	//Change Quantity end here 
@@ -326,7 +327,26 @@ $("body").delegate("#contacts","click",function(event){
 			net_total += ($(this).val()-0);
 		})
 		$('.net_total').html("Total : "+ CURRENCY+ " " +net_total);
+		$('#net_totals').val(net_total);
+		
 	}
+
+
+	function net_total() {
+		var net_total = 0;
+		$('.qty').each(function () {
+			var row = $(this).parent().parent();
+			var price = parseFloat(row.find('.price').val());
+			var total = price * parseFloat($(this).val());
+			row.find('.total').text(total); // Use text() to set the content
+		});
+		$('.total').each(function () {
+			net_total += parseFloat($(this).text()); // Use text() to get the content
+		});
+		$('.net_total').html("Total : " + CURRENCY + " " + net_total);
+		$('#net_totals').val(net_total);
+	}
+	
 
 	//remove product from cart
 

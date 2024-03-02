@@ -1,6 +1,6 @@
-function UpdateDeliveryInfo(trx_id) {
+function UpdateReceived_Status(trx_id) {
     $.ajax({
-        url: 'classes/delivery_status.php', // Replace with your backend endpoint
+        url: 'orderReceivedStatus.php', // Replace with your backend endpoint
         type: 'POST',
         data: { trx_id: trx_id },
         success: function(response) {
@@ -14,6 +14,3 @@ function UpdateDeliveryInfo(trx_id) {
         }
     });
 }
-
-
-

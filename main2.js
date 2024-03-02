@@ -4,14 +4,18 @@ function myFunction() {
 }
 $(document).ready(function () {
 
-  $("body").delegate("#payonline", "click", function () {
-    var user_email =$('#user_email').val(); 
-    var net_total = $('b.net_total').text();
-    var numberPattern = /\d+/; // Matches one or more digits$_SESSION["buyer_email"]
-    var total_amount = net_total.match(numberPattern);
+  $("body").delegate("#payonline2", "click", function () {
+    
+  
+  var total_amount1 = $('#net_totals').val();  
+  var total_amount = parseFloat(total_amount1) + (2/100 *(total_amount1));
+  var buyer_email =$('#buyer_email').val(); 
+    var buyer_name =$('#buyer_name').val(); 
+    var buyer_mobile =$('#buyer_mobile').val(); 
 
-
-   alert(total_amount+' '+user_email);
+   
+           payWithMonnify(total_amount, buyer_name, buyer_email, buyer_mobile);
+  //alert(total_amount+' '+buyer_email+' '+buyer_name+' '+buyer_mobile);
 
    
   
@@ -86,41 +90,3 @@ $(document).ready(function () {
 
 
 })
-
-
-function payWithMonnify(amount, customerName, customerEmail, customerMobileNumber) {
-    MonnifySDK.initialize({
-
-        amount: amount,
-        currency: "NGN",
-        fee: 20,
-        reference: new String((new Date()).getTime()),
-        customerFullName: customerName,
-        customerEmail: customerEmail,
-        customerMobileNumber: customerMobileNumber,
-        apiKey: "MK_TEST_ENTY115CZW",
-        contractCode: "6073096540",
-        paymentDescription: "My depo",
-
-
-
-        // reference: '' + Math.floor((Math.random() * 1000000000) + 1),
-        //  customerName,
-        //  customerEmail,
-        //  customerMobileNumber,
-        //  apiKey: "", //Your api key
-        //  contractCode: "", //Your contract code
-        //  paymentDescription: "Payment of Product",
-        // isTestMode: true, //True or False for testmode
-        paymentMethods: ["CARD", "ACCOUNT_TRANSFER"],
-        onComplete: function(response) {
-            //Implement what happens when transaction is completed.
-            console.log(response);
-            document.querySelector('.alert').style.display = "block";
-        },
-        onClose: function(data) {
-            //Implement what should happen when the modal is closed here
-            console.log(data);
-        }
-    });
-}
