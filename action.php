@@ -312,7 +312,14 @@ if (isset($_POST["Common"])) {
 				$cart_item_id = $row["id"];
 				$qty = $row["qty"];
 				$sellerid = $row["seller_id"]; // seller_id from cart
-
+				$qr_seller_email ="select * from admin where id='$sellerid'";
+				$query_SellerEmail = mysqli_query($con, $qr_seller_email);
+				if (mysqli_num_rows($query_SellerEmail) > 0){
+					//while ($row = mysqli_fetch_array($query)) {
+					//}
+					$row = mysqli_fetch_array($query_SellerEmail);
+					$Seller_email = $row["email"];
+				}
 				// Generate a unique reference number
 				$trx_id = generateUniqueReference();
 				$p_status = "Not Completed";
@@ -337,6 +344,7 @@ if (isset($_POST["Common"])) {
 								<input type="hidden" name="trx_id[]" id="trx_id" value="' . $trx_id . '"/>
 								<input type="hidden" name="p_status[]" id="p_status" value="' . $p_status . '"/>
 								<input type="hidden" name="seller_id[]" id="seller_id" value="' . $sellerid . '"/>
+								<input type="hidden" name="seller_Email[]" id="seller_Email" value="' . $Seller_email . '"/>
 								<div class="col-md-2"><input type="text" class="form-control price" value="' . $product_price . '" readonly="readonly"></div>
 								<div class="col-md-2"><input type="text" class="form-control total" value="' . $product_price . '" readonly="readonly"></div>
 								

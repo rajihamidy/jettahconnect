@@ -8,7 +8,7 @@ $(document).ready(function () {
     
   
   var total_amount1 = $('#net_totals').val();  
-  var total_amount = parseFloat(total_amount1) + (2/100 *(total_amount1));
+  var total_amount = parseFloat(total_amount1) + (2/100 *(total_amount1));// Adding 2% for admin charges
   var buyer_email =$('#buyer_email').val(); 
     var buyer_name =$('#buyer_name').val(); 
     var buyer_mobile =$('#buyer_mobile').val(); 

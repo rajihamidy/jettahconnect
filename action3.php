@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Access individual fields and escape them
             $userId = mysqli_real_escape_string($con, $data['user_id']);
             $productId = mysqli_real_escape_string($con, $data['product_id']);
+            $seller_Email = mysqli_real_escape_string($con, $data['seller_Email']);
             $trxId = mysqli_real_escape_string($con, $data['trx_id']);
 
             // Check if the combination of user_id, product_id, and trx_id already exists in the uniqueRecords array
@@ -35,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         foreach ($uniqueRecords as $record) {
             $userId = mysqli_real_escape_string($con, $record['user_id']);
             $productId = mysqli_real_escape_string($con, $record['product_id']);
+            $seller_Email = mysqli_real_escape_string($con, $record['seller_Email']);
             $qty = mysqli_real_escape_string($con, $record['qty']);
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
            // $pStatus = mysqli_real_escape_string($con, $record['p_status']);
@@ -49,7 +51,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Format the date and time
             $currentDateTime = $dateTime->format('Y-m-d H:i:s');
 
-
+            // send email to Seller
+            $subject = "New order Payment Notification from Jettah Customer";
+            $body  ='<p>New payment has been made for products, Kindly Login to your profile to supply the Orders</p><br/><br/><hr/>';
+           // $body .='<p>Full Name:  '.$full_name.'.</p>';
+           // $body .='<p>Email Add: '.$f_emailaddress.'.</p>';
+           // $body .='<p>Mobile No. '.$mobile_no.'.</p>';
+           // $body .='<p>Reg. Date: '.$time.'.</p><br/><br/>';
+        
+             $email_to = $seller_Email;
+             $email_from ='noreply@jettahconnect.com'; // Enter Sender Email
+        
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'From: '.$email_from."\r\n".
+            'Reply-To: '.$email_from."\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+            mail($email_to, $subject, $body, $headers);
+        
+        
+        
             // Insert the record into the orders table
             $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id,orderdate) 
                     VALUES ('$userId', '$productId', '$qty', '$trxId', '$pStatus', '$sellerId', '$currentDateTime');";

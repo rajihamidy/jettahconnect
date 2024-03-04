@@ -146,6 +146,7 @@ require "config/constants.php";
 				var product_id = [];
 				var qty = [];
 				var trx_id = [];
+				var seller_Email  = [];
 				//var p_status = [];
 				var seller_id = [];
 
@@ -155,6 +156,7 @@ require "config/constants.php";
 					user_id.push($row.find("[name='user_id[]']").val());
 					product_id.push($row.find("[name='product_id[]']").val());
 					trx_id.push($row.find("[name='trx_id[]']").val());
+					seller_Email.push($row.find("[name='seller_Email[]']").val());
 					qty.push($row.find("[name='qty[]']").val());
 				//	p_status.push($row.find("[name='p_status[]']").val());
 					seller_id.push($row.find("[name='seller_id[]']").val());
@@ -167,6 +169,7 @@ require "config/constants.php";
 						product_id: product_id[i],
 						qty: qty[i],
 						trx_id: trx_id[i],
+						seller_Email: seller_Email[i],
 				//		p_status: p_status[i],
 						seller_id: seller_id[i]
 					};
