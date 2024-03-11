@@ -33,6 +33,8 @@ $(document).ready(function(){
 					$("#admin-register-form").trigger("reset");
 					//$(".message").html('<span class="text-success">'+resp.message+'</span>');
 					window.location.href = window.origin+"/jettahconnect/seller/index.php";
+					//window.location.href = "https://example.com/jettahconnect/seller/index.php";
+
 				}else if(resp.status == 303){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
 				}else if(resp.status == 305){
@@ -40,6 +42,7 @@ $(document).ready(function(){
 					setTimeout(function() {
 						// Redirect to ActivateAccount.php
 						window.location.href = window.origin+"/jettahconnect/seller/ActivateAccount.php";
+						//window.location.href = "https://example.com/jettahconnect/seller/index.php";
 					}, 2000);
 				
 				}

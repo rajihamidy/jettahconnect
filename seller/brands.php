@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_id'])) {
 <div class="container-fluid">
   <div class="row">
     
-    <?php include "./templates/sidebar.php"; ?>
+    <?php include "./templates/sidebar2.php"; ?>
 
 
       <div class="row">
@@ -120,5 +120,5 @@ if (!isset($_SESSION['admin_id'])) {
 <?php include_once("./templates/footer.php"); ?>
 
 
-
+<script type="text/javascript" src="./js/sidebar.js"></script>
 <script type="text/javascript" src="./js/brands.js"></script>

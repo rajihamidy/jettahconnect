@@ -16,7 +16,7 @@ if (!isset($_SESSION['admin_id'])) {
 <div class="container-fluid">
   <div class="row">
     
-    <?php include "./templates/sidebar.php"; ?>
+    <?php include "./templates/sidebar2.php"; ?>
 
       <div class="row">
       	<div class="col-10">
@@ -25,14 +25,14 @@ if (!isset($_SESSION['admin_id'])) {
       </div>
       
       <div class="table-responsive">
-        <table class="table table-striped table-sm table-wrap style='width: 70%;'">
+        <table class="table table-striped table-sm  style='width: 70%;'">
           <thead>
             <tr>
-              <th class="col-auto">#</th>
+              <th>SN</th>
 			  <th>Buyer Name</th>
-			  <th>Address</th>
+			  <th>Address</th> 
 			  <th>Mobile</th>
-			  <th>Email</th>
+			  <th>Email</th> 
               <th>Product Name</th>
               <th>Quantity</th>
               <th>Trx Id</th>
@@ -131,7 +131,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 <script type="text/javascript" src="./js/customers.js"></script>
 <script type="text/javascript" src="./js/update_pay.js"></script>
-
+<script type="text/javascript" src="./js/sidebar.js"></script>
 <script type="text/javascript" src="./js/delivery_status.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

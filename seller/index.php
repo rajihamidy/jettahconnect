@@ -8,7 +8,7 @@ include "./templates/top.php";
 
 ?>
 
-<?php include "./templates/navbar.php"; ?>
+<?php  include "./templates/navbar.php"; ?>
 
 <div class="container-fluid">
   <div class="row">
@@ -41,8 +41,10 @@ include "./templates/top.php";
 -->
     </main>
   </div>
+  </div>
 </div>
 
 <?php include "./templates/footer.php"; ?>
 
 <script type="text/javascript" src="./js/admin.js"></script>
+<script type="text/javascript" src="./js/sidebar.js"></script>

@@ -31,3 +31,10 @@
 <?php include "./templates/footer.php"; ?>
 
 <script type="text/javascript" src="./js/main.js"></script>
+<script>
+ $(document).ready(function() {
+    // Call the openNav() function when the document is ready
+    $('#open1').hide();
+});
+
+</script>

@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     
-    <?php include "./templates/sidebar.php"; ?>
+    <?php include "./templates/sidebar2.php"; ?>
 
 
       <div class="row">
@@ -114,3 +114,4 @@
 
 
 <script type="text/javascript" src="./js/categories.js"></script>
+<script type="text/javascript" src="./js/sidebar.js"></script>

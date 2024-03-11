@@ -14,7 +14,7 @@ $userid= $_SESSION['admin_id'];
 <div class="container-fluid">
   <div class="row">
     
-    <?php include "./templates/sidebar.php"; ?>
+    <?php include "./templates/sidebar2.php"; ?>
 
       <div class="row">
       	<div class="col-10">
@@ -224,3 +224,4 @@ $userid= $_SESSION['admin_id'];
 
 
 <script type="text/javascript" src="./js/products.js"></script>
+<script type="text/javascript" src="./js/sidebar.js"></script>

@@ -63,9 +63,9 @@ $(document).ready(function () {
 								'<td class="col-auto">' + sn + '</td>' +
 
 								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
-								'<td class="text-wrap">' + value.address1 + '</td>' +
+								
 								'<td class="text-wrap">' + value.mobile + '</td>' +
-								'<td class="text-wrap">' + value.email + '</td>' +
+								
 								'<td class="text-wrap">' + value.product_title + '</td>' +
 								'<td class="text-wrap">' + value.qty + '</td>' +
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
@@ -80,9 +80,9 @@ $(document).ready(function () {
 								'<td class="col-auto">' + sn + '</td>' +
 
 								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
-								'<td class="text-wrap">' + value.address1 + '</td>' +
+								//'<td class="text-wrap">' + value.address1 + '</td>' +
 								'<td class="text-wrap">' + value.mobile + '</td>' +
-								'<td class="text-wrap">' + value.email + '</td>' +
+							//	'<td class="text-wrap">' + value.email + '</td>' +
 								'<td class="text-wrap">' + value.product_title + '</td>' +
 								'<td class="text-wrap">' + value.qty + '</td>' +
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
@@ -98,9 +98,9 @@ $(document).ready(function () {
 								'<td class="col-auto">' + sn + '</td>' +
 
 								'<td class="text-wrap">' + value.first_name + " " + value.last_name + '</td>' +
-								'<td class="text-wrap">' + value.address1 + '</td>' +
+							//	'<td class="text-wrap">' + value.address1 + '</td>' +
 								'<td class="text-wrap">' + value.mobile + '</td>' +
-								'<td class="text-wrap">' + value.email + '</td>' +
+							//	'<td class="text-wrap">' + value.email + '</td>' +
 								'<td class="text-wrap">' + value.product_title + '</td>' +
 								'<td class="text-wrap">' + value.qty + '</td>' +
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
