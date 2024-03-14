@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Call the openNav() function when the document is ready
-    openNav();
+   // openNav();
 });
 function openNav() {
   document.getElementById("mySidebar").style.width = "230px";

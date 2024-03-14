@@ -35,6 +35,7 @@ if(isset($_SESSION["uid"])){
 		<div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+				<li><a href="seller/index.php"><span class="glyphicon glyphicon-user"></span> Seller Account</a></li>
 				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Products</a></li>
 			</ul>
 			<form class="navbar-form navbar-left">
@@ -49,7 +50,7 @@ if(isset($_SESSION["uid"])){
 						<div class="panel panel-success">
 							<div class="panel-heading">
 								<div class="row">
-									<div class="col-md-3">Sl.No</div>
+									<div class="col-md-3">SN</div>
 									<div class="col-md-3">Product Image</div>
 									<div class="col-md-3">Product Name</div>
 									<div class="col-md-3">Price in <?php echo CURRENCY; ?></div>
@@ -87,6 +88,7 @@ if(isset($_SESSION["uid"])){
 				</li>
 			</ul>
 		</div>
+		
 	</div>
 </div>	
 	<p><br/></p>
