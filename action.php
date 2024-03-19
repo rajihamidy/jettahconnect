@@ -3,42 +3,52 @@ session_start();
 include 'uniqueref.php';
 $ip_add = getenv("REMOTE_ADDR");
 include "db.php";
-if (isset($_POST["category"])) {
-	$category_query = "SELECT * FROM categories";
-	$run_query = mysqli_query($con, $category_query) or die(mysqli_error($con));
-	echo "
-		<div class='nav nav-pills nav-stacked'>
-			<li class='active'><a href='#'><h4>Product Categories</h4></a></li>
-	";
-	if (mysqli_num_rows($run_query) > 0) {
-		while ($row = mysqli_fetch_array($run_query)) {
-			$cid = $row["cat_id"];
-			$cat_name = $row["cat_title"];
-			echo "
-					<li><a href='#' class='category' cid='$cid'>$cat_name</a></li>
-			";
-		}
-		echo "</div>";
-	}
+if (isset($_POST["category"]) || isset($_POST["brand"])) {
+	
+	echo '
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="nav nav-pills nav-stacked">
+    ';
+
+    if (isset($_POST["category"])) {
+        $category_query = "SELECT * FROM categories";
+        $category_result = mysqli_query($con, $category_query) or die(mysqli_error($con));
+
+        echo '<li class=" list-group-item-action active">
+		<a href=""><h4>Product Categories</h4></a>
+	</li>
+	';
+        if (mysqli_num_rows($category_result) > 0) {
+            while ($row = mysqli_fetch_array($category_result)) {
+                $cid = $row["cat_id"];
+                $cat_name = $row["cat_title"];
+                echo "<li><a href='#' class='category text-wrap' cid='$cid'>$cat_name</a></li>";
+            }
+        }
+    }
+
+    if (isset($_POST["brand"])) {
+        $brand_query = "SELECT * FROM brands";
+        $brand_result = mysqli_query($con, $brand_query) or die(mysqli_error($con));
+
+        echo '<li class="active"><a href="#"><h4>Brands</h4></a></li>';
+        if (mysqli_num_rows($brand_result) > 0) {
+            while ($row = mysqli_fetch_array($brand_result)) {
+                $bid = $row["brand_id"];
+                $brand_name = $row["brand_title"];
+                echo "<li><a href='#' class='selectBrand text-wrap' bid='$bid'>$brand_name</a></li>";
+            }
+        }
+   }
+
+    echo '
+        </div>
+    </div>';
 }
-if (isset($_POST["brand"])) {
-	$brand_query = "SELECT * FROM brands";
-	$run_query = mysqli_query($con, $brand_query);
-	echo "
-		<div class='nav nav-pills nav-stacked'>
-			<li class='active'><a href='#'><h4>Brands</h4></a></li>
-	";
-	if (mysqli_num_rows($run_query) > 0) {
-		while ($row = mysqli_fetch_array($run_query)) {
-			$bid = $row["brand_id"];
-			$brand_name = $row["brand_title"];
-			echo "
-					<li><a href='#' class='selectBrand' bid='$bid'>$brand_name</a></li>
-			";
-		}
-		echo "</div>";
-	}
-}
+
+
+
 if (isset($_POST["page"])) {
 	$sql = "SELECT * FROM products";
 	$run_query = mysqli_query($con, $sql);
@@ -69,22 +79,28 @@ if (isset($_POST["getProduct"])) {
 			$pro_price = $row['product_price'];
 			$sellerid = $row['user_id'];
 			$pro_image = $row['product_image'];
-			echo "
-				<div class='col-md-4'>
-							<div class='panel panel-info'>
-								<div class='panel-heading'>$pro_title</div>
-								<div class='panel-body'>
-									<img src='product_images/$pro_image' style='width:220px; height:250px;'/>
-								</div>
-								<div class='panel-heading'>" . CURRENCY . " $pro_price.00
-									<button pid='$pro_id'  style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button>
-									
-									<button userid='$sellerid' style='float:right;'  id='contacts' class='btn btn-danger btn-xs'>Contact</button>
+			echo '
+			
+					<div class="col-sm-6 col-md-4 col-lg-3 column">
+						<div class="panel panel-info">
+							<div class="panel-heading text-nowrap">' . $pro_title . '</div>
+							<div class="panel-body">
+								<div class="img-container">
+									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
 								</div>
 							</div>
-						</div>	
-						
-			";
+							<div class="panel-footer" style="text-align: center;">' . CURRENCY . ' ' . $pro_price . '.00</div>
+							<div class="panel-footer">
+								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
+								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				
+			';
+			
+
 		}
 	}
 }
@@ -304,7 +320,7 @@ if (isset($_POST["Common"])) {
 				}
 				$buyer_Email = $_SESSION["buyer_email"];
 				$buyer_name = $_SESSION["buyer_name"];
-				$buyer_mobile=$_SESSION["buyer_mobile"];
+				$buyer_mobile = $_SESSION["buyer_mobile"];
 				$product_id = $row["product_id"];
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
@@ -312,9 +328,9 @@ if (isset($_POST["Common"])) {
 				$cart_item_id = $row["id"];
 				$qty = $row["qty"];
 				$sellerid = $row["seller_id"]; // seller_id from cart
-				$qr_seller_email ="select * from admin where id='$sellerid'";
+				$qr_seller_email = "select * from admin where id='$sellerid'";
 				$query_SellerEmail = mysqli_query($con, $qr_seller_email);
-				if (mysqli_num_rows($query_SellerEmail) > 0){
+				if (mysqli_num_rows($query_SellerEmail) > 0) {
 					//while ($row = mysqli_fetch_array($query)) {
 					//}
 					$row = mysqli_fetch_array($query_SellerEmail);
@@ -361,7 +377,7 @@ if (isset($_POST["Common"])) {
 							<input type="hidden" id="net_totals" readonly>
 								<b class="net_total" style="font-size:20px;"> </b>
 					</div>';
-					
+
 			if (!isset($_SESSION["uid"])) {
 				echo '<input type="submit" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Ready to Checkout" >
 							</form>';
@@ -435,4 +451,3 @@ if (isset($_POST["updateCartItem"])) {
 
 
 ?>
-
