@@ -20,19 +20,23 @@ if (isset($_SESSION["uid"])) {
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 		/* CSS for scrollbar */
-.container {
-    overflow-x: auto; /* Add scrollbar for vertical overflow */
-    width: 100vw; /* Set height of container to full viewport height */
-}
+		.container {
+			overflow-x: auto;
+			/* Add scrollbar for vertical overflow */
+			width: 100vw;
+			/* Set height of container to full viewport height */
+		}
 
-/* Adjust styles for small devices */
-@media screen and (max-width: 768px) {
-    .col-md-2,
-    .col-md-8,
-    .col-md-1 {
-        width: 100%; /* Make columns full width on small devices */
-    }
-}
+		/* Adjust styles for small devices */
+		@media screen and (max-width: 768px) {
+
+			.col-md-2,
+			.col-md-8,
+			.col-md-1 {
+				width: 100%;
+				/* Make columns full width on small devices */
+			}
+		}
 	</style>
 </head>
 
@@ -118,40 +122,40 @@ if (isset($_SESSION["uid"])) {
 
 
 	<div class="container">
-    <div class="row">
-        <!--1 first part side bar	 -->
-        <div class="col-md-2 col-xs-6">
-            <div id="main">
-                <button id="open1" class="openbtn" onclick="openNav()">☰ Menu</button>
-            </div>
-            <div id="get_category" style="display:none"></div>
-            <div id="get_brand" style="display:none"></div>
-        </div>
-        <!--1 first part side bar End	 -->
+		<div class="row">
+			<!--1 first part side bar	 -->
+			<div class="col-md-2 col-xs-6">
+				<div id="main">
+					<button id="open1" class="openbtn" onclick="openNav()">☰ Menu</button>
+				</div>
+				<div id="get_category" style="display:none"></div>
+				<div id="get_brand" style="display:none"></div>
+			</div>
+			<!--1 first part side bar End	 -->
 
-        <!--2 Second part side bar	 -->
-        <div class="col-md-8 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-xs-12" id="product_msg">
-                </div>
-            </div>
-            <div class="panel panel-info">
-                <div class="container-sm panel-heading">Products</div>
-                <div class="panel-body">
-                    <div class="container-fluid">
-                        <div id="get_product" class="rows">
-                            <!-- Here we get product jQuery Ajax Request -->
-                            <!-- End of product panel -->
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
-            </div>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
-</div>
-<!--2 Second part side bar	 ends -->
+			<!--2 Second part side bar	 -->
+			<div class="col-md-8 col-xs-12">
+				<div class="row">
+					<div class="col-md-12 col-xs-12" id="product_msg">
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="container-sm panel-heading">Products</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							<div id="get_product" class="rows">
+								<!-- Here we get product jQuery Ajax Request -->
+								<!-- End of product panel -->
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+	<!--2 Second part side bar	 ends -->
 	</div>
 </body>
 <script type="text/javascript" src="./js/sidebar.js"></script>

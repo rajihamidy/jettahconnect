@@ -22,9 +22,26 @@ require "config/constants.php";
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
 
-	<script>
+<style>
+		/* CSS for scrollbar */
+		.container {
+			overflow-x: auto;
+			/* Add scrollbar for vertical overflow */
+			width: 100vw;
+			/* Set height of container to full viewport height */
+		}
 
-	</script>
+		/* Adjust styles for small devices */
+		@media screen and (max-width: 768px) {
+
+			.col-md-2,
+			.col-md-8,
+			.col-md-1 {
+				width: 100%;
+				/* Make columns full width on small devices */
+			}
+		}
+	</style>
 </head>
 
 <body>
@@ -93,7 +110,7 @@ require "config/constants.php";
 							<div class="col-md-2"><input type='text' class='form-control' value='5000' disabled></div>
 							<div class="col-md-2"><input type='text' class='form-control' value='5000' disabled></div>
 						</div> -->
-						<!--<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">
 								<b>Total $500000</b>
@@ -195,18 +212,12 @@ require "config/constants.php";
 						alert(error);
 					}
 				});
-
-
-
-
-
 				// End of Action to perform on complete
-
 			},
 			onClose: function(data) {
 				//Implement what should happen when the modal is closed here
 				console.log(data);
-				alert('Payment Window Closed');
+				alert('Payment Window Closed.');
 			}
 		});
 	}

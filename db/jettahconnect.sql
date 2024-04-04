@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2024 at 06:41 AM
+-- Generation Time: Apr 04, 2024 at 04:13 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -52,8 +52,8 @@ INSERT INTO `admin` (`id`, `shopname`, `name`, `email`, `shopaddress`, `mobile`,
 (12, 'raji shop', 'raji hamidu', 'rajihamidu9@gmail.com', 'fahgsf', '08067455933', '$2y$10$SM6lPEpOHGUK1Q5JjnHvfuPRLFCRqyznNea3iT153cg7XE.nvxeLu', '0', '', '', '', 0),
 (13, 'amar shop', 'Ammar Raji', 'ammarraji@gmail.com', 'GGC Gashua', '08067455923', '$2y$10$O1QdYJZl9zmtp3bgCbEK0.uM5kQ.xWVi2C4W1LTzn9HN6cTCzlY8C', '0', '', '', '', 0),
 (15, 'rash shop', 'rashi isol', 'rash@gmail.com', 'fasf fsafds', '08067455930', '$2y$10$JdJdl2juwRjXF4jWBegKnOwVLrU7EPXbeOZ.Az2TKSAindeKDWq1u', '0', '17 Jan, 2024', '16.02.2024 0', 'Not Activated', 0),
-(16, 'Raji Shop', 'Raji Ammaar', 'rajihamidu891@gmail.com', 'bauchiii', '08098456782', '$2y$10$erHMViXgR2JdNIRsA.1bLuEd/0tfBKjMj.dCnl26iaG54TZ4bLviC', '0', '10.01.2024 02:56:14', '12.12.2024 02:56:14', 'Not Activated', 0),
-(17, 'Raji\'s Shop', 'Raji Hamidu', 'rajihamidu89@gmail.com', 'Bauchi', '08076544567', '$2y$10$dTdzTVdEqxgJvZpyuFkKqOvnTSdl7J1HY/lN.UMp4WHSq5rzIexVC', '0', '18.01.2024 06:29:38', '16.07.2024 06:29:38', 'Not Activated', 0);
+(16, 'Raji Shop', 'Raji Ammaar', 'rajihamidu891@gmail.com', 'bauchiii', '08098456782', '$2y$10$erHMViXgR2JdNIRsA.1bLuEd/0tfBKjMj.dCnl26iaG54TZ4bLviC', '0', '10.01.2024 02:56:14', '12.12.2024 02:56:14', 'Not Activated', 3100),
+(17, 'Raji\'s Shop', 'Raji Hamidu', 'rajihamidu89@gmail.com', 'Bauchi', '08076544567', '$2y$10$dTdzTVdEqxgJvZpyuFkKqOvnTSdl7J1HY/lN.UMp4WHSq5rzIexVC', '0', '18.01.2024 06:29:38', '16.07.2024 06:29:38', 'Not Activated', 7480);
 
 -- --------------------------------------------------------
 
@@ -126,7 +126,15 @@ INSERT INTO `cart` (`id`, `p_id`, `ip_add`, `user_id`, `seller_id`, `qty`, `p_st
 (43, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
 (44, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
 (45, 4, '127.0.0.1', 7, 16, 1, 0, 'Ordered'),
-(46, 4, '127.0.0.1', 7, 16, 1, 0, 'Ordered');
+(46, 4, '127.0.0.1', 7, 16, 1, 0, 'Ordered'),
+(50, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(51, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(52, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(53, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(54, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(55, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered'),
+(56, 83, '127.0.0.1', 7, 16, 1, 0, 'Ordered'),
+(57, 3, '127.0.0.1', 7, 17, 1, 0, 'Ordered');
 
 -- --------------------------------------------------------
 
@@ -180,7 +188,7 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`order_id`, `user_id`, `product_id`, `qty`, `trx_id`, `p_status`, `seller_id`, `orderdate`, `deliveryStatus`, `received_Status`) VALUES
 (1, 2, 5, 2, '1708226109-bMml30drNZTuo4Ur2US9', 'Not Completed', 17, '', 'Delivered', 'Not Received'),
 (2, 7, 5, 2, '1708226109-bMml30drNZTuo4Ur2US9', 'Not Completed', 17, '', 'Delivered', 'Not Received'),
-(3, 7, 3, 1, '1708226109-NeUsDxuakSecyR7MbUMz', 'Not Completed', 17, '', 'Delivered', 'Not Received'),
+(3, 7, 3, 1, '1708226109-NeUsDxuakSecyR7MbUMz', 'Not Completed', 17, '', 'Delivered', 'Item Received'),
 (4, 7, 4, 1, '1708226109-IpauWymUoD1FBg45I5pT', 'Completed', 16, '', 'Delivered', 'Not Received'),
 (5, 7, 3, 1, '1708226202-mZWsbPx2Rixs1qEdPKRD', 'Not Completed', 17, '', 'Not Delivered Yet', 'Not Received'),
 (6, 7, 3, 1, '1708226202-mZWsbPx2Rixs1qEdPKRD', 'Not Completed', 17, '', 'Not Delivered Yet', 'Not Received'),
@@ -199,19 +207,27 @@ INSERT INTO `orders` (`order_id`, `user_id`, `product_id`, `qty`, `trx_id`, `p_s
 (19, 7, 4, 1, '1708227858-5fz2DzcrkXIbObfht8BO', 'Not Completed', 16, '', 'Not Delivered Yet', 'Item Received'),
 (20, 7, 4, 1, '1708228012-zFmfAq8UpZi3PnMyfYjn', 'Not Completed', 16, '', 'Not Delivered Yet', 'Not Received'),
 (21, 7, 3, 1, '1708228012-QE36roEWyspaMBSaULDU', 'Not Completed', 17, '', 'Not Delivered Yet', 'Not Received'),
-(22, 7, 3, 1, '1708228054-RvJiMDKRs7Ssx1FhPbA6', 'Not Completed', 17, '', 'Not Delivered Yet', 'Not Received'),
+(22, 7, 3, 1, '1708228054-RvJiMDKRs7Ssx1FhPbA6', 'Not Completed', 17, '', 'Not Delivered Yet', 'Item Received'),
 (23, 7, 4, 1, '1708228054-8KiAToC1l08ZbQQkVJ4T', 'Not Completed', 16, '', 'Not Delivered Yet', 'Not Received'),
 (24, 7, 2, 1, '1708349186-ImzFAJ6qwnHOQdnMtVJi', 'Completed', 16, '', 'Not Delivered Yet', 'Not Received'),
 (25, 7, 7, 1, '1708349696-SawwEnI44yXIcjDb20dy', 'Not Completed', 17, '', 'Not Delivered Yet', 'Not Received'),
-(26, 7, 4, 1, '1708351312-JYLIfuReXzlC1dtKQ38C', 'Completed', 16, '2024-02-19 15:01:55', 'Not Delivered Yet', 'Not Received'),
+(26, 7, 4, 1, '1708351312-JYLIfuReXzlC1dtKQ38C', 'Completed', 16, '2024-02-19 15:01:55', 'Not Delivered Yet', 'Item Received'),
 (27, 7, 3, 1, '1708351312-HDbXToCmEoSV2rUQ1Zal', 'Not Completed', 17, '2024-02-19 15:01:55', 'Not Delivered Yet', 'Not Received'),
-(28, 7, 4, 1, '1708682650-jtCHW8fPgemKqmTNR3Ti', 'Not Completed', 16, '2024-02-23 11:06:02', 'Not Delivered Yet', 'Not Received'),
-(29, 7, 4, 1, '1709206456-QKjIkpYRnLHfT5fdApFw', 'Not Completed', 16, '2024-02-29 12:34:35', 'Not Delivered Yet', 'Not Received'),
-(30, 7, 4, 1, '1709211128-LBQyU3RLipYCm4ia7FnL', 'Completed', 16, '2024-02-29 13:52:56', 'Not Delivered Yet', 'Not Received'),
+(28, 7, 4, 1, '1708682650-jtCHW8fPgemKqmTNR3Ti', 'Completed', 16, '2024-02-23 11:06:02', 'Not Delivered Yet', 'Item Received'),
+(29, 7, 4, 1, '1709206456-QKjIkpYRnLHfT5fdApFw', 'Not Completed', 16, '2024-02-29 12:34:35', 'Not Delivered Yet', 'Item Received'),
+(30, 7, 4, 1, '1709211128-LBQyU3RLipYCm4ia7FnL', 'Completed', 16, '2024-02-29 13:52:56', 'Not Delivered Yet', 'Item Received'),
 (31, 7, 3, 1, '1709211128-PXNUxeznzOurGBg2Y2aZ', 'Completed', 17, '2024-02-29 13:52:56', 'Not Delivered Yet', 'Item Received'),
-(32, 7, 3, 1, '1709543471-n2UnXX4tcBm4xlvzFtpD', 'Completed', 17, '2024-03-04 10:12:25', 'Not Delivered Yet', 'Not Received'),
-(33, 7, 4, 1, '1709543471-ZO0WtWq92utApAr6tGLt', 'Completed', 16, '2024-03-04 10:12:28', 'Not Delivered Yet', 'Not Received'),
-(34, 7, 4, 1, '1709543572-TaaL6nj20yF1CiikN3Us', 'Completed', 16, '2024-03-04 10:13:29', 'Not Delivered Yet', 'Not Received');
+(32, 7, 3, 1, '1709543471-n2UnXX4tcBm4xlvzFtpD', 'Completed', 17, '2024-03-04 10:12:25', 'Not Delivered Yet', 'Item Received'),
+(33, 7, 4, 1, '1709543471-ZO0WtWq92utApAr6tGLt', 'Completed', 16, '2024-03-04 10:12:28', 'Not Delivered Yet', 'Item Received'),
+(34, 7, 4, 1, '1709543572-TaaL6nj20yF1CiikN3Us', 'Completed', 16, '2024-03-04 10:13:29', 'Not Delivered Yet', 'Item Received'),
+(35, 7, 3, 2, '1712222733-25LCoy9Fw5DZ6yiTLCcI', 'Not Completed', 17, '2024-04-04 10:25:43', 'Not Delivered Yet', 'Item Received'),
+(36, 7, 3, 3, '1712222940-sD5HvDaEImmyQe4j6xSh', 'Not Completed', 17, '2024-04-04 10:29:09', 'Not Delivered Yet', 'Item Received'),
+(37, 7, 3, 3, '1712222969-L8wtqGbGstq2yQWwfiHh', 'Not Completed', 17, '2024-04-04 10:29:39', 'Not Delivered Yet', 'Item Received'),
+(38, 7, 3, 3, '1712224474-5y2AD9x0BgH5BKyaQgFJ', 'Not Completed', 17, '2024-04-04 10:54:39', 'Not Delivered Yet', 'Item Received'),
+(39, 7, 3, 1, '1712224667-4iR9bPBAa5nCUJbF9sSU', 'Not Completed', 17, '2024-04-04 10:57:49', 'Not Delivered Yet', 'Item Received'),
+(40, 7, 3, 1, '1712224840-wmy3zuFSHZEbtjQDQ1jm', 'Not Completed', 17, '2024-04-04 11:00:44', 'Not Delivered Yet', 'Item Received'),
+(41, 7, 83, 2, '1712225472-ztW7pSDv2OuO0t1bCR37', 'Not Completed', 16, '2024-04-04 11:11:50', 'Not Delivered Yet', 'Item Received'),
+(42, 7, 3, 2, '1712227670-8PiLBElIXvP3daebfDUU', 'Not Completed', 17, '2024-04-04 11:47:59', 'Not Delivered Yet', 'Item Received');
 
 -- --------------------------------------------------------
 
@@ -247,7 +263,7 @@ INSERT INTO `products` (`product_id`, `user_id`, `product_cat`, `product_brand`,
 (10, 17, 2, 8, 'Aduro Wireless Headphones', 4100, 6, 'Amazing Bluetooth headphones sound with aptX technology. High-quality built-in microphone with Bluetooth 5.0 technology', '1616502854_hdphn.jpg', 'headphone, aduro'),
 (64, 16, 1, 1, 'Raji', 809, 24, 'fsadnsd jkkj', '1706360400_1616503181_Dr. Martens.jpg', 'hghga'),
 (65, 17, 1, 1, 'Aderolu', 500, 890, 'fdsafads fd asf d', '1706360428_1674406396_adcdcd.jpg', 'fads fdsa'),
-(66, 16, 1, 1, 'Adeori okin', 78, 50, 'fsaddf saf das', '1706360854_WIN_20230925_15_56_11_Pro.jpg', 'jhsd'),
+(66, 16, 1, 1, 'Human', 78, 50, 'fsaddf saf das', '1706360854_WIN_20230925_15_56_11_Pro.jpg', 'jhsd'),
 (67, 17, 1, 1, 'Idaya', 200, 78, 'jhs m', '1706360461_1616502847_hdphn.jpg', 'myprod'),
 (68, 17, 1, 2, 'rajinewsamsung', 100, 45, 'fdff ff', '1706360802_WIN_20230925_15_56_11_Pro.jpg', 'hjf'),
 (77, 16, 4, 1, 'My Raji New', 30, 500, 'my new', '1706362157_WIN_20230925_15_56_11_Pro.jpg', 'sdf'),
@@ -260,6 +276,29 @@ INSERT INTO `products` (`product_id`, `user_id`, `product_cat`, `product_brand`,
 (115, 16, 1, 1, 'adeolu', 80, 800, 'dsfsaf', '1706369794_Yam.jpg', 'bnhj'),
 (117, 16, 2, 3, 'Ademola', 2, 4, 'fdsa', '1706370217_Yam.jpg', 'sdfa'),
 (126, 17, 1, 1, 'NewProduct', 300, 400, 'hj', '1706371354_apple.jpg', 'fsadjh fdsa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(20) NOT NULL,
+  `seller_id` int(20) NOT NULL,
+  `old_balance` int(20) NOT NULL,
+  `new_balance` int(20) NOT NULL,
+  `trxdate` varchar(25) NOT NULL,
+  `product_desc` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `seller_id`, `old_balance`, `new_balance`, `trxdate`, `product_desc`) VALUES
+(1, 17, 3740, 5610, '2024-04-04 14:53:00', '5G goes Pro. A14 Bionic rockets past every other smartphone chip. The Pro camera system takes low-li'),
+(2, 17, 5610, 7480, '2024-04-04 14:57:24', '5G goes Pro. A14 Bionic rockets past every other smartphone chip. The Pro camera system takes low-li');
 
 -- --------------------------------------------------------
 
@@ -336,6 +375,12 @@ ALTER TABLE `products`
   ADD KEY `fk_product_brand` (`product_brand`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_info`
 --
 ALTER TABLE `user_info`
@@ -361,7 +406,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -373,13 +418,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_info`

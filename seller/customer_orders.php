@@ -30,9 +30,9 @@ if (!isset($_SESSION['admin_id'])) {
             <tr>
               <th>SN</th>
 			  <th>Buyer Name</th>
-			  <th>Address</th> 
+			 <!-- <th>Address</th>  -->
 			  <th>Mobile</th>
-			  <th>Email</th> 
+			 <!-- <th>Email</th>  -->
               <th>Product Name</th>
               <th>Quantity</th>
               <th>Trx Id</th>
@@ -45,6 +45,22 @@ if (!isset($_SESSION['admin_id'])) {
           <tbody id="customer_order_list">
            
           </tbody>
+		  <tfoot>
+            <tr>
+              <th>SN</th>
+			  <th>Buyer Name</th>
+			 <!-- <th>Address</th>  -->
+			  <th>Mobile</th>
+			 <!-- <th>Email</th>  -->
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Trx Id</th>
+			  <th>Order Date</th>
+              <th>Payment Status</th>
+			  <th>Delivery</th>
+			  
+            </tr>
+          </tfoot>
         </table>
       </div>
     </main>
