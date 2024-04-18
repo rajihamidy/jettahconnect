@@ -18,7 +18,7 @@ class Credentials
 	}
 
 
-	public function createAdminAccount($shopname, $name, $email, $shopaddress,$mobile, $password){
+	public function createAdminAccount($shopname, $name, $email, $shopaddress,$cat,$mobile, $password){
 		$q0 = $this->con->query("SELECT mobile FROM admin WHERE mobile = '$mobile'");
 		$q = $this->con->query("SELECT email FROM admin WHERE email = '$email'");
 		if ($q->num_rows > 0) {
@@ -30,9 +30,9 @@ class Credentials
 			$password = password_hash($password, PASSWORD_BCRYPT, ["COST"=> 8]);
 			$regdate =date("d.m.Y H:i:s");
 			$expdate= date('d.m.Y H:i:s', strtotime('+180 days', time()));
-			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`, 
+			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`,`cat`, 
 			`mobile`, `password`, `is_active`,`regdate`,`expdate`,`acctstatus`) 
-			VALUES ('$shopname','$name','$email','$shopaddress','$mobile','$password','0','$regdate','$expdate','Not Activated')");
+			VALUES ('$shopname','$name','$email','$shopaddress','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated')");
 			if ($q) {
 				return ['status'=> 202, 'message'=> 'Admin Created Successfully'];
 			}
@@ -96,7 +96,7 @@ if (isset($_POST['admin_register'])) {
 	$namex = "/^[a-zA-Z ]+$/";
 	$emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9]+(\.[a-z]{2,4})$/";
 	$number = "/^[0-9]+$/";
-	if (!empty($shopname)&& !empty($name) && !empty($email) && !empty($shopaddress) && !empty($mobile) && !empty($password) && !empty($cpassword)) {
+	if (!empty($shopname)&& !empty($name) && !empty($email) && !empty($shopaddress)&& !empty($cat) && !empty($mobile) && !empty($password) && !empty($cpassword)) {
 		if (strlen($mobile)<> 11){
 			echo json_encode(['status'=> 303, 'message'=> 'Invalid Mobile Number, Mobile number must be 11 digits.']);
 			exit();
@@ -122,7 +122,7 @@ if (isset($_POST['admin_register'])) {
 		}
 		else{
 			$c = new Credentials();
-			$result = $c->createAdminAccount($shopname,$name, $email, $shopaddress, $mobile, $password);
+			$result = $c->createAdminAccount($shopname,$name, $email, $shopaddress,$cat, $mobile, $password);
 			echo json_encode($result);
 			exit();
 		}

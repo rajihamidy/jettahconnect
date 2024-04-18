@@ -11,10 +11,21 @@ $(document).ready(function(){
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
 					$("#admin-register-form").trigger("reset");
-					$(".message").html('<span class="text-success">'+resp.message+'</span>');
-				}else if(resp.status == 303){
-					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
+					$(".message").html('<span class="text-success">' + resp.message + '</span>');
+				
+					// Hide the success message after 30 seconds
+					setTimeout(function() {
+						$(".message").empty();
+					}, 10000); // 30 seconds in milliseconds
+				} else if (resp.status == 303) {
+					$(".message").html('<span class="text-danger">' + resp.message + '</span>');
+				
+					// Hide the error message after 30 seconds
+					setTimeout(function() {
+						$(".message").empty();
+					}, 10000); // 30 seconds in milliseconds
 				}
+				
 			}
 		});
 
