@@ -1,6 +1,19 @@
 <?php
 session_start();
 include 'uniqueref.php';
+function formatCurrency($amount) {
+    // Format the amount as Naira
+    $formatted_amount = '₦' . number_format($amount, 0);
+
+    // If the amount is not a whole number (kobo exists), add kobo
+    if ($amount != floor($amount)) {
+        $kobo = round(($amount - floor($amount)) * 100);
+        $formatted_amount .= '.' . str_pad($kobo, 2, '0', STR_PAD_LEFT) . ' kobo';
+    }
+
+    return $formatted_amount;
+}
+
 $ip_add = getenv("REMOTE_ADDR");
 include "db.php";
 if (isset($_POST["category"]) || isset($_POST["brand"])) {
@@ -78,6 +91,7 @@ if (isset($_POST["getProduct"])) {
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$sellerid = $row['user_id'];
+			$qty =$row['product_qty'];
 			$pro_image = $row['product_image'];
 			echo '
 			
@@ -89,7 +103,8 @@ if (isset($_POST["getProduct"])) {
 									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
 								</div>
 							</div>
-							<div class="panel-footer" style="text-align: center;">' . CURRENCY . ' ' . $pro_price . '.00</div>
+							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '.00</div>
+							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: '. $qty . '</div>
 							<div class="panel-footer">
 								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
 								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
