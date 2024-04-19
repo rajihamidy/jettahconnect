@@ -315,22 +315,11 @@ $("body").delegate("#contacts","click",function(event){
 	/*
 		net_total function is used to calcuate total amount of cart item
 	*/
-	function net_total(){
-		var net_total = 0;
-		$('.qty').each(function(){
-			var row = $(this).parent().parent();
-			var price  = row.find('.price').val();
-			var total = price * $(this).val()-0;
-			row.find('.total').val(total);
-		})
-		$('.total').each(function(){
-			net_total += ($(this).val()-0);
-		})
-		$('.net_total').html("Total : "+ CURRENCY+ " " +net_total);
-		$('#net_totals').val(net_total);
-		
+	
+	function formatCurrency(amount) {
+		// Format the amount with two decimal places and commas as thousand separators
+		return parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 	}
-
 
 	function net_total() {
 		var net_total = 0;
@@ -343,7 +332,8 @@ $("body").delegate("#contacts","click",function(event){
 		$('.total').each(function () {
 			net_total += parseFloat($(this).text()); // Use text() to get the content
 		});
-		$('.net_total').html("Total : " + CURRENCY + " " + net_total);
+		$('.vats').html("+ VAT 2% : "+ CURRENCY+ " " +formatCurrency(net_total*(2/100)));
+		$('.net_total').html("Total : " + CURRENCY + " " + formatCurrency(net_total));
 		$('#net_totals').val(net_total);
 	}
 	
@@ -374,22 +364,3 @@ $("body").delegate("#contacts","click",function(event){
 	})
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

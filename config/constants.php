@@ -5,7 +5,7 @@ define('USER', 'root');
 define('PASSWORD', '');
 define('DATABASE_NAME', 'Jettahconnect');
 
-define('CURRENCY', 'N');
+define('CURRENCY', '₦');
 
 
 

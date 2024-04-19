@@ -103,7 +103,7 @@ if (isset($_POST["getProduct"])) {
 									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
 								</div>
 							</div>
-							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '.00</div>
+							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
 							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: '. $qty . '</div>
 							<div class="panel-footer">
 								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
@@ -138,21 +138,26 @@ if (isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || iss
 		$pro_brand = $row['product_brand'];
 		$userid = $row['user_id'];
 		$pro_title = $row['product_title'];
+		$qty =$row['product_qty'];
 		$pro_price = $row['product_price'];
 		$pro_image = $row['product_image'];
+
 		echo "
-				<div class='col-md-4'>
+				<div class='col-sm-6 col-md-4 col-lg-3 column'>
 							<div class='panel panel-info'>
-								<div class='panel-heading'>$pro_title</div>
+								<div class='panel-heading text-nowrap'>$pro_title</div>
 								<div class='panel-body'>
-									<img src='product_images/$pro_image' style='width:220px; height:250px;'/>
+									<img src='product_images/$pro_image' class='img-fluid' alt=' . $pro_title . ' style='object-fit: cover; display: block;'/>
 								</div>
-								<div class='panel-heading'>N $pro_price.00
+								<div class='panel-footer' style='text-align: center;'> ". formatCurrency($pro_price) . " </div>
+								<div class='panel-footer' style='text-align: center;'>Available Qty in Stock: $qty </div>
 								<input type='hidden' value='$userid'>
+								<div class='panel-footer'>
+								<button userid='$userid' style='float:left;'  id='contacts' class='btn btn-danger btn-xs'>Contact</button>
 								
-								<button userid='$userid' style='float:right;'  id='contacts' class='btn btn-danger btn-xs'>Contact</button>
-								
-								<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Add To Cart</button> 
+								<button pid='$pro_id' style='float:right;' id='product'  class='btn btn-danger btn-xs'>Add To Cart</button> 
+								<div class='clearfix'></div>
+								</div>
 								</div>
 								</div>
 							</div>
@@ -213,7 +218,7 @@ if (isset($_POST["addToCart"])) {
 
 		$user_id = $_SESSION["uid"];
 
-		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id' and order_status!='Ordered'";
+		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id' and order_status!='Ordered'";// checking previous order
 		$sql2 = "SELECT * FROM products WHERE product_id = '$p_id' ";
 		$run_query = mysqli_query($con, $sql);
 		$run_query2 = mysqli_query($con, $sql2);
@@ -228,7 +233,15 @@ if (isset($_POST["addToCart"])) {
 				</div>
 			"; //not in video
 		} else {
-			$sql = "INSERT INTO `cart`
+			if ($row['product_qty']<1){
+				echo "
+					<div class='alert alert-success'>
+						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						<b>Product is out of stock..!</b>
+					</div>
+				";
+			}else {
+				$sql = "INSERT INTO `cart`
 			(`p_id`, `ip_add`, `user_id`, `seller_id`, `qty`) 
 			VALUES ('$p_id','$ip_add','$user_id','$sellerid','1')";
 			if (mysqli_query($con, $sql)) {
@@ -239,8 +252,11 @@ if (isset($_POST["addToCart"])) {
 					</div>
 				";
 			}
+			}
+			
 		}
 	} else {
+	/*
 		$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id = -1 and order_status!='Ordered'";
 		$query = mysqli_query($con, $sql);
 		if (mysqli_num_rows($query) > 0) {
@@ -263,6 +279,12 @@ if (isset($_POST["addToCart"])) {
 				";
 			exit();
 		}
+		*/
+		echo "
+					<div class='alert alert-warning'>
+							<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+							<b>Kindly Register to add Item(s) to Cart..</b>
+					</div>";
 	}
 }
 
@@ -289,10 +311,10 @@ if (isset($_POST["Common"])) {
 
 	if (isset($_SESSION["uid"])) {
 		//When user is logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'AND b.order_status!='Ordered'";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,a.user_id,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'AND b.order_status!='Ordered'";
 	} else {
 		//When user is not logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0 AND b.order_status!='Ordered'";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,a.user_id,b.id,b.qty, b.seller_id FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0 AND b.order_status!='Ordered'";
 	}
 	$query = mysqli_query($con, $sql);
 	if (isset($_POST["getCartItem"])) {
@@ -312,7 +334,7 @@ if (isset($_POST["Common"])) {
 						<div class="col-md-3">' . $n . '</div>
 						<div class="col-md-3"><img class="img-responsive" src="product_images/' . $product_image . '" /></div>
 						<div class="col-md-3">' . $product_title . '</div>
-						<div class="col-md-3">' . CURRENCY . '' . $product_price . '</div>
+						<div class="col-md-3">'  . formatCurrency($product_price) . '</div>
 					</div>';
 			}
 ?>
@@ -322,6 +344,7 @@ if (isset($_POST["Common"])) {
 		}
 	}
 	if (isset($_POST["checkOutDetails"])) {
+		error_reporting(0);
 		if (mysqli_num_rows($query) > 0) {
 			//display user cart item with "Ready to checkout" button if user is not login
 			echo "<form method='post' action='login_form.php'>";
@@ -340,6 +363,7 @@ if (isset($_POST["Common"])) {
 				$product_title = $row["product_title"];
 				$product_price = $row["product_price"];
 				$product_image = $row["product_image"];
+				$prod_owner = $row["user_id"];
 				$cart_item_id = $row["id"];
 				$qty = $row["qty"];
 				$sellerid = $row["seller_id"]; // seller_id from cart
@@ -365,7 +389,7 @@ if (isset($_POST["Common"])) {
 										<a href="#" update_id="' . $product_id . '" class="btn btn-primary update"><span class="glyphicon glyphicon-ok-sign"></span></a>
 									</div>
 								</div>
-						
+								<input type="hidden" name="prod_owner[]" id="prod_owner" value="' . $prod_owner . '"/>
 								<input type="hidden" name="user_id[]" id="user_id" value="' . $user_id . '"/>
 								<input type="hidden" name="product_id[]" id="product_id" value="' . $product_id . '"/>
 								<input type="hidden" name="" value="' . $cart_item_id . '"/>
@@ -390,14 +414,15 @@ if (isset($_POST["Common"])) {
 							<input type="hidden" class="form-control" id="buyer_mobile" value="' . $buyer_mobile . '" readonly="readonly">
 							
 							<input type="hidden" id="net_totals" readonly>
-								<b class="net_total" style="font-size:20px;"> </b>
+								<b class="net_total" style="font-size:20px;"> </b><p>
+								<b class="vats" style="font-size:10px;"> </b>
 					</div>';
 
 			if (!isset($_SESSION["uid"])) {
 				echo '<input type="submit" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Ready to Checkout" >
 							</form>';
 			} else if (isset($_SESSION["uid"])) {
-				//Paypal checkout form
+				//Monnify checkout form
 				echo '
 						</form>
 						';

@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Process the received data
         foreach ($dataArray as $data) {
             // Access individual fields and escape them
+            
             $userId = mysqli_real_escape_string($con, $data['user_id']);
             $productId = mysqli_real_escape_string($con, $data['product_id']);
             $seller_Email = mysqli_real_escape_string($con, $data['seller_Email']);
@@ -34,45 +35,54 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Insert the unique records into the orders table
         foreach ($uniqueRecords as $record) {
+            $prod_owner = mysqli_real_escape_string($con, $data['prod_owner']);
             $userId = mysqli_real_escape_string($con, $record['user_id']);
             $productId = mysqli_real_escape_string($con, $record['product_id']);
             $seller_Email = mysqli_real_escape_string($con, $record['seller_Email']);
             $qty = mysqli_real_escape_string($con, $record['qty']);
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
-           // $pStatus = mysqli_real_escape_string($con, $record['p_status']);
-           $pStatus = 'Completed';
+            $pStatus = 'Completed';
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
-            // Set the time zone
-            $timeZone = new DateTimeZone('Africa/Lagos');
 
-            // Create a DateTime object with the current date and time in the specified time zone
-            $dateTime = new DateTime('now', $timeZone);
+            // Fetch current product quantity
+            $fetchQtySql = "SELECT product_qty FROM products WHERE product_id = '$productId' AND user_id = '$prod_owner'";
+            $fetchQtyResult = mysqli_query($con, $fetchQtySql);
+            if ($fetchQtyResult && mysqli_num_rows($fetchQtyResult) > 0) {
+                $row = mysqli_fetch_assoc($fetchQtyResult);
+                $currentQty = $row['product_qty'];
 
-            // Format the date and time
-            $currentDateTime = $dateTime->format('Y-m-d H:i:s');
+                // Calculate new quantity
+                $newQty = $currentQty - $qty;
 
-            // send email to Seller
-            $subject = "New order Payment Notification from Jettah Customer";
-            $body  ='<p>New payment has been made for products, Kindly Login to your profile to supply the Orders</p><br/><br/><hr/>';
-           // $body .='<p>Full Name:  '.$full_name.'.</p>';
-           // $body .='<p>Email Add: '.$f_emailaddress.'.</p>';
-           // $body .='<p>Mobile No. '.$mobile_no.'.</p>';
-           // $body .='<p>Reg. Date: '.$time.'.</p><br/><br/>';
-        
-             $email_to = $seller_Email;
-             $email_from ='noreply@jettahconnect.com'; // Enter Sender Email
-        
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= 'From: '.$email_from."\r\n".
-            'Reply-To: '.$email_from."\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-            mail($email_to, $subject, $body, $headers);
-        
-        
-        
+                // Update product quantity in products table
+                $updateQtySql = "UPDATE products SET product_qty = '$newQty' WHERE product_id = '$productId' AND user_id = '$prod_owner'";
+                $sql .= $updateQtySql . ";"; // Append to multi-query
+
+                // send email to Seller
+                $subject = "New order Payment Notification from Jettah Customer";
+                $body  = '<p>New payment has been made for products, Kindly Login to your profile to supply the Orders</p><br/><br/><hr/>';
+                // Construct email body
+
+                $email_to = $seller_Email;
+                $email_from = 'noreply@jettahconnect.com'; // Enter Sender Email
+    
+                $headers  = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $headers .= 'From: ' . $email_from . "\r\n" .
+                    'Reply-To: ' . $email_from . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+                mail($email_to, $subject, $body, $headers);
+               // echo "New Quantity: $newQty and currentQty: $currentQty";
+            } else {
+                // Handle if product not found
+                echo "Product not found for productId: $productId and Product Owner: $prod_owner";
+            }
+
             // Insert the record into the orders table
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id,orderdate) 
+            $timeZone = new DateTimeZone('Africa/Lagos');
+            $dateTime = new DateTime('now', $timeZone);
+            $currentDateTime = $dateTime->format('Y-m-d H:i:s');
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id, orderdate) 
                     VALUES ('$userId', '$productId', '$qty', '$trxId', '$pStatus', '$sellerId', '$currentDateTime');";
 
             // Update the cart table for each record individually
@@ -100,3 +110,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Request method is not POST
     echo "Invalid request method";
 }
+?>

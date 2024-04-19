@@ -22,6 +22,7 @@ $(document).ready(function () {
   })
 // END OF ONLINE PAYMENT PROCESSING
   $("body").delegate("#delivarypay", "click", function () {
+    var prod_owner= [];
     var user_id = [];
     var product_id = [];
     var qty = [];
@@ -32,6 +33,7 @@ $(document).ready(function () {
     // Iterate over each row
     $(".row").each(function () {
         var $row = $(this);
+        prod_owner.push($row.find("[name='prod_owner[]']").val());
         user_id.push($row.find("[name='user_id[]']").val());
         product_id.push($row.find("[name='product_id[]']").val());
         trx_id.push($row.find("[name='trx_id[]']").val());
@@ -43,6 +45,7 @@ $(document).ready(function () {
     // Combine arrays into an array of objects
     var combinedArray = user_id.map(function(_, i) {
         return {
+            prod_owner:prod_owner[i],
             user_id: user_id[i],
             product_id: product_id[i],
             qty: qty[i],
