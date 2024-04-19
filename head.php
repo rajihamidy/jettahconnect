@@ -41,12 +41,12 @@
             </li>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo "Hi, ".$_SESSION["name"]; ?></a>
                 <ul class="dropdown-menu">
-                    <li><a href="cart.php" style="text-decoration:none; color:black;"><span class="glyphicon glyphicon-shopping-cart"> Cart</a></li>
+                    <li><a href="cart.php" style="text-decoration:none; color:green;"><span class="glyphicon glyphicon-shopping-cart"> Cart</a></li>
                     <li class="divider"></li>
-                    <li><a href="customer_order.php" style="text-decoration:none; color:black;">Orders</a></li>
+                    <li><a href="customer_order.php" style="text-decoration:none; color:green;">Orders</a></li>
                     <li class="divider"></li>
                     
-                    <li><a href="logout.php" style="text-decoration:none; color:black;">Logout</a></li>
+                    <li><a href="logout.php" style="text-decoration:none; color:green;">Logout</a></li>
                 </ul>
             </li>
             

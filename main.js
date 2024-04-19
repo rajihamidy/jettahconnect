@@ -142,8 +142,12 @@ $(document).ready(function(){
 			success : function(data){
 				$(".overlay").hide();
 				if (data == "register_success") {
-					window.location.href = "cart.php";
-				}else{
+					alert("User Registration is Successfull.");
+					setTimeout(function() {
+						window.location.href = "profile.php";
+					}, 1000); // Redirect after 1 second (1000 milliseconds)
+				} else {
+					$('html, body').animate({scrollTop : 0}, 800);
 					$("#signup_msg").html(data);
 				}
 				

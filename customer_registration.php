@@ -11,6 +11,8 @@ if (isset($_GET["register"])) {
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<script src="js/jquery2.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 		<script src="main.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
@@ -18,17 +20,39 @@ if (isset($_GET["register"])) {
 <div class="wait overlay">
 	<div class="loader"></div>
 </div>
+	
 	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">	
+		<div class="container-fluid">
 			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+					<span class="sr-only">navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<a href="index.php" class="navbar-brand">Jettah Connect</a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
-			</ul>
+			<div class="collapse navbar-collapse" id="collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+					<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
+				</ul>
+					</li>
+				</ul>
+			</div>
+
 		</div>
 	</div>
+
+
+
+
+
+
+
+
+
+
 	<p><br/></p>
 	<p><br/></p>
 	<p><br/></p>
@@ -51,47 +75,47 @@ if (isset($_GET["register"])) {
 						<div class="row">
 							<div class="col-md-6">
 								<label for="f_name">First Name</label>
-								<input type="text" id="f_name" name="f_name" class="form-control" required>
+								<input type="text" id="f_name" name="f_name" class="form-control" >
 							</div>
 							<div class="col-md-6">
-								<label for="f_name">Last Name</label>
-								<input type="text" id="l_name" name="l_name"class="form-control" required>
+								<label for="l_name">Last Name</label>
+								<input type="text" id="l_name" name="l_name"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="email">Email</label>
-								<input type="text" id="email" name="email"class="form-control" required>
+								<input type="text" id="email" name="email"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="password">Password</label>
-								<input type="password" id="password" name="password"class="form-control" required>
+								<input type="password" id="password" name="password"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="repassword">Confirm Password</label>
-								<input type="password" id="repassword" name="repassword"class="form-control" required>
+								<input type="password" id="repassword" name="repassword"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="mobile">Contact Number</label>
-								<input type="text" id="mobile" name="mobile"class="form-control" required>
+								<input type="text" id="mobile" name="mobile"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="address1">Address 1</label>
-								<input type="text" id="address1" name="address1"class="form-control" required>
+								<input type="text" id="address1" name="address1"class="form-control" >
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="address2">Address 2</label>
-								<input type="text" id="address2" name="address2"class="form-control" required>
+								<input type="text" id="address2" name="address2"class="form-control" >
 							</div>
 						</div>
 						<p><br/></p>

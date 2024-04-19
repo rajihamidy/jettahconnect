@@ -243,7 +243,7 @@ if (isset($_POST["addToCart"])) {
 			}else {
 				$sql = "INSERT INTO `cart`
 			(`p_id`, `ip_add`, `user_id`, `seller_id`, `qty`) 
-			VALUES ('$p_id','$ip_add','$user_id','$sellerid','1')";
+			VALUES ('$p_id','','$user_id','$sellerid','1')";
 			if (mysqli_query($con, $sql)) {
 				echo "
 					<div class='alert alert-success'>
