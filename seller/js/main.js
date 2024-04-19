@@ -13,17 +13,17 @@ $(document).ready(function(){
 					$("#admin-register-form").trigger("reset");
 					$(".message").html('<span class="text-success">' + resp.message + '</span>');
 				
-					// Hide the success message after 30 seconds
+					// Hide the success message after 5 seconds
 					setTimeout(function() {
 						$(".message").empty();
-					}, 10000); // 30 seconds in milliseconds
+					}, 5000); // 5 seconds in milliseconds
 				} else if (resp.status == 303) {
 					$(".message").html('<span class="text-danger">' + resp.message + '</span>');
 				
-					// Hide the error message after 30 seconds
+					// Hide the error message after 5 seconds
 					setTimeout(function() {
 						$(".message").empty();
-					}, 10000); // 30 seconds in milliseconds
+					}, 5000); // 5 seconds in milliseconds
 				}
 				
 			}
