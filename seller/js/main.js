@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+/*
 	$(".register-btn").on("click", function(event) {
 		event.preventDefault();
 		$.ajax({
@@ -11,7 +11,7 @@ $(document).ready(function(){
 				if (data.status === 202) {
 					alert("User Registration is Successful.");
 					setTimeout(function() {
-						window.location.href = "login.php";
+						window.location.href = "../login.php";
 					}, 1000); // Redirect after 1 second (1000 milliseconds)
 				} else {
 					$('html, body').animate({scrollTop: 0}, 800);
@@ -21,6 +21,39 @@ $(document).ready(function(){
 		});
 	});
 	
+*/
+	$(".register-btn").on("click", function(){
+
+		$.ajax({
+			url : '../seller/classes/Credentials.php',
+			method : "POST",
+			data : $("#admin-register-form").serialize(),
+			success : function(response){
+				console.log(response);
+				var resp = $.parseJSON(response);
+				if (resp.status == 202) {
+					$("#admin-register-form").trigger("reset");
+					$(".message").html('<span class="text-success">' + resp.message + '</span>');
+					setTimeout(function() {
+						window.location.href = window.origin+"/seller/login.php";
+					}, 1000);
+					// Hide the success message after 30 seconds
+		/*			setTimeout(function() {
+						$(".message").empty();
+					}, 10000); // 30 seconds in milliseconds  */
+				} else if (resp.status == 303) {
+					$(".message").html('<span class="text-danger">' + resp.message + '</span>');
+				
+					// Hide the error message after 30 seconds
+					setTimeout(function() {
+						$(".message").empty();
+					}, 10000); // 30 seconds in milliseconds
+				}
+				
+			}
+		});
+
+	});
 
 	$(".login-btn").on("click", function(){
 
