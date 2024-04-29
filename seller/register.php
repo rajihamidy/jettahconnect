@@ -28,14 +28,14 @@
 
 				</div>
 				<div class="form-group">
-				<label for="state">Select Shop Location State</label>
-					<select id="stateSelect" class="form-control">
+				<label for="state" >Select Shop Location State</label>
+					<select id="stateSelect" name="states" class="form-control">
 					<?php echo $options; ?>
 					</select>
 				</div>
 				<div class="form-group">
-				<label for="lga">Select Shop Location Address</label>
-					<select id="lgaSelect" class="form-control">
+				<label for="lga">Select Shop Location L.G.A.</label>
+					<select id="lgaSelect" name="lga" class="form-control">
 						<option value="">Select a state first</option>
 						<!-- LGAs will be populated via AJAX -->
 					</select>
@@ -64,7 +64,7 @@
 				</div>
 				<div class="form-group">
 					<label for="mobile">Contact Number</label>
-					<input type="text" id="mobile" name="mobile" class="form-control" placeholder="Contact Number" required>
+					<input type="text" id="mobile" name="mobile" class="form-control" placeholder="Contact Number" >
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>

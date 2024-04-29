@@ -18,7 +18,7 @@ class Credentials
 	}
 
 
-	public function createAdminAccount($shopname, $name, $email, $shopaddress,$cat,$mobile, $password){
+	public function createAdminAccount($shopname, $name, $email, $shopaddress,$states,$lga,$cat,$mobile, $password){
 		$q0 = $this->con->query("SELECT mobile FROM admin WHERE mobile = '$mobile'");
 		$q = $this->con->query("SELECT email FROM admin WHERE email = '$email'");
 		if ($q->num_rows > 0) {
@@ -30,9 +30,9 @@ class Credentials
 			$password = password_hash($password, PASSWORD_BCRYPT, ["COST"=> 8]);
 			$regdate =date("d.m.Y H:i:s");
 			$expdate= date('d.m.Y H:i:s', strtotime('+180 days', time()));
-			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`,`cat`, 
+			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`,`states`,`lga`,`cat`, 
 			`mobile`, `password`, `is_active`,`regdate`,`expdate`,`acctstatus`,`wallet`) 
-			VALUES ('$shopname','$name','$email','$shopaddress','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated','0')");
+			VALUES ('$shopname','$name','$email','$shopaddress','$states','$lga','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated','0')");
 			if ($q) {
 				return ['status'=> 202, 'message'=> 'Admin Created Successfully'];
 			}
@@ -122,7 +122,7 @@ if (isset($_POST['admin_register'])) {
 		}
 		else{
 			$c = new Credentials();
-			$result = $c->createAdminAccount($shopname,$name, $email, $shopaddress,$cat, $mobile, $password);
+			$result = $c->createAdminAccount($shopname,$name, $email, $shopaddress,$states,$lga,$cat, $mobile, $password);
 			echo json_encode($result);
 			exit();
 		}
@@ -130,6 +130,9 @@ if (isset($_POST['admin_register'])) {
 		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty fields']);
 		exit();
 	}
+}else{
+	echo json_encode(['status'=> 303, 'message'=> 'No posted Values']);
+			exit();
 }
 
 if (isset($_POST['admin_login'])) {
@@ -145,5 +148,3 @@ if (isset($_POST['admin_login'])) {
 	}
 }
 
-
-?>
