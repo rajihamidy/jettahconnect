@@ -31,8 +31,8 @@ class Credentials
 			$regdate =date("d.m.Y H:i:s");
 			$expdate= date('d.m.Y H:i:s', strtotime('+180 days', time()));
 			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`,`cat`, 
-			`mobile`, `password`, `is_active`,`regdate`,`expdate`,`acctstatus`) 
-			VALUES ('$shopname','$name','$email','$shopaddress','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated')");
+			`mobile`, `password`, `is_active`,`regdate`,`expdate`,`acctstatus`,`wallet`) 
+			VALUES ('$shopname','$name','$email','$shopaddress','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated','0')");
 			if ($q) {
 				return ['status'=> 202, 'message'=> 'Admin Created Successfully'];
 			}

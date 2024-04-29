@@ -43,16 +43,6 @@ if (isset($_GET["register"])) {
 
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
 	<p><br/></p>
 	<p><br/></p>
 	<p><br/></p>

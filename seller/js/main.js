@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
-	$(".register-btn").on("click", function(){
-
+	/*$(".register-btn").on("click", function(event){
+		$(".message").empty();
+		event.preventDefault();
 		$.ajax({
 			url : '../seller/classes/Credentials.php',
 			method : "POST",
@@ -29,7 +30,27 @@ $(document).ready(function(){
 			}
 		});
 
+	});  */
+	$(".register-btn").on("click", function(event) {
+		event.preventDefault();
+		$.ajax({
+			url: "../seller/classes/Credentials.php",
+			method: "POST",
+			data: $("#admin-register-form").serialize(),
+			success: function(data) {
+				if (data.status === 202) {
+					alert("User Registration is Successful.");
+					setTimeout(function() {
+						window.location.href = "login.php";
+					}, 1000); // Redirect after 1 second (1000 milliseconds)
+				} else {
+					$('html, body').animate({scrollTop: 0}, 800);
+					$(".message").html(data.message);
+				}
+			}
+		});
 	});
+	
 
 	$(".login-btn").on("click", function(){
 
