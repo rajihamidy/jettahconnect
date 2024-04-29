@@ -2,11 +2,12 @@
 
 <?php include "./templates/navbar.php"; ?>
 
+<?php include "get_states.php"; ?>
 <div class="container">
 	<div class="row justify-content-center" style="margin:100px 0;">
 		<div class="col-md-4">
 			<h4 class="text-center">Seller's Registration Form</h4>
-<hr>
+			<hr>
 			<form id="admin-register-form">
 				<div class="form-group">
 					<label for="shopname">Shop Name</label>
@@ -27,10 +28,23 @@
 
 				</div>
 				<div class="form-group">
+				<label for="state">Select Shop Location State</label>
+					<select id="stateSelect" class="form-control">
+					<?php echo $options; ?>
+					</select>
+				</div>
+				<div class="form-group">
+				<label for="lga">Select Shop Location Address</label>
+					<select id="lgaSelect" class="form-control">
+						<option value="">Select a state first</option>
+						<!-- LGAs will be populated via AJAX -->
+					</select>
+				</div>
+				<div class="form-group">
 					<label for="items">Select Business Category:</label>
 					<select id="cat" name="cat" class="form-control">
-					<option value="">---Select Business Category---</option>	
-					<option value="Provision Shop">Provision Shop</option>
+						<option value="">---Select Business Category---</option>
+						<option value="Provision Shop">Provision Shop</option>
 						<option value="Plumber">Plumber</option>
 						<option value="Food Vendor">Food Vendor</option>
 						<option value="Electrician">Electrician</option>
@@ -76,9 +90,20 @@
 
 <script type="text/javascript" src="./js/main.js"></script>
 <script>
- $(document).ready(function() {
-    // Call the openNav() function when the document is ready
-    $('#open1').hide();
-});
-
+	$(document).ready(function() {
+		// Call the openNav() function when the document is ready
+		$('#open1').hide();
+		$('#stateSelect').change(function() {
+                var stateId = $(this).val();
+                $('#lgaSelect').html('<option value="">Loading...</option>');
+                $.ajax({
+                    type: 'POST',
+                    url: 'get_lgas.php',
+                    data: { state_id: stateId },
+                    success: function(response) {
+                        $('#lgaSelect').html(response);
+                    }
+                });
+            });
+	});
 </script>
