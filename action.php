@@ -126,12 +126,11 @@ if (isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || iss
 		$id = $_POST["brand_id"];
 		$sql = "SELECT * FROM products WHERE product_brand = '$id' order by product_id desc";
 	} else {
-		if((isset($_POST["keyword"]))){
-		$keyword = $_POST["keyword"];
-		$sql = "SELECT * FROM products WHERE product_desc LIKE '%$keyword%' order by product_id desc";//product_title
-		}
-		else{
-			$sql = "SELECT * FROM products order by product_id desc";//product_title
+		if ((isset($_POST["keyword"]))) {
+			$keyword = $_POST["keyword"];
+			$sql = "SELECT * FROM products WHERE product_desc LIKE '%$keyword%' order by product_id desc"; //product_title
+		} else {
+			$sql = "SELECT * FROM products order by product_id desc"; //product_title
 		}
 	}
 
@@ -465,7 +464,13 @@ if (isset($_POST["Common"])) {
 				</div>
 				</div>
 			</div>
-
+			<div class="row">
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+<div id="message"> </div>
+</div>
+</div>
 <input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 
 <input style="float:right;margin-right:80px;" type="button" id="delivarypay" class=" btn btn-primary btn-lg" name="submit2" value="Payment at Delivery"> 
 								</form>';

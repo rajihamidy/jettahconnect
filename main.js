@@ -282,6 +282,9 @@ $("body").delegate("#contacts","click",function(event){
 		})
 		$('.net_total').html("Total : N " +net_total);
 		$('#net_totals').val(net_total);
+		$('.vats').html("+ VAT 2% : "+ CURRENCY+ " " +formatCurrency(net_total*(2/100)));
+		//$('.net_total').html("Total : " + CURRENCY + " " + formatCurrency(net_total));
+
 
 	})
 	//Change Quantity end here 
