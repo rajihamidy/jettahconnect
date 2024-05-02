@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $productId = mysqli_real_escape_string($con, $data['product_id']);
             $seller_Email = mysqli_real_escape_string($con, $data['seller_Email']);
             $trxId = mysqli_real_escape_string($con, $data['trx_id']);
-
+            $delM = mysqli_real_escape_string($con, $data['delM']);
+            $address = mysqli_real_escape_string($con, $data['address']);
             // Check if the combination of user_id, product_id, and trx_id already exists in the uniqueRecords array
             $recordKey = $userId . $productId . $trxId;
             if (!isset($uniqueRecords[$recordKey])) {
@@ -43,6 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
             $pStatus = 'Completed';
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
+            $delM = mysqli_real_escape_string($con, $record['delM']);
+            $address = mysqli_real_escape_string($con, $record['address']);
 
             // Fetch current product quantity
             $fetchQtySql = "SELECT product_qty FROM products WHERE product_id = '$productId' AND user_id = '$prod_owner'";
@@ -82,8 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $timeZone = new DateTimeZone('Africa/Lagos');
             $dateTime = new DateTime('now', $timeZone);
             $currentDateTime = $dateTime->format('Y-m-d H:i:s');
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, p_status, seller_id, orderdate) 
-                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$pStatus', '$sellerId', '$currentDateTime');";
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id,delM,addres, p_status, seller_id, orderdate) 
+                    VALUES ('$userId', '$productId', '$qty', '$trxId','$delM','$address', '$pStatus', '$sellerId', '$currentDateTime');";
 
             // Update the cart table for each record individually
             $sql .= "UPDATE cart SET order_status = 'Ordered' WHERE user_id = '$userId';";

@@ -1,61 +1,62 @@
 <?php
 session_start();
 include 'uniqueref.php';
-function formatCurrency($amount) {
-    // Format the amount as Naira
-    $formatted_amount = '₦' . number_format($amount, 0);
+function formatCurrency($amount)
+{
+	// Format the amount as Naira
+	$formatted_amount = '₦' . number_format($amount, 0);
 
-    // If the amount is not a whole number (kobo exists), add kobo
-    if ($amount != floor($amount)) {
-        $kobo = round(($amount - floor($amount)) * 100);
-        $formatted_amount .= '.' . str_pad($kobo, 2, '0', STR_PAD_LEFT) . ' kobo';
-    }
+	// If the amount is not a whole number (kobo exists), add kobo
+	if ($amount != floor($amount)) {
+		$kobo = round(($amount - floor($amount)) * 100);
+		$formatted_amount .= '.' . str_pad($kobo, 2, '0', STR_PAD_LEFT) . ' kobo';
+	}
 
-    return $formatted_amount;
+	return $formatted_amount;
 }
 
 $ip_add = getenv("REMOTE_ADDR");
 include "db.php";
 if (isset($_POST["category"]) || isset($_POST["brand"])) {
-	
+
 	echo '
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div class="nav nav-pills nav-stacked">
     ';
 
-    if (isset($_POST["category"])) {
-        $category_query = "SELECT * FROM categories";
-        $category_result = mysqli_query($con, $category_query) or die(mysqli_error($con));
+	if (isset($_POST["category"])) {
+		$category_query = "SELECT * FROM categories";
+		$category_result = mysqli_query($con, $category_query) or die(mysqli_error($con));
 
-        echo '<li class=" list-group-item-action active">
+		echo '<li class=" list-group-item-action active">
 		<a href=""><h4>Product Categories</h4></a>
 	</li>
 	';
-        if (mysqli_num_rows($category_result) > 0) {
-            while ($row = mysqli_fetch_array($category_result)) {
-                $cid = $row["cat_id"];
-                $cat_name = $row["cat_title"];
-                echo "<li><a href='#' class='category text-wrap' cid='$cid'>$cat_name</a></li>";
-            }
-        }
-    }
+		if (mysqli_num_rows($category_result) > 0) {
+			while ($row = mysqli_fetch_array($category_result)) {
+				$cid = $row["cat_id"];
+				$cat_name = $row["cat_title"];
+				echo "<li><a href='#' class='category text-wrap' cid='$cid'>$cat_name</a></li>";
+			}
+		}
+	}
 
-    if (isset($_POST["brand"])) {
-        $brand_query = "SELECT * FROM brands";
-        $brand_result = mysqli_query($con, $brand_query) or die(mysqli_error($con));
+	if (isset($_POST["brand"])) {
+		$brand_query = "SELECT * FROM brands";
+		$brand_result = mysqli_query($con, $brand_query) or die(mysqli_error($con));
 
-        echo '<li class="active"><a href="#"><h4>Brands</h4></a></li>';
-        if (mysqli_num_rows($brand_result) > 0) {
-            while ($row = mysqli_fetch_array($brand_result)) {
-                $bid = $row["brand_id"];
-                $brand_name = $row["brand_title"];
-                echo "<li><a href='#' class='selectBrand text-wrap' bid='$bid'>$brand_name</a></li>";
-            }
-        }
-   }
+		echo '<li class="active"><a href="#"><h4>Brands</h4></a></li>';
+		if (mysqli_num_rows($brand_result) > 0) {
+			while ($row = mysqli_fetch_array($brand_result)) {
+				$bid = $row["brand_id"];
+				$brand_name = $row["brand_title"];
+				echo "<li><a href='#' class='selectBrand text-wrap' bid='$bid'>$brand_name</a></li>";
+			}
+		}
+	}
 
-    echo '
+	echo '
         </div>
     </div>';
 }
@@ -63,7 +64,7 @@ if (isset($_POST["category"]) || isset($_POST["brand"])) {
 
 
 if (isset($_POST["page"])) {
-	$sql = "SELECT * FROM products";
+	$sql = "SELECT * FROM products order by product_id desc";
 	$run_query = mysqli_query($con, $sql);
 	$count = mysqli_num_rows($run_query);
 	$pageno = ceil($count / 9);
@@ -81,7 +82,7 @@ if (isset($_POST["getProduct"])) {
 	} else {
 		$start = 0;
 	}
-	$product_query = "SELECT * FROM products "; //LIMIT $start,$limit
+	$product_query = "SELECT * FROM products order by product_id desc "; //LIMIT $start,$limit
 	$run_query = mysqli_query($con, $product_query);
 	if (mysqli_num_rows($run_query) > 0) {
 		while ($row = mysqli_fetch_array($run_query)) {
@@ -91,7 +92,7 @@ if (isset($_POST["getProduct"])) {
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$sellerid = $row['user_id'];
-			$qty =$row['product_qty'];
+			$qty = $row['product_qty'];
 			$pro_image = $row['product_image'];
 			echo '
 			
@@ -104,7 +105,7 @@ if (isset($_POST["getProduct"])) {
 								</div>
 							</div>
 							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
-							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: '. $qty . '</div>
+							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
 							<div class="panel-footer">
 								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
 								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
@@ -114,21 +115,24 @@ if (isset($_POST["getProduct"])) {
 					</div>
 				
 			';
-			
-
 		}
 	}
 }
 if (isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])) {
 	if (isset($_POST["get_seleted_Category"])) {
 		$id = $_POST["cat_id"];
-		$sql = "SELECT * FROM products WHERE product_cat = '$id'";
+		$sql = "SELECT * FROM products WHERE product_cat = '$id' order by product_id desc";
 	} else if (isset($_POST["selectBrand"])) {
 		$id = $_POST["brand_id"];
-		$sql = "SELECT * FROM products WHERE product_brand = '$id'";
+		$sql = "SELECT * FROM products WHERE product_brand = '$id' order by product_id desc";
 	} else {
+		if((isset($_POST["keyword"]))){
 		$keyword = $_POST["keyword"];
-		$sql = "SELECT * FROM products WHERE product_keywords LIKE '%$keyword%'";
+		$sql = "SELECT * FROM products WHERE product_desc LIKE '%$keyword%' order by product_id desc";//product_title
+		}
+		else{
+			$sql = "SELECT * FROM products order by product_id desc";//product_title
+		}
 	}
 
 	$run_query = mysqli_query($con, $sql);
@@ -138,7 +142,7 @@ if (isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || iss
 		$pro_brand = $row['product_brand'];
 		$userid = $row['user_id'];
 		$pro_title = $row['product_title'];
-		$qty =$row['product_qty'];
+		$qty = $row['product_qty'];
 		$pro_price = $row['product_price'];
 		$pro_image = $row['product_image'];
 
@@ -149,7 +153,7 @@ if (isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || iss
 								<div class='panel-body'>
 									<img src='product_images/$pro_image' class='img-fluid' alt=' . $pro_title . ' style='object-fit: cover; display: block;'/>
 								</div>
-								<div class='panel-footer' style='text-align: center;'> ". formatCurrency($pro_price) . " </div>
+								<div class='panel-footer' style='text-align: center;'> " . formatCurrency($pro_price) . " </div>
 								<div class='panel-footer' style='text-align: center;'>Available Qty in Stock: $qty </div>
 								<input type='hidden' value='$userid'>
 								<div class='panel-footer'>
@@ -218,8 +222,8 @@ if (isset($_POST["addToCart"])) {
 
 		$user_id = $_SESSION["uid"];
 
-		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id' and order_status!='Ordered'";// checking previous order
-		$sql2 = "SELECT * FROM products WHERE product_id = '$p_id' ";
+		$sql = "SELECT * FROM cart WHERE p_id = '$p_id' AND user_id = '$user_id' and order_status!='Ordered'"; // checking previous order
+		$sql2 = "SELECT * FROM products WHERE product_id = '$p_id' order by product_id desc ";
 		$run_query = mysqli_query($con, $sql);
 		$run_query2 = mysqli_query($con, $sql2);
 		$row = mysqli_fetch_assoc($run_query2);
@@ -233,30 +237,29 @@ if (isset($_POST["addToCart"])) {
 				</div>
 			"; //not in video
 		} else {
-			if ($row['product_qty']<1){
+			if ($row['product_qty'] < 1) {
 				echo "
 					<div class='alert alert-success'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 						<b>Product is out of stock..!</b>
 					</div>
 				";
-			}else {
+			} else {
 				$sql = "INSERT INTO `cart`
 			(`p_id`, `ip_add`, `user_id`, `seller_id`, `qty`) 
 			VALUES ('$p_id','','$user_id','$sellerid','1')";
-			if (mysqli_query($con, $sql)) {
-				echo "
+				if (mysqli_query($con, $sql)) {
+					echo "
 					<div class='alert alert-success'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 						<b>Product is Added..!</b>
 					</div>
 				";
+				}
 			}
-			}
-			
 		}
 	} else {
-	/*
+		/*
 		$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id = -1 and order_status!='Ordered'";
 		$query = mysqli_query($con, $sql);
 		if (mysqli_num_rows($query) > 0) {
@@ -436,11 +439,33 @@ if (isset($_POST["Common"])) {
 					'<input type="hidden" name="item_name_' . $x . '" value="' . $row["product_title"] . '">
 								  	 <input type="hidden" name="item_number_' . $x . '" value="' . $x . '">
 								     <input type="hidden" name="amount_' . $x . '" value="' . $row["product_price"] . '">
-								     <input type="hidden" name="quantity_' . $x . '" value="' . $row["qty"] . '">';
+								     <input type="hidden" name="quantity_' . $x . '" value="' . $row["qty"] . '">
+				
+									 
+									 ';
 				}
 
 				echo
 				'
+				<div class="form-group">
+				<label for="items">Delivery Method</label>
+				<div class="row">
+				<div class="col-sm-4">
+				<select id="delM" name="delM" class="form-control" onchange="toggleAddressInput()" required>
+					<option value="">---Select Delivery Method---</option>
+					<option value="In-Store Pickup">In-store Pickup</option>
+					<option value="Home Delivery">Home Delivery</option>
+					
+				</select>
+				</div> 
+				<div class="col-sm-4"> 
+				<div id="addressInput" style="display: none;">
+    <input type="text" id="address" name="address" class="form-control" placeholder="Enter your address">
+</div>
+				</div>
+				</div>
+			</div>
+
 <input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 
 <input style="float:right;margin-right:80px;" type="button" id="delivarypay" class=" btn btn-primary btn-lg" name="submit2" value="Payment at Delivery"> 
 								</form>';

@@ -12,7 +12,7 @@ $(document).ready(function () {
   var buyer_email =$('#buyer_email').val(); 
     var buyer_name =$('#buyer_name').val(); 
     var buyer_mobile =$('#buyer_mobile').val(); 
-
+    
    
            payWithMonnify(total_amount, buyer_name, buyer_email, buyer_mobile);
   //alert(total_amount+' '+buyer_email+' '+buyer_name+' '+buyer_mobile);
@@ -29,7 +29,8 @@ $(document).ready(function () {
     var trx_id = [];
     var p_status = [];
     var seller_id = [];
-    
+    var delM =$('#delM').val();
+    var address =$('#address').val(); 
     // Iterate over each row
     $(".row").each(function () {
         var $row = $(this);
@@ -51,7 +52,9 @@ $(document).ready(function () {
             qty: qty[i],
             trx_id: trx_id[i],
             p_status: p_status[i],
-            seller_id: seller_id[i]
+            seller_id: seller_id[i],
+            delM: delM, // Add delM to each object
+        				address: address // Add address to each object
         };
     });
 

@@ -86,7 +86,7 @@ require "config/constants.php";
 				<div class="panel panel-primary">
 					<div class="panel-heading">Cart Checkout</div>
 					<div class="panel-body">
-						<div class="row">
+					<!--	<div class="row">
 
 
 							<div class="col-md-2 col-xs-2"><b>Action</b></div>
@@ -94,8 +94,9 @@ require "config/constants.php";
 							<div class="col-md-2 col-xs-2"><b>Product Name</b></div>
 							<div class="col-md-2 col-xs-2"><b>Quantity</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Price</b></div>
-							<div class="col-md-2 col-xs-2"><b>Price in <?php echo CURRENCY; ?></b></div>
+							<div class="col-md-2 col-xs-2"><b>Price in <?php //echo CURRENCY; ?></b></div>
 						</div>
+	-->
 						<div id="cart_checkout"></div>
 						<!--<div class="row">
 							<div class="col-md-2">
@@ -167,7 +168,8 @@ require "config/constants.php";
 				var seller_Email  = [];
 				//var p_status = [];
 				var seller_id = [];
-
+				var delM = $("#delM").val(); // Get the value of the select element
+				var address = $("#address").val();
 				// Iterate over each row
 				$(".row").each(function() {
 					var $row = $(this);
@@ -191,7 +193,9 @@ require "config/constants.php";
 						trx_id: trx_id[i],
 						seller_Email: seller_Email[i],
 				//		p_status: p_status[i],
-						seller_id: seller_id[i]
+						seller_id: seller_id[i],
+						delM: delM, // Add delM to each object
+        				address: address // Add address to each object
 					};
 				});
 
@@ -225,5 +229,17 @@ require "config/constants.php";
 		});
 	}
 </script>
+<script>
+    function toggleAddressInput() {
+        var deliveryMethod = document.getElementById("delM").value;
+        var addressInput = document.getElementById("addressInput");
 
+        if (deliveryMethod === "Home Delivery") {
+            addressInput.style.display = "block";
+			alert("Home Delivery Charges is paid by the Buyer, and its subject to negotiation with the delivery man.");
+        } else {
+            addressInput.style.display = "none";
+        }
+    }
+</script>
 </html>

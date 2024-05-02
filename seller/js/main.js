@@ -36,7 +36,7 @@ $(document).ready(function(){
 					$(".message").html('<span class="text-success">' + resp.message + '</span>');
 					setTimeout(function() {
 						window.location.href = window.origin+"/seller/login.php";
-					}, 1000);
+					}, 2000);
 					// Hide the success message after 30 seconds
 		/*			setTimeout(function() {
 						$(".message").empty();

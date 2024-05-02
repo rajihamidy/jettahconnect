@@ -101,6 +101,36 @@ $(document).ready(function(){
 		})
 		}
 	})
+	$("#search").on('input', function(){
+		$("#get_product").html("<h3>Loading...</h3>");
+		var keyword = $(this).val(); // Use $(this) to refer to the input field
+		if(keyword != ""){
+			$.ajax({
+				url     :   "action.php",
+				method  :   "POST",
+				data    :   {search:1,keyword:keyword},
+				success :   function(data){ 
+					$("#get_product").html(data);
+					if($("body").width() < 480){
+						$("body").scrollTop(683);
+					}
+				}
+			});
+		}else{
+			$.ajax({
+				url     :   "action.php",
+				method  :   "POST",
+				data    :   {search:1},
+				success :   function(data){ 
+					$("#get_product").html(data);
+					if($("body").width() < 480){
+						$("body").scrollTop(683);
+					}
+				}
+			});
+		}
+	});
+	
 	//end
 
 
