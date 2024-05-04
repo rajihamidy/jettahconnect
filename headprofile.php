@@ -1,5 +1,5 @@
 
-	<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">	
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
@@ -14,8 +14,8 @@
         <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
             <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
-            <li style="width:300px;left:10px;top:10px;"><input type="text" placeholder="Product Name.." class="form-control" id="search"></li>
-            <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
+            <li style="width:300px;left:10px;top:10px;"><input type="text" placeholder="Type Product Name..." class="form-control" id="search2"></li>
+            <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn2">Search</button></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge">0</span></a>

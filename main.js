@@ -2,6 +2,7 @@ $(document).ready(function(){
 	cat();
 	brand();
 	product();
+	orders();
 	//cat() is a funtion fetching category record from database whenever page is load
 	function cat(){
 		$.ajax({
@@ -33,6 +34,17 @@ $(document).ready(function(){
 			data	:	{getProduct:1},
 			success	:	function(data){
 				$("#get_product").html(data);
+			}
+		})
+	}
+	//product() is a funtion fetching product record from database whenever page is load
+	function orders(){
+		$.ajax({
+			url	:	"search_orders.php",
+			method:	"POST",
+			data	:	{getOrders:1},
+			success	:	function(data){
+				$("#searchResults").html(data);
 			}
 		})
 	}
@@ -99,8 +111,23 @@ $(document).ready(function(){
 				}
 			}
 		})
+		}else{
+			$.ajax({
+				url     :   "action.php",
+				method  :   "POST",
+				data    :   {search:1},
+				success :   function(data){ 
+					$("#get_product").html(data);
+					if($("body").width() < 480){
+						$("body").scrollTop(683);
+					}
+				}
+			});
 		}
 	})
+
+
+
 	$("#search").on('input', function(){
 		$("#get_product").html("<h3>Loading...</h3>");
 		var keyword = $(this).val(); // Use $(this) to refer to the input field
@@ -132,8 +159,68 @@ $(document).ready(function(){
 	});
 	
 	//end
-
-
+	$('#search_btn2').click(function() {
+		$("#searchResults").html("<h3>Loading...</h3>");
+        var keyword = $('#search2').val();
+        if(keyword != ""){
+        $.ajax({
+            url: 'search_orders.php', 
+            method: 'POST',
+            data: { search:1,keyword: keyword },
+            success: function(response) {
+                // Update the search results area with the response from the server
+                $('#searchResults').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+	}else{
+		$.ajax({
+            url: 'search_orders.php', 
+            method: 'POST',
+            data: { search:1 },
+            success: function(response) {
+                // Update the search results area with the response from the server
+                $('#searchResults').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+	}
+    });
+	$("#search2").on('input', function(){
+		$("#searchResults").html("<h3>Loading...</h3>");
+        var keyword = $('#search2').val();
+        if(keyword != ""){
+        $.ajax({
+            url: 'search_orders.php', 
+            method: 'POST',
+            data: { search:1,keyword: keyword },
+            success: function(response) {
+                // Update the search results area with the response from the server
+                $('#searchResults').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+	}else{
+		$.ajax({
+            url: 'search_orders.php', 
+            method: 'POST',
+            data: { search:1 },
+            success: function(response) {
+                // Update the search results area with the response from the server
+                $('#searchResults').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+	}
+    });
 	/*
 		Here #login is login form id and this form is available in index.php page
 		from here input data is sent to login.php page
