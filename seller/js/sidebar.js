@@ -20,3 +20,8 @@ function closeNav() {
   $('#open1').show();
   $('#open1').css('top', '50px');
 }
+
+
+
+   
+

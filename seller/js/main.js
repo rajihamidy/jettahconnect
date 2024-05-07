@@ -65,7 +65,7 @@ $(document).ready(function(){
 				console.log(response);
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
-					$("#admin-register-form").trigger("reset");
+					$("#admin-login-form").trigger("reset");
 					//$(".message").html('<span class="text-success">'+resp.message+'</span>');
 					window.location.href = window.origin+"/jettahconnect/seller/index.php";
 					//window.location.href = "https://example.com/jettahconnect/seller/index.php";

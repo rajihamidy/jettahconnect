@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include "../datetime.php";
 
@@ -7,7 +7,7 @@ include "../datetime.php";
  */
 class Credentials
 {
-	
+
 	private $con;
 
 	function __construct()
@@ -18,56 +18,55 @@ class Credentials
 	}
 
 
-	public function createAdminAccount($shopname, $name, $email, $shopaddress,$states,$lga,$cat,$mobile, $password){
+	public function createAdminAccount($shopname, $name, $email, $shopaddress, $states, $lga, $cat, $mobile, $password)
+	{
 		$q0 = $this->con->query("SELECT mobile FROM admin WHERE mobile = '$mobile'");
 		$q = $this->con->query("SELECT email FROM admin WHERE email = '$email'");
 		if ($q->num_rows > 0) {
-			return ['status'=> 303, 'message'=> 'Email already exists'];
+			return ['status' => 303, 'message' => 'Email already exists'];
 		} else if ($q0->num_rows > 0) {
-			return ['status'=> 303, 'message'=> 'Contact Number already Exist.'];
-		}
-		else{
-			$password = password_hash($password, PASSWORD_BCRYPT, ["COST"=> 8]);
-			$regdate =date("d.m.Y H:i:s");
-			$expdate= date('d.m.Y H:i:s', strtotime('+180 days', time()));
+			return ['status' => 303, 'message' => 'Contact Number already Exist.'];
+		} else {
+			$password = password_hash($password, PASSWORD_BCRYPT, ["COST" => 8]);
+			$regdate = date("d.m.Y H:i:s");
+			$expdate = date('d.m.Y H:i:s', strtotime('+180 days', time()));
 			$q = $this->con->query("INSERT INTO `admin`(`shopname`,`name`, `email`, `shopaddress`,`states`,`lga`,`cat`, 
 			`mobile`, `password`, `is_active`,`regdate`,`expdate`,`acctstatus`,`wallet`) 
 			VALUES ('$shopname','$name','$email','$shopaddress','$states','$lga','$cat','$mobile','$password','0','$regdate','$expdate','Not Activated','0')");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Admin Created Successfully'];
+				return ['status' => 202, 'message' => 'Admin Created Successfully'];
 			}
-
 		}
 	}
 
 
 
-	
 
-	public function loginAdmin($email, $password){
+
+	public function loginAdmin($email, $password)
+	{
 
 
 		$q = $this->con->query("SELECT * FROM admin WHERE email = '$email' LIMIT 1");
 		if ($q->num_rows > 0) {
 			$row = $q->fetch_assoc();
-					// Set the timezone to your preferred timezone
-date_default_timezone_set("Africa/Lagos");
+			// Set the timezone to your preferred timezone
+			date_default_timezone_set("Africa/Lagos");
 
 
-// Get today's date
-$today = new DateTime();
+			// Get today's date
+			$today = new DateTime();
 
-// Example registration date (replace this with your actual registration date)
+			// Example registration date (replace this with your actual registration date)
 
-$expdate = new DateTime($row['expdate']);
+			$expdate = new DateTime($row['expdate']);
 
-// Calculate the difference in days
-$interval = $today->diff($expdate);
-$daysRemaining = $interval->format('%r%a');
-			if ($daysRemaining<=0){
-				return ['status'=> 305, 'message'=> 'Trial Expired'];
-			}
-			elseif (password_verify($password, $row['password'])) {
+			// Calculate the difference in days
+			$interval = $today->diff($expdate);
+			$daysRemaining = $interval->format('%r%a');
+			if ($daysRemaining <= 0) {
+				return ['status' => 305, 'message' => 'Trial Expired'];
+			} elseif (password_verify($password, $row['password'])) {
 				$_SESSION['shopname'] = $row['shopname'];
 				$_SESSION['admin_name'] = $row['name'];
 				$_SESSION['admin_id'] = $row['id'];
@@ -75,15 +74,14 @@ $daysRemaining = $interval->format('%r%a');
 				$_SESSION['regdate'] = $row['regdate'];
 				$_SESSION['expdate'] = $row['expdate'];
 				$_SESSION['acctstatus'] = $row['acctstatus'];
-				return ['status'=> 202, 'message'=> 'Login Successful'];
-			}else{
-				return ['status'=> 303, 'message'=> 'Login Fail'];
+				return ['status' => 202, 'message' => 'Login Successful'];
+			} else {
+				return ['status' => 303, 'message' => 'Login Fail'];
 			}
-		}else{
-			return ['status'=> 303, 'message'=> 'Account not created yet with this email.'];
+		} else {
+			return ['status' => 303, 'message' => 'Account not created yet with this email.'];
 		}
 	}
-
 }
 
 //$c = new Credentials();
@@ -96,55 +94,47 @@ if (isset($_POST['admin_register'])) {
 	$namex = "/^[a-zA-Z ]+$/";
 	$emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9]+(\.[a-z]{2,4})$/";
 	$number = "/^[0-9]+$/";
-	if (!empty($shopname)&& !empty($name) && !empty($email) && !empty($shopaddress)&& !empty($cat) && !empty($mobile) && !empty($password) && !empty($cpassword)) {
-		if (strlen($mobile)<> 11){
-			echo json_encode(['status'=> 303, 'message'=> 'Invalid Mobile Number, Mobile number must be 11 digits.']);
+	if (!empty($shopname) && !empty($name) && !empty($email) && !empty($shopaddress) && !empty($cat) && !empty($mobile) && !empty($password) && !empty($cpassword)) {
+		if (strlen($mobile) <> 11) {
+			echo json_encode(['status' => 303, 'message' => 'Invalid Mobile Number, Mobile number must be 11 digits.']);
 			exit();
-		}
-		else if ($password != $cpassword) {
-			echo json_encode(['status'=> 303, 'message'=> 'Password mismatch']);
+		} else if ($password != $cpassword) {
+			echo json_encode(['status' => 303, 'message' => 'Password mismatch']);
 			exit();
-			
-		} else if (!preg_match($namex,$name)){
-			echo json_encode(['status'=> 303, 'message'=> 'Invalid name format']);
+		} else if (!preg_match($namex, $name)) {
+			echo json_encode(['status' => 303, 'message' => 'Invalid name format']);
 			exit();
-		}
-		else if (!preg_match($number,$mobile)){
-			echo json_encode(['status'=> 303, 'message'=> 'Invalid mobile number format']);
+		} else if (!preg_match($number, $mobile)) {
+			echo json_encode(['status' => 303, 'message' => 'Invalid mobile number format']);
 			exit();
-		}
-		else if (!preg_match($emailValidation,$email)){
-			echo json_encode(['status'=> 303, 'message'=> 'Invalid email format']);
+		} else if (!preg_match($emailValidation, $email)) {
+			echo json_encode(['status' => 303, 'message' => 'Invalid email format']);
 			exit();
-		} else if ((strlen($password)<7)){
-			echo json_encode(['status'=> 303, 'message'=> 'Password length is minimum of 7 characters.']);
+		} else if ((strlen($password) < 7)) {
+			echo json_encode(['status' => 303, 'message' => 'Password length is minimum of 7 characters.']);
 			exit();
-		}
-		else{
+		} else {
 			$c = new Credentials();
-			$result = $c->createAdminAccount($shopname,$name, $email, $shopaddress,$states,$lga,$cat, $mobile, $password);
+			$result = $c->createAdminAccount($shopname, $name, $email, $shopaddress, $states, $lga, $cat, $mobile, $password);
 			echo json_encode($result);
 			exit();
 		}
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty fields']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Fill Empty fields to register.']);
 		exit();
 	}
-}else{
-	echo json_encode(['status'=> 303, 'message'=> 'No posted Values']);
-			exit();
-}
-
-if (isset($_POST['admin_login'])) {
+} elseif (isset($_POST['admin_login'])) {
 	extract($_POST);
 	if (!empty($email) && !empty($password)) {
 		$c = new Credentials();
 		$result = $c->loginAdmin($email, $password);
 		echo json_encode($result);
 		exit();
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty fields']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Fill Empty fields to login.']);
 		exit();
 	}
+} else {
+	echo json_encode(['status' => 303, 'message' => 'No posted Values to login.']);
+	exit();
 }
-
