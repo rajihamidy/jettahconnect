@@ -12,6 +12,7 @@ if (!isset($_SESSION["uid"])) {
 	<meta charset="UTF-8">
 	<title>Jettah Connect</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="fontawesome6.5.2/css/all.css">
 	<script src="js/jquery2.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/sidebar.css">

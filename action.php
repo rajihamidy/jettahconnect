@@ -345,6 +345,14 @@ if (isset($_POST["Common"])) {
 			exit();
 		}
 	}
+
+
+
+
+
+
+
+
 	if (isset($_POST["checkOutDetails"])) {
 		error_reporting(0);
 		if (mysqli_num_rows($query) > 0) {
@@ -519,5 +527,100 @@ if (isset($_POST["updateCartItem"])) {
 	}
 }
 
+if (isset($_POST["getSeller"])) {
+	$sqlSeller = "SELECT DISTINCT shopname, id FROM admin WHERE shopname != '' ORDER BY shopname ASC";
+	$exec = mysqli_query($con, $sqlSeller);
+	if (mysqli_num_rows($exec) > 0) {
+		$n = 0;
+		$idx="0";
+		$shopnamex="All Products";
+		echo'<table class="table table-striped">';
+		echo '<tr>
+        <td>' . $n . '</td>
+        <td>
+            <a href="#" onclick="postShopId(' . $idx . '); return false;">' . $shopnamex . '</a>
+        </td>
+    </tr>';
+		while ($rows = mysqli_fetch_array($exec)) {
+			$n++;
+			$shopname = $rows["shopname"];
+			$id = $rows["id"];
+
+			echo '<tr>
+        <td>' . $n . '</td>
+        <td>
+            <a href="#" onclick="postShopId(' . $id . '); return false;">' . $shopname . '</a>
+        </td>
+    </tr>';
+
+		}
+		echo'</table>';
+		exit();
+	} 
+	
+	else {
+		echo '
+	No record found.			
+	';
+	}
+} else {
+	//echo '	Nothing Posted.				';
+}
+
+
+
+
+
+if (isset($_POST["getProducts"])) {
+	
+	if (isset($_POST["id"])) {
+		$id=$_POST["id"];
+		if ($id=="0"){
+			$product_query = "SELECT * FROM products order by product_id desc "; //LIMIT $start,$limit
+		}else{
+			$product_query = "SELECT * FROM products WHERE user_id = '" . $id . "' ORDER BY product_id DESC"; //LIMIT $start,$limit
+		}
+		
+	} else {
+		$product_query = "SELECT * FROM products order by product_id desc "; //LIMIT $start,$limit
+	}
+	
+	$run_query = mysqli_query($con, $product_query);
+	if (mysqli_num_rows($run_query) > 0) {
+		while ($row = mysqli_fetch_array($run_query)) {
+			$pro_id    = $row['product_id'];
+			$pro_cat   = $row['product_cat'];
+			$pro_brand = $row['product_brand'];
+			$pro_title = $row['product_title'];
+			$pro_price = $row['product_price'];
+			$sellerid = $row['user_id'];
+			$qty = $row['product_qty'];
+			$pro_image = $row['product_image'];
+			echo '
+			
+					<div class="col-sm-6 col-md-4 col-lg-3 column">
+						<div class="panel panel-info">
+							<div class="panel-heading text-nowrap">' . $pro_title . '</div>
+							<div class="panel-body">
+								<div class="img-container">
+									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
+								</div>
+							</div>
+							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
+							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
+							<div class="panel-footer">
+								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
+								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				
+			';
+		}
+	}else{
+		echo'<div class="text-danger text-black-50">No Product Uploaded by this Seller, Check another Seller. </div>';
+	}
+}
 
 ?>

@@ -100,7 +100,20 @@ if (isset($_SESSION["uid"])) {
 											<label for="email">Email</label>
 											<input type="email" class="form-control" name="email" id="email" required />
 											<label for="email">Password</label>
-											<input type="password" class="form-control" name="password" id="password" required />
+											<div class="input-group">
+												
+
+													<input type="password" class="form-control" name="password" id="password" required />
+
+
+													
+														<button class="btn btn-outline-secondary" type="button" id="togglePassword">
+															<i class="glyphicon glyphicon-eye-open" id="eye"></i>
+														</button>
+													
+
+												
+											</div>
 											<p><br /></p>
 											<input type="submit" class="btn btn-warning" value="Login">
 											<a href="customer_registration.php?register=1" style="color:white; text-decoration:none;">Create Account Now</a>
@@ -159,5 +172,20 @@ if (isset($_SESSION["uid"])) {
 	</div>
 </body>
 <script type="text/javascript" src="./js/sidebar.js"></script>
+<script>
+	const togglePassword = document.querySelector('#togglePassword');
+	const password = document.querySelector('#password');
+	const eye = document.querySelector('#eye');
+
+	togglePassword.addEventListener('click', function(e) {
+		// toggle the type attribute
+		const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+		password.setAttribute('type', type);
+
+		// toggle the eye icon
+		eye.classList.toggle('glyphicon-eye-open');
+		eye.classList.toggle('glyphicon-eye-close');
+	});
+</script>
 
 </html>

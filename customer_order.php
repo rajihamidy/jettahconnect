@@ -27,7 +27,7 @@ if (!isset($_SESSION["uid"])) {
 
 <body>
 
-	<?php require 'headprofile.php'; ?>
+	<?php require 'headorders.php'; ?>
 	<p><br /></p>
 	<p><br /></p>
 	<p><br /></p>

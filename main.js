@@ -37,7 +37,7 @@ $(document).ready(function(){
 			}
 		})
 	}
-	//product() is a funtion fetching product record from database whenever page is load
+	//orders 
 	function orders(){
 		$.ajax({
 			url	:	"search_orders.php",
@@ -329,7 +329,9 @@ $("body").delegate("#contacts","click",function(event){
 	//Count user cart items funtion end
 
 	//Fetch Cart item from Database to dropdown menu
+	getsellers();
 	getCartItem();
+	
 	function getCartItem(){
 		$.ajax({
 			url : "action.php",
@@ -340,7 +342,18 @@ $("body").delegate("#contacts","click",function(event){
 			}
 		})
 	}
+	function getsellers(){
+		$.ajax({
+			url : "action.php",
+			method : "POST",
+			data : {Seller:1,getSeller:1},
+			success : function(data){
+				$("#avail_seller").html(data);
+			}
+		})
+	}
 
+	
 	//Fetch Cart item from Database to dropdown menu
 
 	/*
@@ -488,3 +501,17 @@ $("body").delegate("#contacts","click",function(event){
 	})
 
 })
+
+function postShopId(id) {
+	$.ajax({
+		url: 'action.php',
+		method: 'POST',
+		data: { getProducts:1, id: id },
+		success	:	function(data){
+			$("#get_product").html(data);
+		},
+		error: function(xhr, status, error) {
+			// Handle errors
+		}
+	});
+}
