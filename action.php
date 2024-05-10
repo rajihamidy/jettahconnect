@@ -21,7 +21,7 @@ if (isset($_POST["category"]) || isset($_POST["brand"])) {
 
 	echo '
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        
         <div class="nav nav-pills nav-stacked">
     ';
 
