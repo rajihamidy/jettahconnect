@@ -536,7 +536,7 @@ if (isset($_POST["getSeller"])) {
 		$shopnamex="All Products";
 		echo'<table class="table table-striped">';
 		echo '<tr>
-        <td>' . $n . '</td>
+        
         <td>
             <a href="#" onclick="postShopId(' . $idx . '); return false;">' . $shopnamex . '</a>
         </td>
@@ -547,7 +547,7 @@ if (isset($_POST["getSeller"])) {
 			$id = $rows["id"];
 
 			echo '<tr>
-        <td>' . $n . '</td>
+        
         <td>
             <a href="#" onclick="postShopId(' . $id . '); return false;">' . $shopname . '</a>
         </td>

@@ -42,15 +42,13 @@ if (!isset($_SESSION["uid"])) {
 
 <body>
 	<?php require 'head.php'; ?>
-	<p><br /></p>
-	<p><br /></p>
-	<p><br /></p>
+	
 	<div class="container">
 		<div class="row">
 			<!--1 first part side bar	 -->
 			<div class="col-md-2 col-xs-6">
 				<div id="main">
-					<button id="open1" class="openbtn" onclick="openNav()">☰ Menu</button>
+					
 				</div>
 				<div id="get_category" style="display:none"></div>
 				<div id="get_brand" style="display:none"></div>

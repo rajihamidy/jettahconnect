@@ -125,13 +125,13 @@ if (isset($_SESSION["uid"])) {
                         <form onsubmit="return false" id="login" class="row g-3">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" />
+                                <input type="email" class="form-control" name="email" id="email" required />
                             </div>
                             <label for="email">Password</label>
 
 
                             <div class="form-group">
-                                <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
                                 <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
                             </div>
 

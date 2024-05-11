@@ -1,87 +1,107 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
-                <span class="sr-only"> navigation toggle</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand">Jettah Connect</a>
+        <div class=" row">
+            <div class="col-md-8 ">
+
+                <a href="index.php" class="navbar-brand">Jettah Connect</a>
+            </div>
+            <div class="col-md-2 ">
+                <a href="cart.php" class="navbar-brand"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge">0</span></a>
+            </div>
+            <div class="col-md-2">
+
+                <a href="logout.php" class="navbar-brand"><span class="glyphicon glyphicon-log-out "></span>Logout </a>
+
+
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
-                <li style="width:300px;left:10px;top:10px;"><input type="text" placeholder="Product Name.." class="form-control" id="search"></li>
-                <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
-            </ul>
 
-<!--
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-            </ul>
--->
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="fas fa-store"></span> Available Sellers </a>
-                    <div class="dropdown-menu" style="width:300px;">
-                        <div class="panel panel-success text-primary"><b> Available Sellers' List</b>
-                            <div class="panel-heading">
 
-                                <div class="row">
-                                    <div class="col-md-2 ">SN</div>
-                                    <div class="col-md-10 ">Sellers</div>
 
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div id="avail_seller" class="">
 
-                                </div>
-                            </div>
-                            <div class="panel-footer"></div>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge">0</span></a>
-                    <div class="dropdown-menu" style="width:400px;">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-md-3 col-xs-3">SN</div>
-                                    <div class="col-md-3 col-xs-3">Product Image</div>
-                                    <div class="col-md-3 col-xs-3">Product Name</div>
-                                    <div class="col-md-3 col-xs-3">Price in <?php echo CURRENCY; ?></div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div id="cart_product">
 
-                                </div>
-                            </div>
-                            <div class="panel-footer"></div>
-                        </div>
+    </div>
 
-                    </div>
-                </li>
-                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <span class="glyphicon glyphicon-user"></span> <?php echo "Hi, " . $_SESSION["name"]; ?> <b class="caret"></b>
-</a>
+</div>
+<div style="margin-top: 55px;">
 
-                    <ul class="dropdown-menu">
-                        <li><a href="cart.php" style="text-decoration:none; color:green;"><span class="glyphicon glyphicon-shopping-cart"> Cart</a></li>
-                        <li class="divider"></li>
-                        <li><a href="customer_order.php" style="text-decoration:none; color:green;">Orders</a></li>
-                        <li class="divider"></li>
+</div>
 
-                        <!--   <li><a href="logout.php" style="text-decoration:none; color:green;">Logout</a></li> -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="navbar navbar-grey">
+
+        <div class="dropdown row px-4">
+            <div class="col-md-2  ">
+                <button type="button" class="btn btn-secondary btn-block btn-lg dropdown-toggle " data-toggle="dropdown">
+                    <?php echo "Hi, " . $_SESSION["name"]; ?>
+                </button>
+                <ul class="nav navbar-nav ">
+                    <li class="divider"></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2 "> <!-- Adjust the column width based on your layout -->
+                <button type="button" class="btn btn-primary btn-block btn-lg dropdown-toggle " data-toggle="dropdown">
+                    ☰ Menu
+                </button>
+                <div class="dropdown-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
+                        <li><a href="customer_order.php"><span class="glyphicon glyphicon-shopping-cart"></span>Orders</a></li>
                     </ul>
-                </li>
-                <li><a href="logout.php" ><span class="glyphicon glyphicon-log-out"></span>Logout </a>
-                    
-                </li>
-            </ul>
-           
+                </div>
+            </div>
+            <div class="col-md-3"> <!-- Adjust the column width based on your layout -->
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search Product" id="search">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="search_btn"><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div>
+            <div class="col-md-2"> <!-- Adjust the column width based on your layout -->
+
+                <button type="button" onclick="openNav()" class="btn btn-primary btn-block btn-lg dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>Products & Brands
+                </button>
+
+                <div class="dropdown-menu ">
+                    <div id="get_category" style="display:none"></div>
+                    <div id="get_brand" style="display:none"></div>
+                </div>
+
+            </div>
+            <ul class="nav navbar-nav ">
+                    <li class="divider"></li>
+                </ul>
+            <div class="col-md-3">
+               
+                    <button type="button" class="btn btn-primary btn-block  btn-lg dropdown-toggle" data-toggle="dropdown"><span class="fas fa-store "></span> Shops</button>
+
+                    <div class="dropdown-menu">
+
+                        <div class="panel-body">
+                            <div id="avail_seller" class="">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+            </div>
+            
+
+
+            
+
         </div>
     </div>
-</div>
+    </div>
+
+</header>
+<style>
+    .navbar-grey {
+        background-color: grey;
+    }
+</style>
