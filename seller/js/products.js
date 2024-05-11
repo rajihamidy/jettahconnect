@@ -15,12 +15,12 @@ $(document).ready(function(){
 					var productHTML = '';
 
 					productList = resp.message.products;
-
+sn=0;
 					if (productList) {
 						$.each(resp.message.products, function(index, value){
-
+sn++;
 							productHTML += '<tr>'+
-								              '<td>'+''+'</td>'+
+								              '<td>'+sn+'</td>'+
 								              '<td>'+ value.product_title +'</td>'+
 								              '<td><img width="60" height="60" src="../product_images/'+value.product_image+'"></td>'+
 								              '<td>'+ value.product_price +'</td>'+

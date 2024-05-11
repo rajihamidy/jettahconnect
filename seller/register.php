@@ -1,7 +1,25 @@
 <?php include "./templates/top.php"; ?>
 
 <?php include "./templates/navbar.php"; ?>
+<style>
+        .form-group {
+            position: relative;
+        }
 
+        .field-icon {
+            position: absolute;
+            right: 10px;
+            /* Adjust this value according to your preference */
+            top: 70%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .form-control {
+            padding-right: 30px;
+            /* Adjust this value according to the icon's size */
+        }
+    </style>
 <?php include "get_states.php"; ?>
 <div class="container">
 	<div class="row justify-content-center" style="margin:100px 0;">
@@ -67,8 +85,9 @@
 					<input type="text" id="mobile" name="mobile" class="form-control" placeholder="Contact Number" >
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" class="form-control" name="password" id="password" placeholder="Password">
+				    <label for="password">Password</label>
+					<input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
+					<span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
 				</div>
 				<div class="form-group">
 					<label for="cpassword">Confirm Password</label>
@@ -106,4 +125,17 @@
                 });
             });
 	});
+</script>
+<script>
+    (function($) {
+        $(".password").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    })(jQuery);
 </script>

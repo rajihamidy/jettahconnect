@@ -17,28 +17,7 @@ include "./templates/top.php";
     include "datetime.php";
     ?>
 
-    <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-<!--
-    <h2>
-      <center>Seller's Details</center>
-    </h2>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="admin_list">
 
-        </tbody>
-      </table>
-    </div>
--->
     </main>
   </div>
   </div>

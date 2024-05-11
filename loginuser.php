@@ -96,7 +96,7 @@ if (isset($_SESSION["uid"])) {
                 <div class="col-md-2 ">
                     <li><a href="index.php" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 </div>
-                
+
             </div>
 
 
@@ -109,16 +109,16 @@ if (isset($_SESSION["uid"])) {
     <div style="margin-top: 55px;">
 
     </div>
- 
+
     </header>
 
     <div class="container">
-    <div class="card mb-3">
-    <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
-                  </div>
-            <div class="card-body" >
+        <div class="card mb-3">
+            <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                <p class="text-center small">Enter your username & password to login</p>
+            </div>
+            <div class="card-body">
                 <div class="row centered-form">
 
                     <div class="panel-heading">
@@ -147,11 +147,11 @@ if (isset($_SESSION["uid"])) {
 
                 </div>
             </div>
-            </div>
-
         </div>
 
-        <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
+    </div>
+
+    <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
 </body>
 <script type="text/javascript" src="./js/sidebar.js"></script>
 <script>

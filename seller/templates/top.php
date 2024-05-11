@@ -16,6 +16,9 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="css/sidebar.css" >
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="./css/dashboard.css" rel="stylesheet">
@@ -23,5 +26,5 @@
 
  <body>
  <div id="main">
-  <br><br>
- <button id='open1' class="openbtn" onclick="openNav()">☰ Menu</button> 
+ 
+ <!--<button id='open1' class="openbtn" onclick="openNav()">☰ Menu</button> -->

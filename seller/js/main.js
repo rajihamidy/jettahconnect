@@ -72,6 +72,9 @@ $(document).ready(function(){
 
 				}else if(resp.status == 303){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
+					setTimeout(function() {
+						$(".message").empty(); // Remove the message content
+					}, 3000);
 				}else if(resp.status == 305){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
 					setTimeout(function() {
