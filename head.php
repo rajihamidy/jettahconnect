@@ -49,6 +49,7 @@
                         <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Product</a></li>
                         <li><a href="customer_order.php"><span class="glyphicon glyphicon-shopping-cart"></span>Orders</a></li>
+                        <li><a href="customer_complaints.php"><span class="glyphicon glyphicon-exclamation-sign"></span>Submit Complaints</a></li>
                     </ul>
                 </div>
             </div>

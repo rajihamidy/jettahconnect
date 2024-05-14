@@ -58,7 +58,9 @@ if (isset($_SESSION["uid"])) {
             }
         }
     </style>
+     
     <style>
+        /* Style to place the eye on the password button */
         .form-group {
             position: relative;
         }

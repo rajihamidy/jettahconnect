@@ -34,7 +34,7 @@
 						<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 						<li><a href="seller/index.php"><span class="glyphicon glyphicon-user"></span> Seller Account</a></li>
 						<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Products</a></li>
-						<li><a href="loginuser.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li><a href="loginuser.php"><span class="glyphicon glyphicon-log-in"></span>Buyer's Login</a></li>
 						<li><a href="customer_registration.php?register=1"><span class="glyphicon glyphicon-user"></span> Register</a></li>
 					</ul>
 				</div>
