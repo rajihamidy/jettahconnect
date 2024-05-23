@@ -476,7 +476,7 @@ if (isset($_POST["Common"])) {
 			<div class="col-sm-4">
 			</div>
 			<div class="col-sm-4">
-<div id="message"> </div>
+<div id="message" > </div>
 </div>
 </div>
 <input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 

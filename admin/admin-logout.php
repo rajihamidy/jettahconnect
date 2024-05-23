@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["admin_id"])) {
+if (isset($_SESSION["masteradmin_id"])) {
 	session_destroy();
 	header("location:login.php");
 }else{

@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include 'checks.php';
+?>
 <?php include_once("./templates/top.php"); ?>
 <?php include_once("./templates/navbar.php"); ?>
 <div class="container-fluid">
@@ -7,36 +9,40 @@
     <?php include "./templates/sidebar.php"; ?>
 
       <div class="row">
-      	<div class="col-10">
-      		<h2>Customers Orders</h2>
+      	<div class="col-5">
+      		<h2>Customer Complaints</h2>
+      	</div>
+		<div class="col-4">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+      	</div>
+        <div class="col-3">
+        <button class="btn btn-primary btn-block" id="searchButton">Search</button>
       	</div>
       </div>
       
       <div class="table-responsive">
-	  <div class="row mb-3">
-        <div class="col-md-3 offset-md-7">
-          <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
-        </div>
-        <div class="col-md-2">
-          <button class="btn btn-primary btn-block" id="searchButton">Search</button>
-        </div>
-      </div>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              
-              <th>Order Id</th>
-              <th>Product Id</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Trx Id</th>
-              <th>Payment Status</th>
-			  <th>Date Ordered</th>
-			  <th>Seller Id</th>
+              <th>#</th>
+			  <th>User Id</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Complaints</th>
+              <th>Uploaded file</th>
+              <th>Submission Date</th>
             </tr>
           </thead>
-          <tbody id="customer_order_list">
-           
+          <tbody id="complaints_list">
+            <!-- <tr>
+              <td>1</td>
+              <td>ABC</td>
+              <td>FDGR.JPG</td>
+              <td>122</td>
+              <td>eLECTRONCS</td>
+              <td>aPPLE</td>
+              <td><a class="btn btn-sm btn-info"></a><a class="btn btn-sm btn-danger">Delete</a></td>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -139,7 +145,7 @@
 
     // Function to filter table rows
     function filterTable(searchTerm) {
-      $('#customer_order_list tr').each(function() {
+      $('#complaints_list tr').each(function() {
         var rowText = $(this).text().toLowerCase();
         if (rowText.indexOf(searchTerm) === -1) {
           $(this).hide();

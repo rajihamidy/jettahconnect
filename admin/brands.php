@@ -8,14 +8,20 @@
 
 
       <div class="row">
-      	<div class="col-10">
-      		<h2>Manage Brand</h2>
+      	<div class="col-3">
+      		<h4>Brands</h4>
+      	</div>
+        <div class="col-4">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+      	</div>
+        <div class="col-3">
+        <button class="btn btn-primary btn-block" id="searchButton">Search</button>
       	</div>
       	<div class="col-2">
       		<a href="#" data-toggle="modal" data-target="#add_brand_modal" class="btn btn-warning btn-sm">Add Brand</a>
       	</div>
       </div>
-      
+      <br>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -114,3 +120,31 @@
 
 
 <script type="text/javascript" src="./js/brands.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#searchInput').on('keyup', function() {
+      var searchTerm = $(this).val().toLowerCase();
+      filterTable(searchTerm);
+    });
+
+    $('#searchButton').on('click', function() {
+      var searchTerm = $('#searchInput').val().toLowerCase();
+      filterTable(searchTerm);
+    });
+
+    // Function to filter table rows
+    function filterTable(searchTerm) {
+      $('#brand_list tr').each(function() {
+        var rowText = $(this).text().toLowerCase();
+        if (rowText.indexOf(searchTerm) === -1) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+    }
+  });
+</script>

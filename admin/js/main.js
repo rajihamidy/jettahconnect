@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$(".register-btn").on("click", function(){
 
 		$.ajax({
-			url : '../seller/classes/Credentials.php',
+			url : '../admin/classes/Credentials.php',
 			method : "POST",
 			data : $("#admin-register-form").serialize(),
 			success : function(response){
@@ -15,6 +15,11 @@ $(document).ready(function(){
 				}else if(resp.status == 303){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
 				}
+			},
+			error: function(xhr, status, error) {
+				console.error("Error Occured: " + status + ", " + error);
+				// Handle the error here, for example:
+				$(".message").html('<span class="text-danger">Error Occured: ' + status + ', ' + error + '</span>');
 			}
 		});
 
@@ -23,7 +28,7 @@ $(document).ready(function(){
 	$(".login-btn").on("click", function(){
 
 		$.ajax({
-			url : '../seller/classes/Credentials.php',
+			url : '../admin/classes/Credentials.php',
 			method : "POST",
 			data : $("#admin-login-form").serialize(),
 			success : function(response){
@@ -32,10 +37,15 @@ $(document).ready(function(){
 				if (resp.status == 202) {
 					$("#admin-register-form").trigger("reset");
 					//$(".message").html('<span class="text-success">'+resp.message+'</span>');
-					window.location.href = window.origin+"/jettahconnect/seller/index.php";
+					window.location.href = window.origin+"/jettahconnect/admin/index.php";
 				}else if(resp.status == 303){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
 				}
+			},
+			error: function(xhr, status, error) {
+				console.error("Error Occured: " + status + ", " + error);
+				// Handle the error here, for example:
+				$(".message").html('<span class="text-danger">Error Occured: ' + status + ', ' + error + '</span>');
 			}
 		});
 

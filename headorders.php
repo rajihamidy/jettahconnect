@@ -1,4 +1,10 @@
-
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">	
         <div class="navbar-header">

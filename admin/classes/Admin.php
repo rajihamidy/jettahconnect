@@ -16,7 +16,7 @@ class Admin
 	}
 
 	public function getAdminList(){
-		$query = $this->con->query("SELECT `id`, `name`, `email`, `is_active` FROM `admin` WHERE 1");
+		$query = $this->con->query("SELECT * FROM `admin` WHERE 1");
 		$ar = [];
 		if ($query->num_rows > 0) {
 			while ($row = $query->fetch_assoc()) {

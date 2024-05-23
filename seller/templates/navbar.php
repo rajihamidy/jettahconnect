@@ -42,6 +42,10 @@
  							<span data-feather="layers"></span>
  							Categories
  						</a>
+						 <a class="dropdown-item <?php echo ($page == 'seller_complaints.php') ? 'active' : ''; ?>" href="seller_complaints.php">
+ 							<span data-feather="alert-triangle"></span>
+ 							Submit Complaints
+ 						</a>
  						<!--  <a class="dropdown-item <?php //echo ($page == 'customers.php') ? 'active' : ''; 
 														?>" href="customers.php">
               <span data-feather="users"></span>

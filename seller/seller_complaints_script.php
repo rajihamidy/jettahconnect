@@ -5,11 +5,12 @@ date_default_timezone_set('Africa/Lagos');
 // Get the current date and time
 $currentDateTime = date('d-m-Y h:i A');
 
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 // Database connection (replace with your actual database connection code)
-require "db.php";
+require_once './classes/Database.php';
 // Check if all POST values are set
 if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['complaints'])) {
     // Handle file upload
@@ -43,7 +44,7 @@ if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['complaints
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $complaints = $_POST['complaints'];
-    $userid = $_SESSION['uid'];
+    $userid = $_SESSION['admin_id'];
 
     if (isset($_FILES['file'])) {
         $allowTypes = array('pdf', 'jpeg', 'jpg');
@@ -52,8 +53,8 @@ if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['complaints
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                 // Insert file details into database
 
-                $sql = "INSERT INTO customer_complaints (user_id,email, phone, complaints, file_name, submDate) VALUES ('$userid','$email', '$phone', '$complaints', '$fileName', '$currentDateTime')";
-                if ($con->query($sql) === TRUE) {
+                $sql = "INSERT INTO seller_complaints (user_id,email, phone, complaints, file_name, submDate) VALUES ('$userid','$email', '$phone', '$complaints', '$fileName', '$currentDateTime')";
+                if ($conn->query($sql) === TRUE) {
                     echo "<div class='text-success'>Complaints submitted successfully with file uploads.</div>";
                 } else {
                     echo "<div class='text-danger'>Error: " . $sql . "<br>" . $con->error . "</div>";
@@ -68,8 +69,8 @@ if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['complaints
         $allowTypes = array('pdf', 'jpeg', 'jpg');
 
         // Insert file details into database
-        $sql = "INSERT INTO customer_complaints (user_id,email, phone, complaints, submDate) VALUES ('$userid','$email', '$phone', '$complaints', '$currentDateTime')";
-        if ($con->query($sql) === TRUE) {
+        $sql = "INSERT INTO seller_complaints (user_id,email, phone, complaints, submDate) VALUES ('$userid','$email', '$phone', '$complaints', '$currentDateTime')";
+        if ($conn->query($sql) === TRUE) {
             echo "<div class='text-success'>Complaints submitted successfully without files.</div>";
         } else {
             echo "<div class='text-danger'>Error: " . $sql . "<br>" . $con->error . "</div>";
@@ -80,4 +81,4 @@ if (isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['complaints
     echo "<div class='text-danger'>Incomplete form submission. Please fill in all required fields.</div>";
 }
 
-$con->close();
+$conn->close();

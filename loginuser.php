@@ -85,7 +85,13 @@ if (isset($_SESSION["uid"])) {
 
 <body>
 
-
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">

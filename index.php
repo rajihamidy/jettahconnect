@@ -41,7 +41,13 @@ if (isset($_SESSION["uid"])) {
 </head>
 
 <body>
-
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
 
 	<div class="wait overlay">
 		<div class="loader"></div>
@@ -80,7 +86,7 @@ if (isset($_SESSION["uid"])) {
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
+					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>

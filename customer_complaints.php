@@ -3,8 +3,11 @@ require "config/constants.php";
 session_start();
 if (!isset($_SESSION["uid"])) {
     header("location:index.php");
+}else{
+    $email=$_SESSION['buyer_email'];
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -42,6 +45,13 @@ if (!isset($_SESSION["uid"])) {
 </head>
 
 <body>
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
     <?php require 'head.php'; ?>
 
     <div class="container">
@@ -70,15 +80,16 @@ if (!isset($_SESSION["uid"])) {
                             <form  enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" name="email" >
+                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $email ?>"  readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone Number (11 characters):</label>
-                                    <input type="text" max="11" class="form-control" id="phone" name="phone" pattern=".{11}" title="Exactly 11 characters" >
+                                    <input type="text"  class="form-control" id="phone" name="phone" pattern=".{11}" maxlength="11" title="Exactly 11 characters" >
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label for="complaints">Complaints:</label>
-                                    <textarea class="form-control" id="complaints" name="complaints" rows="5" ></textarea>
+                                    <textarea class="form-control" id="complaints" placeholder="Narrate your complaints" name="complaints" rows="5" ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="file">Upload Image (PDF or JPEG):</label>
@@ -157,7 +168,9 @@ if (!isset($_SESSION["uid"])) {
                 $("#msg").html(response);
                 setTimeout(() => {
                     $("#msg").html("");
+                    $('#complaint form')[0].reset(); // Reset the form
                 }, 3000);
+                
                 console.log(response);
                 // You can perform further actions here, such as displaying a success message
             },

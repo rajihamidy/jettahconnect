@@ -15,7 +15,7 @@
           <li class="nav-item">
             <a class="nav-link <?php echo ($page == '' || $page == 'index.php') ? 'active' : ''; ?>" href="index.php">
               <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
+              All Sellers <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
@@ -48,6 +48,27 @@
               Customers
             </a>
           </li>
+          <li class="nav-divider"></li>
+
+          <li class="nav-item">
+            <a class="nav-link <?php echo ($page == 'customers_complaints.php') ? 'active' : ''; ?>" href="customers_complaints.php">
+              <span data-feather="alert-circle"></span>
+              Seller's Complaints
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?php echo ($page == 'seller_complaints.php') ? 'active' : ''; ?>" href="seller_complaints.php">
+              <span data-feather="alert-circle"></span>
+              Buyer's Complaints
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li class="nav-item">
+            <a class="nav-link <?php echo ($page == 'customers.php') ? 'active' : ''; ?>" href="customers.php">
+              <span data-feather="users"></span>
+              Add Admin
+            </a>
+          </li>
         </ul>
 
        
@@ -57,8 +78,18 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 ">Hello, <?php echo $_SESSION["admin_name"]; ?></h1>
+        <h1 class="h2 ">Hello, <?php echo $_SESSION["masteradmin_name"]; ?></h1>
         <div class="btn-toolbar mb-2 mb-md-0">
 
         </div>
       </div>
+
+
+
+      <style>
+        .nav-divider {
+  border-top: 1px solid #ddd;
+  margin: 0.5rem 0;
+}
+
+      </style>

@@ -22,7 +22,7 @@ require "config/constants.php";
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
 
-<style>
+	<style>
 		/* CSS for scrollbar */
 		.container {
 			overflow-x: auto;
@@ -45,6 +45,13 @@ require "config/constants.php";
 </head>
 
 <body>
+	<script>
+		document.addEventListener("DOMContentLoaded", (event) => {
+			document.addEventListener("contextmenu", (event) => {
+				event.preventDefault();
+			});
+		});
+	</script>
 	<div class="wait overlay">
 		<div class="loader"></div>
 	</div>
@@ -86,7 +93,7 @@ require "config/constants.php";
 				<div class="panel panel-primary">
 					<div class="panel-heading">Cart Checkout</div>
 					<div class="panel-body">
-					<!--	<div class="row">
+						<!--	<div class="row">
 
 
 							<div class="col-md-2 col-xs-2"><b>Action</b></div>
@@ -94,11 +101,12 @@ require "config/constants.php";
 							<div class="col-md-2 col-xs-2"><b>Product Name</b></div>
 							<div class="col-md-2 col-xs-2"><b>Quantity</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Price</b></div>
-							<div class="col-md-2 col-xs-2"><b>Price in <?php //echo CURRENCY; ?></b></div>
+							<div class="col-md-2 col-xs-2"><b>Price in <?php //echo CURRENCY; 
+																		?></b></div>
 						</div>
 	-->
 						<div id="cart_checkout"></div>
-						
+
 					</div>
 				</div>
 				<div class="panel-footer"></div>
@@ -143,12 +151,12 @@ require "config/constants.php";
 				//Implement what happens when transaction is completed.
 				//console.log(response);
 				//alert('Payment made');
-				var prod_owner= [];
+				var prod_owner = [];
 				var user_id = [];
 				var product_id = [];
 				var qty = [];
 				var trx_id = [];
-				var seller_Email  = [];
+				var seller_Email = [];
 				//var p_status = [];
 				var seller_id = [];
 				var delM = $("#delM").val(); // Get the value of the select element
@@ -162,23 +170,23 @@ require "config/constants.php";
 					trx_id.push($row.find("[name='trx_id[]']").val());
 					seller_Email.push($row.find("[name='seller_Email[]']").val());
 					qty.push($row.find("[name='qty[]']").val());
-				//	p_status.push($row.find("[name='p_status[]']").val());
+					//	p_status.push($row.find("[name='p_status[]']").val());
 					seller_id.push($row.find("[name='seller_id[]']").val());
 				});
 
 				// Combine arrays into an array of objects
 				var combinedArray = user_id.map(function(_, i) {
 					return {
-						prod_owner:prod_owner[i],
+						prod_owner: prod_owner[i],
 						user_id: user_id[i],
 						product_id: product_id[i],
 						qty: qty[i],
 						trx_id: trx_id[i],
 						seller_Email: seller_Email[i],
-				//		p_status: p_status[i],
+						//		p_status: p_status[i],
 						seller_id: seller_id[i],
 						delM: delM, // Add delM to each object
-        				address: address // Add address to each object
+						address: address // Add address to each object
 					};
 				});
 
@@ -213,17 +221,20 @@ require "config/constants.php";
 	}
 </script>
 <script>
-    function toggleAddressInput() {
-        var deliveryMethod = document.getElementById("delM").value;
-        var addressInput = document.getElementById("addressInput");
-
-        if (deliveryMethod === "Home Delivery") {
-            addressInput.style.display = "block";
+	function toggleAddressInput() {
+		var deliveryMethod = document.getElementById("delM").value;
+		var addressInput = document.getElementById("addressInput");
+		
+		if (deliveryMethod === "Home Delivery") {
+			addressInput.style.display = "block";
+			$("#message").show();
 			$("#message").html("Note:<br>Home Delivery Charges is paid by the Buyer, and its subject to negotiation with the delivery man.").addClass("text-danger");
 			//alert("Home Delivery Charges is paid by the Buyer, and its subject to negotiation with the delivery man.");
-        } else {
-            addressInput.style.display = "none";
-        }
-    }
+		} else {
+			addressInput.style.display = "none";
+			$("#message").hide();
+		}
+	}
 </script>
+
 </html>

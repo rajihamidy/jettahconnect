@@ -106,3 +106,10 @@
         background-color: grey;
     }
 </style>
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>

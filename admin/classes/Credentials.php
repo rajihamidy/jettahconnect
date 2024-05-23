@@ -17,12 +17,12 @@ class Credentials
 
 
 	public function createAdminAccount($name, $email, $password){
-		$q = $this->con->query("SELECT email FROM admin WHERE email = '$email'");
+		$q = $this->con->query("SELECT email FROM masteradmin WHERE email = '$email'");
 		if ($q->num_rows > 0) {
 			return ['status'=> 303, 'message'=> 'Email already exists'];
 		}else{
 			$password = password_hash($password, PASSWORD_BCRYPT, ["COST"=> 8]);
-			$q = $this->con->query("INSERT INTO `admin`(`name`, `email`, `password`, `is_active`) VALUES ('$name','$email','$password','0')");
+			$q = $this->con->query("INSERT INTO `masteradmin`(`name`, `email`, `password`) VALUES ('$name','$email','$password')");
 			if ($q) {
 				return ['status'=> 202, 'message'=> 'Admin Created Successfully'];
 			}
@@ -31,12 +31,12 @@ class Credentials
 	}
 
 	public function loginAdmin($email, $password){
-		$q = $this->con->query("SELECT * FROM admin WHERE email = '$email' LIMIT 1");
+		$q = $this->con->query("SELECT * FROM masteradmin WHERE email = '$email' LIMIT 1");
 		if ($q->num_rows > 0) {
 			$row = $q->fetch_assoc();
 			if (password_verify($password, $row['password'])) {
-				$_SESSION['admin_name'] = $row['name'];
-				$_SESSION['admin_id'] = $row['id'];
+				$_SESSION['masteradmin_name'] = $row['name'];
+				$_SESSION['masteradmin_id'] = $row['id'];
 				return ['status'=> 202, 'message'=> 'Login Successful'];
 			}else{
 				return ['status'=> 303, 'message'=> 'Login Fail'];
@@ -66,7 +66,7 @@ if (isset($_POST['admin_register'])) {
 			exit();
 		}
 	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Empty fields']);
+		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty Fields']);
 		exit();
 	}
 }
@@ -79,7 +79,7 @@ if (isset($_POST['admin_login'])) {
 		echo json_encode($result);
 		exit();
 	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Empty fields']);
+		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty fields.']);
 		exit();
 	}
 }
