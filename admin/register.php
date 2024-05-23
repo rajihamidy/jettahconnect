@@ -1,6 +1,7 @@
-<?php include "./templates/top.php"; ?>
+<?php session_start(); ?>
+<?php include_once("./templates/top.php"); ?>
+<?php include_once("./templates/navbar.php"); ?>
 
-<?php include "./templates/navbar.php"; ?>
 <style>
   .form-group {
     position: relative;
@@ -43,7 +44,12 @@
 </style>
 <!-- Custom styles for this template -->
 
-<div class="container">
+<div class="container-fluid">
+  <div class="row">
+    
+    <?php include "./templates/sidebar.php"; ?>
+
+    <div class="container">
   <div class="row justify-content-center" style="margin:100px 0;">
     <div class="col-md-4">
       <h4 class="text-center">Admin Registration</h4>
@@ -75,9 +81,19 @@
 
 
 
+      
+     
+    </main>
+  </div>
+</div>
 
 
-<?php include "./templates/footer.php"; ?>
+
+<?php include_once("./templates/footer.php"); ?>
+
+
+
+
 
 <script type="text/javascript" src="./js/main.js"></script>
 <script>

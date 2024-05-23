@@ -69,6 +69,12 @@
               Add Admin
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link <?php echo ($page == 'adminlist.php') ? 'active' : ''; ?>" href="adminlist.php">
+              <span data-feather="clipboard"></span>
+              View Admin Accounts
+            </a>
+          </li>
         </ul>
 
        
