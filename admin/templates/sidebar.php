@@ -64,7 +64,7 @@
           </li>
           <li class="nav-divider"></li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($page == 'customers.php') ? 'active' : ''; ?>" href="customers.php">
+            <a class="nav-link <?php echo ($page == 'register.php') ? 'active' : ''; ?>" href="register.php">
               <span data-feather="users"></span>
               Add Admin
             </a>
