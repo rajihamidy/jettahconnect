@@ -41,13 +41,13 @@ if (isset($_SESSION["uid"])) {
 </head>
 
 <body>
-<script>
-      document.addEventListener("DOMContentLoaded", (event) => {
-         document.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-         });
-      });
-   </script>
+	<script>
+		document.addEventListener("DOMContentLoaded", (event) => {
+			document.addEventListener("contextmenu", (event) => {
+				event.preventDefault();
+			});
+		});
+	</script>
 
 	<div class="wait overlay">
 		<div class="loader"></div>
@@ -55,7 +55,7 @@ if (isset($_SESSION["uid"])) {
 	<!-- Heading      -->
 
 
-<?php  require "indexhead.php";  ?>
+	<?php require "indexhead.php";  ?>
 
 	<!-- End of Heading -->
 
@@ -64,9 +64,9 @@ if (isset($_SESSION["uid"])) {
 			<!--1 first part side bar	 -->
 			<div class="col-md-2 col-xs-6">
 				<div id="main">
-					
+
 				</div>
-				
+
 			</div>
 			<!--1 first part side bar End	 -->
 
@@ -86,7 +86,14 @@ if (isset($_SESSION["uid"])) {
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+					<div class="container-fluid">
+						<div class="row panel-footer">
+							<div class=" col-md-10">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+							<div class="col-md-2">
+								<a href="admin/index.php" class=""> Admin </a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>

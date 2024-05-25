@@ -1,13 +1,14 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class=" row">
-		<div class="col-md-8 "> 	
+		<div class="col-md-6 "> 	
 
 			<a href="index.php" class="navbar-brand">Jettah Connect</a>
 		</div>
 		<div class="col-md-2 "> 
 			<a href="#" class="navbar-brand" ><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge">0</span></a>
 		</div>
+		
 		</div>
 		
 				
