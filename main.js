@@ -288,6 +288,7 @@ $(document).ready(function(){
 				getCartItem();
 				$('#product_msg').html(data);
 				$('.overlay').hide();
+				$('html, body').animate({scrollTop: 0}, 'slow')
 			}
 		})
 	})
