@@ -107,8 +107,8 @@ if (isset($_POST["getProduct"])) {
 							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
 							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
 							<div class="panel-footer">
-								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
-								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
+								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
+								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs custom-button">Contact</button>
 								<div class="clearfix"></div>
 							</div>
 						</div>

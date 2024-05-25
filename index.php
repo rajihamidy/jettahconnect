@@ -18,26 +18,54 @@ if (isset($_SESSION["uid"])) {
 	<link rel="stylesheet" href="css/img.css">
 	<script src="main.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+
 	<style>
-		/* CSS for scrollbar */
-		.container {
-			overflow-x: auto;
-			/* Add scrollbar for vertical overflow */
-			width: 100vw;
-			/* Set height of container to full viewport height */
+		.panel-body .img-container {
+			width: 100%;
+			height: 200px;
+			overflow: hidden;
 		}
 
-		/* Adjust styles for small devices */
-		@media screen and (max-width: 768px) {
+		.panel-body .img-container img {
+			width: 100%;
+			height: auto;
+		}
 
-			.col-md-2,
-			.col-md-8,
-			.col-md-1 {
-				width: 100%;
-				/* Make columns full width on small devices */
+		@media (max-width: 767px) {
+			.column {
+				margin-bottom: 20px;
 			}
 		}
+		.custom-button {
+    padding: 10px; /* Adjust the padding as needed */
+	margin-top: 10px;
+}
+
 	</style>
+<style>
+        .panel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .panel-footer .footer-left,
+        .panel-footer .footer-right {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 767px) {
+            .panel-footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .panel-footer .footer-right {
+                margin-top: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -77,20 +105,24 @@ if (isset($_SESSION["uid"])) {
 					</div>
 				</div>
 				<div class="panel panel-info">
-					<div class="container-sm panel-heading">Products</div>
-					<div class="panel-body">
-						<div class="container-fluid">
-							<div id="get_product" class="rows">
-								<!-- Here we get product jQuery Ajax Request -->
-								<!-- End of product panel -->
+					<div class="container-fluid">
+						<div class="panel panel-default">
+							<div class="panel-heading">Products</div>
+							<div class="panel-body">
+								<div id="get_product" class="row">
+									<!-- Here we get product jQuery Ajax Request -->
+									<!-- End of product panel -->
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="container-fluid">
 						<div class="row panel-footer">
-							<div class=" col-md-10">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
-							<div class="col-md-2">
-								<a href="admin/index.php" class=""> Admin </a>
+							<div class="footer-left col-xs-12 col-md-10">
+								&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a>
+							</div>
+							<div class="footer-right col-xs-12 col-md-2">
+								<a href="admin/index.php">Admin</a>
 							</div>
 						</div>
 					</div>
