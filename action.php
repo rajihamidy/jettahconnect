@@ -96,21 +96,23 @@ if (isset($_POST["getProduct"])) {
 			$pro_image = $row['product_image'];
 			echo '
 			
-					<div class="col-sm-6 col-md-4 col-lg-3 column">
+					<div class="col-sm-6 col-md-4 col-lg-3 column mb-4">
 						<div class="panel panel-info">
 							<div class="panel-heading text-nowrap">' . $pro_title . '</div>
 							<div class="panel-body">
-								<div class="img-container">
-									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
-								</div>
+							<div class="img-container">
+							<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '">
+										  </div>
 							</div>
-							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
-							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
+							 <div class="card-footer text-center">
+                            <p class=" panel-footer">' . formatCurrency($pro_price) . '</p>
+                            <p class=" panel-footer">Available Qty in Stock: ' . $qty . '</p>
 							<div class="panel-footer">
-								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
+							<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
 								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs custom-button">Contact</button>
 								<div class="clearfix"></div>
-							</div>
+								</div>
+                        </div>
 						</div>
 					</div>
 				

@@ -10,6 +10,8 @@ if (isset($_SESSION["uid"])) {
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>Jettah Connect</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<script src="js/jquery2.js"></script>
@@ -20,6 +22,22 @@ if (isset($_SESSION["uid"])) {
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<style>
+		.img-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			height: 200px;
+			/* Adjust as necessary */
+		}
+
+		.img-container img {
+			max-height: 100%;
+			max-width: 100%;
+			height: auto;
+			width: auto;
+		}
+
 		.panel-body .img-container {
 			width: 100%;
 			height: 200px;
@@ -36,36 +54,37 @@ if (isset($_SESSION["uid"])) {
 				margin-bottom: 20px;
 			}
 		}
+
 		.custom-button {
-    padding: 10px; /* Adjust the padding as needed */
-	margin-top: 10px;
-}
-
+			padding: 10px;
+			/* Adjust the padding as needed */
+			margin-top: 10px;
+		}
 	</style>
-<style>
-        .panel-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+	<style>
+		.panel-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
 
-        .panel-footer .footer-left,
-        .panel-footer .footer-right {
-            margin-bottom: 10px;
-        }
+		.panel-footer .footer-left,
+		.panel-footer .footer-right {
+			margin-bottom: 10px;
+		}
 
-        @media (max-width: 767px) {
-            .panel-footer {
-                flex-direction: column;
-                text-align: center;
-            }
+		@media (max-width: 767px) {
+			.panel-footer {
+				flex-direction: column;
+				text-align: center;
+			}
 
-            .panel-footer .footer-right {
-                margin-top: 10px;
-            }
-        }
-    </style>
+			.panel-footer .footer-right {
+				margin-top: 10px;
+			}
+		}
+	</style>
 </head>
 
 <body>
