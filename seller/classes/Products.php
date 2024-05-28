@@ -1,9 +1,9 @@
-<?php 
+<?php
 session_start();
 
 class Products
 {
-	
+
 	private $con;
 
 	function __construct()
@@ -13,13 +13,14 @@ class Products
 		$this->con = $db->connect();
 	}
 
-	public function getProducts(){
+	public function getProducts()
+	{
 		$userid = $_SESSION['admin_id'];
 		$q = $this->con->query("SELECT p.product_id, p.product_title, p.product_price,p.product_qty, p.product_desc, p.product_image, p.product_keywords, c.cat_title, c.cat_id, b.brand_id, b.brand_title FROM products p JOIN categories c ON c.cat_id = p.product_cat JOIN brands b ON b.brand_id = p.product_brand where p.user_id='$userid'  order by p.product_title asc");
-		
+
 		$products = [];
 		if ($q->num_rows > 0) {
-			while($row = $q->fetch_assoc()){
+			while ($row = $q->fetch_assoc()) {
 				$products[] = $row;
 			}
 			//return ['status'=> 202, 'message'=> $ar];
@@ -29,7 +30,7 @@ class Products
 		$categories = [];
 		$q = $this->con->query("SELECT * FROM categories");
 		if ($q->num_rows > 0) {
-			while($row = $q->fetch_assoc()){
+			while ($row = $q->fetch_assoc()) {
 				$categories[] = $row;
 			}
 			//return ['status'=> 202, 'message'=> $ar];
@@ -39,7 +40,7 @@ class Products
 		$brands = [];
 		$q = $this->con->query("SELECT * FROM brands");
 		if ($q->num_rows > 0) {
-			while($row = $q->fetch_assoc()){
+			while ($row = $q->fetch_assoc()) {
 				$brands[] = $row;
 			}
 			//return ['status'=> 202, 'message'=> $ar];
@@ -47,95 +48,95 @@ class Products
 		}
 
 
-		return ['status'=> 202, 'message'=> $_DATA];
+		return ['status' => 202, 'message' => $_DATA];
 	}
 
-	public function addProduct($product_name,
-                           $brand_id,
-                           $category_id,
-                           $product_desc,
-                           $product_qty,
-                           $product_price,
-                           $product_keywords,
-                           $file, $user_id){
+	public function addProduct(
+		$product_name,
+		$brand_id,
+		$category_id,
+		$product_desc,
+		$product_qty,
+		$product_price,
+		$product_keywords,
+		$file,
+		$user_id
+	) {
 
-    // Determine the correct file path based on the host
-    $isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']);
-    $uploadDirectory = $_SERVER['DOCUMENT_ROOT'] . ($isLocalhost ? "/Jettahconnect" : "") . "/product_images/";
+		// Determine the correct file path based on the host
+		$isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']);
+		$uploadDirectory = $_SERVER['DOCUMENT_ROOT'] . ($isLocalhost ? "/Jettahconnect" : "") . "/product_images/";
 
-    // Check if a file is provided
-    if (isset($file['name']) && !empty($file['name'])) {
-        $fileName = $file['name'];
-        $fileNameAr = explode(".", $fileName);
-        $extension = end($fileNameAr);
-        $ext = strtolower($extension);
+		// Check if a file is provided
+		if (isset($file['name']) && !empty($file['name'])) {
+			$fileName = $file['name'];
+			$fileNameAr = explode(".", $fileName);
+			$extension = end($fileNameAr);
+			$ext = strtolower($extension);
 
-        if ($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
+			if ($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
 
-            if ($file['size'] <= (1024 * 1024 * 2)) {
+				if ($file['size'] <= (1024 * 1024 * 2)) {
 
-                $uniqueImageName = time() . "_" . $file['name'];
-                if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $uniqueImageName)) {
-                    // Insert with image
-                    $q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$uniqueImageName', '$product_keywords')");
+					$uniqueImageName = time() . "_" . $file['name'];
+					if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $uniqueImageName)) {
+						// Insert with image
+						$q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$uniqueImageName', '$product_keywords')");
 
-                    if ($q) {
-                        return json_encode(['status'=> 202, 'message'=> 'Product Added Successfully..!']);
+						if ($q) {
+							return json_encode(['status' => 202, 'message' => 'Product Added Successfully..!']);
+						} else {
+							return json_encode(['status' => 303, 'message' => 'Failed to run query']);
+						}
+					} else {
+						return json_encode(['status' => 303, 'message' => 'Failed to upload image']);
+					}
+				} else {
+					return json_encode(['status' => 303, 'message' => 'Large Image, Max Size allowed 2MB']);
+				}
+			} else {
+				return json_encode(['status' => 303, 'message' => 'Invalid Image Format [Valid Formats: jpg, jpeg, png]']);
+			}
+		} else {
+			// No file provided, insert without image
+			$q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$product_keywords')");
 
-                    } else {
-                        return json_encode(['status'=> 303, 'message'=> 'Failed to run query']);
-                    }
-
-                } else {
-                    return json_encode(['status'=> 303, 'message'=> 'Failed to upload image']);
-                }
-
-            } else {
-                return json_encode(['status'=> 303, 'message'=> 'Large Image, Max Size allowed 2MB']);
-            }
-
-        } else {
-            return json_encode(['status'=> 303, 'message'=> 'Invalid Image Format [Valid Formats: jpg, jpeg, png]']);
-        }
-
-    } else {
-        // No file provided, insert without image
-        $q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$product_keywords')");
-
-        if ($q) {
-            return json_encode(['status'=> 202, 'message'=> 'Product Added Successfully..!']);
-        } else {
-            return json_encode(['status'=> 303, 'message'=> 'Failed to run query']);
-        }
-    }
-}
+			if ($q) {
+				return json_encode(['status' => 202, 'message' => 'Product Added Successfully..!']);
+			} else {
+				return json_encode(['status' => 303, 'message' => 'Failed to run query']);
+			}
+		}
+	}
 
 
-	public function editProductWithImage($pid,
-										$product_name,
-										$brand_id,
-										$category_id,
-										$product_desc,
-										$product_qty,
-										$product_price,
-										$product_keywords,
-										$file){
+	public function editProductWithImage(
+		$pid,
+		$product_name,
+		$brand_id,
+		$category_id,
+		$product_desc,
+		$product_qty,
+		$product_price,
+		$product_keywords,
+		$file
+	) {
 
 
 		$fileName = $file['name'];
-		$fileNameAr= explode(".", $fileName);
+		$fileNameAr = explode(".", $fileName);
 		$extension = end($fileNameAr);
 		$ext = strtolower($extension);
 
 		if ($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
-			
+
 			//print_r($file['size']);
 
 			if ($file['size'] > (1024 * 2)) {
-				
-				$uniqueImageName = time()."_".$file['name'];
-				if (move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Jettahconnect/product_images/".$uniqueImageName)) {
-					
+
+				$uniqueImageName = time() . "_" . $file['name'];
+				if (move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "/Jettahconnect/product_images/" . $uniqueImageName)) {
+
 					$q = $this->con->query("UPDATE `products` SET 
 										`product_cat` = '$category_id', 
 										`product_brand` = '$brand_id', 
@@ -148,33 +149,31 @@ class Products
 										WHERE product_id = '$pid'");
 
 					if ($q) {
-						return ['status'=>202, 'message'=> 'Product Modified Successfully..!'];
-					}else{
-						return ['status'=>303, 'message'=> 'Failed to run query'];
+						return ['status' => 202, 'message' => 'Product Modified Successfully..!'];
+					} else {
+						return ['status' => 303, 'message' => 'Failed to run query'];
 					}
-
-				}else{
-					return ['status'=> 303, 'message'=> 'Failed to upload image'];
+				} else {
+					return ['status' => 303, 'message' => 'Failed to upload image'];
 				}
-
-			}else{
-				return ['status'=> 303, 'message'=> 'Large Image ,Max Size allowed 2MB'];
+			} else {
+				return ['status' => 303, 'message' => 'Large Image ,Max Size allowed 2MB'];
 			}
-
-		}else{
-			return ['status'=> 303, 'message'=> 'Invalid Image Format [Valid Formats : jpg, jpeg, png]'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid Image Format [Valid Formats : jpg, jpeg, png]'];
 		}
-
 	}
 
-	public function editProductWithoutImage($pid,
-										$product_name,
-										$brand_id,
-										$category_id,
-										$product_desc,
-										$product_qty,
-										$product_price,
-										$product_keywords){
+	public function editProductWithoutImage(
+		$pid,
+		$product_name,
+		$brand_id,
+		$category_id,
+		$product_desc,
+		$product_qty,
+		$product_price,
+		$product_keywords
+	) {
 
 		if ($pid != null) {
 			$q = $this->con->query("UPDATE `products` SET 
@@ -188,19 +187,18 @@ class Products
 										WHERE product_id = '$pid'");
 
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Product updated Successfully'];
-			}else{
-				return ['status'=> 303, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Product updated Successfully'];
+			} else {
+				return ['status' => 303, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=> 'Invalid product id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid product id'];
 		}
-		
 	}
 
 
-	public function getBrands(){
+	public function getBrands()
+	{
 		$userid = $_SESSION['admin_id'];
 		$q = $this->con->query("SELECT distinct * FROM brands order by brand_title "); //where user_id='$userid'
 		$ar = [];
@@ -209,24 +207,26 @@ class Products
 				$ar[] = $row;
 			}
 		}
-		return ['status'=> 202, 'message'=> $ar];
+		return ['status' => 202, 'message' => $ar];
 	}
 
-	public function addCategory($name){
+	public function addCategory($name)
+	{
 		$q = $this->con->query("SELECT * FROM categories WHERE cat_title = '$name' LIMIT 1");
 		if ($q->num_rows > 0) {
-			return ['status'=> 303, 'message'=> 'Category already exists'];
-		}else{
+			return ['status' => 303, 'message' => 'Category already exists'];
+		} else {
 			$q = $this->con->query("INSERT INTO categories (cat_title) VALUES ('$name')");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'New Category added Successfully'];
-			}else{
-				return ['status'=> 303, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'New Category added Successfully'];
+			} else {
+				return ['status' => 303, 'message' => 'Failed to run query'];
 			}
 		}
 	}
 
-	public function getCategories(){
+	public function getCategories()
+	{
 		$q = $this->con->query("SELECT * FROM categories");
 		$ar = [];
 		if ($q->num_rows > 0) {
@@ -234,107 +234,100 @@ class Products
 				$ar[] = $row;
 			}
 		}
-		return ['status'=> 202, 'message'=> $ar];
+		return ['status' => 202, 'message' => $ar];
 	}
 
-	public function deleteProduct($pid = null){
+	public function deleteProduct($pid = null)
+	{
 		if ($pid != null) {
 			$q = $this->con->query("DELETE FROM products WHERE product_id = '$pid'");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Product removed from stocks'];
-			}else{
-				return ['status'=> 202, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Product removed from stocks'];
+			} else {
+				return ['status' => 202, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=>'Invalid product id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid product id'];
 		}
-
 	}
 
-	public function deleteCategory($cid = null){
+	public function deleteCategory($cid = null)
+	{
 		if ($cid != null) {
 			$q = $this->con->query("DELETE FROM categories WHERE cat_id = '$cid'");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Category removed'];
-			}else{
-				return ['status'=> 202, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Category removed'];
+			} else {
+				return ['status' => 202, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=>'Invalid cattegory id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid cattegory id'];
 		}
-
 	}
-	
-	
 
-	public function updateCategory($post = null){
+
+
+	public function updateCategory($post = null)
+	{
 		extract($post);
 		if (!empty($cat_id) && !empty($e_cat_title)) {
 			$q = $this->con->query("UPDATE categories SET cat_title = '$e_cat_title' WHERE cat_id = '$cat_id'");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Category updated'];
-			}else{
-				return ['status'=> 202, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Category updated'];
+			} else {
+				return ['status' => 202, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=>'Invalid category id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid category id'];
 		}
-
 	}
 
-	public function addBrand($name,$uid){
-		
+	public function addBrand($name, $uid)
+	{
+
 		$q = $this->con->query("SELECT * FROM brands WHERE brand_title = '$name' LIMIT 1");
 		if ($q->num_rows > 0) {
-			return ['status'=> 303, 'message'=> 'Brand already exists.'];
-		}else{
+			return ['status' => 303, 'message' => 'Brand already exists.'];
+		} else {
 			$q = $this->con->query("INSERT INTO brands (brand_title,user_id) VALUES ('$name','$uid')");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'New Brand added Successfully.'];
-			}else{
-				return ['status'=> 303, 'message'=> 'Failed to run query.'];
+				return ['status' => 202, 'message' => 'New Brand added Successfully.'];
+			} else {
+				return ['status' => 303, 'message' => 'Failed to run query.'];
 			}
 		}
 	}
 
-	public function deleteBrand($bid = null){
+	public function deleteBrand($bid = null)
+	{
 		if ($bid != null) {
 			$q = $this->con->query("DELETE FROM brands WHERE brand_id = '$bid'");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Brand removed'];
-			}else{
-				return ['status'=> 202, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Brand removed'];
+			} else {
+				return ['status' => 202, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=>'Invalid brand id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid brand id'];
 		}
-
 	}
-	
-	
 
-	public function updateBrand($post = null){
+
+
+	public function updateBrand($post = null)
+	{
 		extract($post);
 		if (!empty($brand_id) && !empty($e_brand_title)) {
 			$q = $this->con->query("UPDATE brands SET brand_title = '$e_brand_title' WHERE brand_id = '$brand_id'");
 			if ($q) {
-				return ['status'=> 202, 'message'=> 'Brand updated'];
-			}else{
-				return ['status'=> 202, 'message'=> 'Failed to run query'];
+				return ['status' => 202, 'message' => 'Brand updated'];
+			} else {
+				return ['status' => 202, 'message' => 'Failed to run query'];
 			}
-			
-		}else{
-			return ['status'=> 303, 'message'=>'Invalid brand id'];
+		} else {
+			return ['status' => 303, 'message' => 'Invalid brand id'];
 		}
-
 	}
-
-	
-
 }
 
 
@@ -350,100 +343,97 @@ if (isset($_POST['GET_PRODUCT'])) {
 if (isset($_POST['add_product'])) {
 
 	extract($_POST);
-	if (!empty($product_name) 
-	&& !empty($brand_id) 
-	&& !empty($category_id)
-	&& !empty($product_desc)
-	&& !empty($product_qty)
-	&& !empty($product_price)
-	&& !empty($product_keywords)
-	&& !empty($_FILES['product_image']['name'])
+	if (
+		!empty($product_name)
+		&& !empty($brand_id)
+		&& !empty($category_id)
+		&& !empty($product_desc)
+		&& !empty($product_qty)
+		&& !empty($product_price)
+		&& !empty($product_keywords)
+		&& !empty($_FILES['product_image']['name'])
 	) {
-		
+
 
 		$p = new Products();
-		$result = $p->addProduct($product_name,
-								$brand_id,
-								$category_id,
-								$product_desc,
-								$product_qty,
-								$product_price,
-								$product_keywords,
-								$_FILES['product_image'],
-								$user_id
-							);
-							
-	header("Content-type: application/json");
+		$result = $p->addProduct(
+			$product_name,
+			$brand_id,
+			$category_id,
+			$product_desc,
+			$product_qty,
+			$product_price,
+			$product_keywords,
+			$_FILES['product_image'],
+			$user_id
+		);
+
+		header("Content-type: application/json");
 		echo json_encode($result);
 		exit();
-
-
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Fill Empty fields']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Fill Empty fields']);
 		exit();
 	}
-
-
-
-	
 }
 
 
 if (isset($_POST['edit_product'])) {
 
 	extract($_POST);
-	if (!empty($pid)
-	&& !empty($e_product_name) 
-	&& !empty($e_brand_id) 
-	&& !empty($e_category_id)
-	&& !empty($e_product_desc)
-	&& !empty($e_product_qty)
-	&& !empty($e_product_price)
-	&& !empty($e_product_keywords) ) {
-		
+	if (
+		!empty($pid)
+		&& !empty($e_product_name)
+		&& !empty($e_brand_id)
+		&& !empty($e_category_id)
+		&& !empty($e_product_desc)
+		&& !empty($e_product_qty)
+		&& !empty($e_product_price)
+		&& !empty($e_product_keywords)
+	) {
+
 		$p = new Products();
 
-		if (isset($_FILES['e_product_image']['name']) 
-			&& !empty($_FILES['e_product_image']['name'])) {
-			$result = $p->editProductWithImage($pid,
-								$e_product_name,
-								$e_brand_id,
-								$e_category_id,
-								$e_product_desc,
-								$e_product_qty,
-								$e_product_price,
-								$e_product_keywords,
-								$_FILES['e_product_image']);
-		}else{
-			$result = $p->editProductWithoutImage($pid,
-								$e_product_name,
-								$e_brand_id,
-								$e_category_id,
-								$e_product_desc,
-								$e_product_qty,
-								$e_product_price,
-								$e_product_keywords);
+		if (
+			isset($_FILES['e_product_image']['name'])
+			&& !empty($_FILES['e_product_image']['name'])
+		) {
+			$result = $p->editProductWithImage(
+				$pid,
+				$e_product_name,
+				$e_brand_id,
+				$e_category_id,
+				$e_product_desc,
+				$e_product_qty,
+				$e_product_price,
+				$e_product_keywords,
+				$_FILES['e_product_image']
+			);
+		} else {
+			$result = $p->editProductWithoutImage(
+				$pid,
+				$e_product_name,
+				$e_brand_id,
+				$e_category_id,
+				$e_product_desc,
+				$e_product_qty,
+				$e_product_price,
+				$e_product_keywords
+			);
 		}
 
 		echo json_encode($result);
 		exit();
-
-
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Empty fields']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Empty fields']);
 		exit();
 	}
-
-
-
-	
 }
 
 if (isset($_POST['GET_BRAND'])) {
 	$p = new Products();
 	echo json_encode($p->getBrands());
 	exit();
-	
 }
 
 if (isset($_POST['add_category'])) {
@@ -452,11 +442,11 @@ if (isset($_POST['add_category'])) {
 		if (!empty($cat_title)) {
 			$p = new Products();
 			echo json_encode($p->addCategory($cat_title));
-		}else{
-			echo json_encode(['status'=> 303, 'message'=> 'Empty fields']);
+		} else {
+			echo json_encode(['status' => 303, 'message' => 'Empty fields']);
 		}
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Session Error']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Session Error']);
 	}
 }
 
@@ -464,25 +454,22 @@ if (isset($_POST['GET_CATEGORIES'])) {
 	$p = new Products();
 	echo json_encode($p->getCategories());
 	exit();
-	
 }
 
 if (isset($_POST['DELETE_PRODUCT'])) {
 	$p = new Products();
 	if (isset($_SESSION['admin_id'])) {
-		if(!empty($_POST['pid'])){
+		if (!empty($_POST['pid'])) {
 			$pid = $_POST['pid'];
 			echo json_encode($p->deleteProduct($pid));
 			exit();
-		}else{
-			echo json_encode(['status'=> 303, 'message'=> 'Invalid product id']);
+		} else {
+			echo json_encode(['status' => 303, 'message' => 'Invalid product id']);
 			exit();
 		}
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Invalid Session']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Invalid Session']);
 	}
-
-
 }
 
 
@@ -491,8 +478,8 @@ if (isset($_POST['DELETE_CATEGORY'])) {
 		$p = new Products();
 		echo json_encode($p->deleteCategory($_POST['cid']));
 		exit();
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Invalid details']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Invalid details']);
 		exit();
 	}
 }
@@ -502,8 +489,8 @@ if (isset($_POST['edit_category'])) {
 		$p = new Products();
 		echo json_encode($p->updateCategory($_POST));
 		exit();
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Invalid details']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Invalid details']);
 		exit();
 	}
 }
@@ -514,12 +501,12 @@ if (isset($_POST['user_id'])) {
 		$userid = $_POST['user_id'];
 		if (!empty($brand_title)) {
 			$p = new Products();
-			echo json_encode($p->addBrand($brand_title,$userid));
-		}else{
-			echo json_encode(['status'=> 303, 'message'=> 'Empty fields']);
+			echo json_encode($p->addBrand($brand_title, $userid));
+		} else {
+			echo json_encode(['status' => 303, 'message' => 'Empty fields']);
 		}
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Session Error']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Session Error']);
 	}
 }
 
@@ -528,8 +515,8 @@ if (isset($_POST['DELETE_BRAND'])) {
 		$p = new Products();
 		echo json_encode($p->deleteBrand($_POST['bid']));
 		exit();
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Invalid details']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Invalid details']);
 		exit();
 	}
 }
@@ -539,10 +526,8 @@ if (isset($_POST['edit_brand'])) {
 		$p = new Products();
 		echo json_encode($p->updateBrand($_POST));
 		exit();
-	}else{
-		echo json_encode(['status'=> 303, 'message'=> 'Invalid details']);
+	} else {
+		echo json_encode(['status' => 303, 'message' => 'Invalid details']);
 		exit();
 	}
 }
-
-?>

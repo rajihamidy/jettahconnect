@@ -8,8 +8,8 @@
     <meta name="author" content="Raji Hamidu">
     <meta name="generator" content="">
     <title>Jettah Connect</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-	<script src="../../js/jquery2.js"></script>
+    
+	<script src="js/jquery2.js"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
      
     <!-- Bootstrap core CSS -->

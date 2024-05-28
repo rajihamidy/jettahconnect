@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 	function getCategories() {
 		$.ajax({
-			url: '../admin/classes/Products.php',
+			url: '../seller/classes/Products.php',
 			method: 'POST',
 			data: { GET_CATEGORIES: 1 },
 			success: function (response) {
@@ -32,16 +32,16 @@ $(document).ready(function () {
 	$(".add-category").on("click", function () {
 
 		$.ajax({
-			url: '../admin/classes/Products.php',
+			url: '../seller/classes/Products.php',
 			method: 'POST',
 			data: $("#add-category-form").serialize(),
 			success: function (response) {
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
 					getCategories();
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				} else if (resp.status == 303) {
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}
 				$("#add_category_modal").modal('hide');
 			}
@@ -64,16 +64,16 @@ $(document).ready(function () {
 	$(".edit-category-btn").on('click', function () {
 
 		$.ajax({
-			url: '../admin/classes/Products.php',
+			url: '../seller/classes/Products.php',
 			method: 'POST',
 			data: $("#edit-category-form").serialize(),
 			success: function (response) {
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
 					getCategories();
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				} else if (resp.status == 303) {
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}
 				$("#edit_category_modal").modal('hide');
 			}
@@ -87,16 +87,16 @@ $(document).ready(function () {
 
 		if (confirm("Are you sure to delete this category")) {
 			$.ajax({
-				url: '../admin/classes/Products.php',
+				url: '../seller/classes/Products.php',
 				method: 'POST',
 				data: { DELETE_CATEGORY: 1, cid: cid },
 				success: function (response) {
 					var resp = $.parseJSON(response);
 					if (resp.status == 202) {
-						alert(resp.message);
+						showCustomAlert(resp.message);
 						getCategories();
 					} else if (resp.status == 303) {
-						alert(resp.message);
+						showCustomAlert(resp.message);
 					}
 				}
 			})

@@ -40,9 +40,10 @@ sn=0;
 				if (resp.status == 202) {
 					getBrands();
 					$("#add_brand_modal").modal('hide');
-					alert(resp.message);
+					showCustomAlert(resp.message);
+					
 				}else if(resp.status == 303){
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}
 				
 			}
@@ -62,10 +63,10 @@ sn=0;
 				success : function(response){
 					var resp = $.parseJSON(response);
 					if (resp.status == 202) {
-						alert(resp.message);
+						showCustomAlert(resp.message);
 						getBrands();
 					}else if(resp.status == 303){
-						alert(resp.message);
+						showCustomAlert(resp.message);
 					}
 				}
 			});
@@ -100,9 +101,9 @@ sn=0;
 				if (resp.status == 202) {
 					getBrands();
 					$("#edit_brand_modal").modal('hide');
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}else if(resp.status == 303){
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}
 				
 			}

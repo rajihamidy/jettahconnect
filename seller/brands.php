@@ -119,6 +119,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 <?php include_once("./templates/footer.php"); ?>
 
-
+<?php require 'customAlert.php'; ?>
+<script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/sidebar.js"></script>
 <script type="text/javascript" src="./js/brands.js"></script>

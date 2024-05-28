@@ -6,6 +6,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 include "./templates/top.php";
 include_once("./templates/navbar.php");
+
 $userid = $_SESSION['admin_id'];
 
 ?>
@@ -224,11 +225,12 @@ $userid = $_SESSION['admin_id'];
 </div>
 <!-- Edit Product Modal end -->
 
-<?php require 'customAlert.php'; ?>
+
 
 <?php include_once("./templates/footer.php"); ?>
 
-
+<?php require 'customAlert.php'; ?>
+<script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/products.js"></script>
 <script type="text/javascript" src="./js/sidebar.js"></script>
