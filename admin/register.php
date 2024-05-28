@@ -1,6 +1,8 @@
 <?php session_start(); ?>
+<?php require 'indexhead.php'; ?>
 <?php include_once("./templates/top.php"); ?>
-<?php include_once("./templates/navbar.php"); ?>
+<?php // include_once("./templates/navbar.php"); 
+?>
 
 <style>
   .form-group {
@@ -44,48 +46,47 @@
 </style>
 <!-- Custom styles for this template -->
 
-<div class="container-fluid">
-  <div class="row">
-    
-    <?php include "./templates/sidebar.php"; ?>
+
+
+    <?php // include "./templates/sidebar.php"; 
+    ?>
 
     <div class="container">
-  <div class="row justify-content-center" style="margin:100px 0;">
-    <div class="col-md-4">
-      <h4 class="text-center">Admin Registration</h4>
-      <p class="message"></p>
-      <form id="admin-register-form">
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+      <div class="row justify-content-center" >
+        <div class="col-md-4">
+          <h4 class="text-center">Admin Registration Form</h4>
+          <p class="message"></p>
+          <form id="admin-register-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
 
+            </div>
+            <div class="form-group">
+              <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
+              <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
+            </div>
+            <div class="form-group">
+              <input id="cpassword" name="cpassword" type="cpassword" class="form-control" placeholder="Re type Password" required>
+              <span toggle="#cpassword" class="fa fa-fw fa-eye field-icon cpassword"></span>
+            </div>
+            <input type="hidden" name="admin_register" value="1">
+            <button type="button" class="btn btn-primary register-btn">Register</button>
+          </form>
         </div>
-        <div class="form-group">
-          <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
-          <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
-        </div>
-        <div class="form-group">
-          <input id="cpassword" name="cpassword" type="cpassword" class="form-control" placeholder="Re type Password" required>
-          <span toggle="#cpassword" class="fa fa-fw fa-eye field-icon cpassword"></span>
-        </div>
-        <input type="hidden" name="admin_register" value="1">
-        <button type="button" class="btn btn-primary register-btn">Register</button>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
 
 
 
-      
-     
+
+
     </main>
-  </div>
-</div>
+  
 
 
 

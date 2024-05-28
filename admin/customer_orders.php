@@ -1,19 +1,23 @@
 <?php session_start(); ?>
-<?php include_once("./templates/top.php"); ?>
-<?php include_once("./templates/navbar.php"); ?>
+<?php include "indexhead.php"; ?>
+<?php include_once("./templates/top.php"); 
+?>
+<?php // include_once("./templates/navbar.php"); 
+?>
 <div class="container-fluid">
   <div class="row">
-    
-    <?php include "./templates/sidebar.php"; ?>
 
-      <div class="row">
-      	<div class="col-10">
-      		<h2>Customers Orders</h2>
-      	</div>
+    <?php // include "./templates/sidebar.php"; 
+    ?>
+
+    <div class="row">
+      <div class="col-10">
+        <h2>Customers Orders</h2>
       </div>
-      
-      <div class="table-responsive">
-	  <div class="row mb-3">
+    </div>
+
+    <div class="table-responsive">
+      <div class="row mb-3">
         <div class="col-md-3 offset-md-7">
           <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
         </div>
@@ -21,25 +25,25 @@
           <button class="btn btn-primary btn-block" id="searchButton">Search</button>
         </div>
       </div>
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              
-              <th>Order Id</th>
-              <th>Product Id</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Trx Id</th>
-              <th>Payment Status</th>
-			  <th>Date Ordered</th>
-			  <th>Seller Id</th>
-            </tr>
-          </thead>
-          <tbody id="customer_order_list">
-           
-          </tbody>
-        </table>
-      </div>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+
+            <th>Order Id</th>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Trx Id</th>
+            <th>Payment Status</th>
+            <th>Date Ordered</th>
+            <th>Seller Id</th>
+          </tr>
+        </thead>
+        <tbody id="customer_order_list">
+
+        </tbody>
+      </table>
+    </div>
     </main>
   </div>
 </div>
@@ -58,59 +62,59 @@
       </div>
       <div class="modal-body">
         <form id="add-product-form" enctype="multipart/form-data">
-        	<div class="row">
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Product Name</label>
-		        		<input type="text" name="product_name" class="form-control" placeholder="Enter Product Name">
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Brand Name</label>
-		        		<select class="form-control brand_list" name="brand_id">
-		        			<option value="">Select Brand</option>
-		        		</select>
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Category Name</label>
-		        		<select class="form-control category_list" name="category_id">
-		        			<option value="">Select Category</option>
-		        		</select>
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Product Description</label>
-		        		<textarea class="form-control" name="product_desc" placeholder="Enter product desc"></textarea>
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Product Price</label>
-		        		<input type="number" name="product_price" class="form-control" placeholder="Enter Product Price">
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Product Keywords <small>(eg: apple, iphone, mobile)</small></label>
-		        		<input type="text" name="product_keywords" class="form-control" placeholder="Enter Product Keywords">
-		        	</div>
-        		</div>
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Product Image <small>(format: jpg, jpeg, png)</small></label>
-		        		<input type="file" name="product_image" class="form-control">
-		        	</div>
-        		</div>
-        		<input type="hidden" name="add_product" value="1">
-        		<div class="col-12">
-        			<button type="button" class="btn btn-primary add-product">Add Product</button>
-        		</div>
-        	</div>
-        	
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Brand Name</label>
+                <select class="form-control brand_list" name="brand_id">
+                  <option value="">Select Brand</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Category Name</label>
+                <select class="form-control category_list" name="category_id">
+                  <option value="">Select Category</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Product Description</label>
+                <textarea class="form-control" name="product_desc" placeholder="Enter product desc"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Product Price</label>
+                <input type="number" name="product_price" class="form-control" placeholder="Enter Product Price">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Product Keywords <small>(eg: apple, iphone, mobile)</small></label>
+                <input type="text" name="product_keywords" class="form-control" placeholder="Enter Product Keywords">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Product Image <small>(format: jpg, jpeg, png)</small></label>
+                <input type="file" name="product_image" class="form-control">
+              </div>
+            </div>
+            <input type="hidden" name="add_product" value="1">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary add-product">Add Product</button>
+            </div>
+          </div>
+
         </form>
       </div>
     </div>

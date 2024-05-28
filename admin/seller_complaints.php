@@ -1,31 +1,34 @@
 <?php session_start(); 
+include "indexhead.php"; 
 include 'checks.php';
 ?>
 <?php include_once("./templates/top.php"); ?>
-<?php include_once("./templates/navbar.php"); ?>
+<?php // include_once("./templates/navbar.php"); ?>
 <div class="container-fluid">
   <div class="row">
     
-    <?php include "./templates/sidebar.php"; ?>
+    <?php // include "./templates/sidebar.php"; ?>
 
-      <div class="row">
-      	<div class="col-5">
-      		<h2>Seller Complaints</h2>
-      	</div>
-		<div class="col-4">
-        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
-      	</div>
-        <div class="col-3">
-        <button class="btn btn-primary btn-block" id="searchButton">Search</button>
-      	</div>
+    <div class="row">
+      <div class="">
+        <h2>Seller Complaints</h2>
       </div>
-      
-      <div class="table-responsive">
+    </div>
+
+    <div class="table-responsive">
+      <div class="row mb-3">
+        <div class="col-md-3 offset-md-7">
+          <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary btn-block" id="searchButton">Search</button>
+        </div>
+      </div>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>#</th>
-			  <th>User Id</th>
+              <th>SN</th>
+			  <th>Seller Id</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Complaints</th>

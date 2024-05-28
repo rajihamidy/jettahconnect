@@ -12,12 +12,13 @@ $(document).ready(function(){
 				var resp = $.parseJSON(response);
 
 				var brandHTML = '';
-
+				sn=0;
 				$.each(resp.message, function(index, value){
+					sn++;
 					brandHTML += '<tr>'+
-									'<td></td>'+
+									'<td>'+sn+'</td>'+
 									'<td>'+ value.cat_title +'</td>'+
-									'<td><a class="btn btn-sm btn-info edit-category"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-pencil-alt"></i></a>&nbsp;<a cid="'+value.cat_id+'" class="btn btn-sm btn-danger delete-category"><i class="fas fa-trash-alt"></i></a></td>'+
+								//	'<td><a class="btn btn-sm btn-info edit-category"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-pencil-alt"></i></a>&nbsp;<a cid="'+value.cat_id+'" class="btn btn-sm btn-danger delete-category"><i class="fas fa-trash-alt"></i></a></td>'+
 								'</tr>';
 				});
 

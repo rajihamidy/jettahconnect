@@ -1,23 +1,27 @@
 <?php session_start(); ?>
 <?php include_once("./templates/top.php"); ?>
-<?php include_once("./templates/navbar.php"); ?>
+<?php include "indexhead.php"; ?>
+<?php //include_once("./templates/navbar.php"); ?>
 <div class="container-fluid">
   <div class="row">
-    
-    <?php include "./templates/sidebar.php"; ?>
+  
+    <?php // include "./templates/sidebar.php"; ?>
 
-      <div class="row">
-      	<div class="col-3">
-      		<h2>Customers</h2>
-      	</div>
-		<div class="col-4">
-        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
-      	</div>
-        <div class="col-3">
-        <button class="btn btn-primary btn-block" id="searchButton">Search</button>
-      	</div>
+    <div class="row">
+      <div class="col-10">
+        <h2>Customers </h2>
       </div>
-      
+    </div>
+
+    <div class="table-responsive">
+      <div class="row mb-3">
+        <div class="col-md-3 offset-md-7">
+          <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary btn-block" id="searchButton">Search</button>
+        </div>
+      </div> 
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>

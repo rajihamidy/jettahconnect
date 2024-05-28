@@ -1,0 +1,13 @@
+
+  /* Custom style for Jettah Connect */
+  li.jettah-connect a {
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
+    font-weight: bold; /* Bold text */
+    font-family: 'Roboto', sans-serif; /* Custom font */
+  }
+  li.jettah-connect a:hover {
+    background-color: #333333; /* Darker gray on hover */
+    color: #ffffff; /* White text on hover */
+  }
+  

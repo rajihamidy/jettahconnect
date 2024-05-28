@@ -4,15 +4,13 @@ if (!isset($_SESSION['masteradmin_id'])) {
   header("location:login.php");
 }
 
-include "./templates/top.php"; 
+
 ?>
 
-<?php include "./templates/navbar.php"; ?>
+<?php include "indexhead.php"; ?>
 
 <div class="container-fluid">
   <div class="row">
-    <?php include "./templates/sidebar.php"; ?>
-
     <h2><center>Seller's Details</center></h2>
     <div class="table-responsive">
       <div class="row mb-3">
