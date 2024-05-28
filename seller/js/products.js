@@ -82,9 +82,12 @@ sn++;
 				$("#add-product-form").trigger("reset");
 				$("#add_product_modal").modal('hide');
 				getProducts();
-				alert(resp.message);
+				//alert(resp.message);
+				showCustomAlert(resp.message);
+				
+
 			} else if (resp.status == 303) {
-				alert(resp.message);
+				showCustomAlert(resp.message);
 			} else {
 				console.error("Unexpected JSON response:", resp); // Log unexpected response for debugging
 				alert("Unexpected JSON response. Please try again later.");
@@ -140,10 +143,10 @@ sn++;
 					$("#edit-product-form").trigger("reset");
 					$("#edit_product_modal").modal('hide');
 					getProducts();
-					alert(resp.message);
+					showCustomAlert(resp.message);
 					window.location.href = "products.php";
 				}else if(resp.status == 303){
-					alert(resp.message);
+					showCustomAlert(resp.message);
 				}
 			}
 
@@ -167,7 +170,7 @@ sn++;
 					if (resp.status == 202) {
 						getProducts();
 					}else if (resp.status == 303) {
-						alert(resp.message);
+						showCustomAlert(resp.message);
 					}
 				}
 

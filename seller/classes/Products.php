@@ -51,51 +51,64 @@ class Products
 	}
 
 	public function addProduct($product_name,
-								$brand_id,
-								$category_id,
-								$product_desc,
-								$product_qty,
-								$product_price,
-								$product_keywords,
-								$file, $user_id){
+                           $brand_id,
+                           $category_id,
+                           $product_desc,
+                           $product_qty,
+                           $product_price,
+                           $product_keywords,
+                           $file, $user_id){
 
+    // Determine the correct file path based on the host
+    $isLocalhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']);
+    $uploadDirectory = $_SERVER['DOCUMENT_ROOT'] . ($isLocalhost ? "/Jettahconnect" : "") . "/product_images/";
 
-		$fileName = $file['name'];
-		$fileNameAr= explode(".", $fileName);
-		$extension = end($fileNameAr);
-		$ext = strtolower($extension);
+    // Check if a file is provided
+    if (isset($file['name']) && !empty($file['name'])) {
+        $fileName = $file['name'];
+        $fileNameAr = explode(".", $fileName);
+        $extension = end($fileNameAr);
+        $ext = strtolower($extension);
 
-		if ($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
-			
-			//print_r($file['size']);
+        if ($ext == "jpg" || $ext == "jpeg" || $ext == "png") {
 
-			if ($file['size'] <= (1024* 1024 * 2)) {
-				
-				$uniqueImageName = time()."_".$file['name'];
-				if (move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Jettahconnect/product_images/".$uniqueImageName)) {
-					
-					$q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$uniqueImageName', '$product_keywords')");
+            if ($file['size'] <= (1024 * 1024 * 2)) {
 
-					if ($q) {
-						return json_encode(['status'=> 202, 'message'=> 'Product Added Successfully..!']);
-						
-					}else{
-						return json_encode(['status'=> 303, 'message'=> 'Failed to run query']);
-					}
+                $uniqueImageName = time() . "_" . $file['name'];
+                if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $uniqueImageName)) {
+                    // Insert with image
+                    $q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$uniqueImageName', '$product_keywords')");
 
-				}else{
-					return json_encode(['status'=> 303, 'message'=> 'Failed to upload image']);
-				}
+                    if ($q) {
+                        return json_encode(['status'=> 202, 'message'=> 'Product Added Successfully..!']);
 
-			}else{
-				return json_encode(['status'=> 303, 'message'=> 'Large Image ,Max Size allowed 2MB']);
-			}
+                    } else {
+                        return json_encode(['status'=> 303, 'message'=> 'Failed to run query']);
+                    }
 
-		}else{
-			return json_encode(['status'=> 303, 'message'=> 'Invalid Image Format [Valid Formats : jpg, jpeg, png]']);
-		}
+                } else {
+                    return json_encode(['status'=> 303, 'message'=> 'Failed to upload image']);
+                }
 
-	}
+            } else {
+                return json_encode(['status'=> 303, 'message'=> 'Large Image, Max Size allowed 2MB']);
+            }
+
+        } else {
+            return json_encode(['status'=> 303, 'message'=> 'Invalid Image Format [Valid Formats: jpg, jpeg, png]']);
+        }
+
+    } else {
+        // No file provided, insert without image
+        $q = $this->con->query("INSERT INTO `products`(`user_id`,`product_cat`, `product_brand`, `product_title`, `product_qty`, `product_price`, `product_desc`, `product_keywords`) VALUES ('$user_id','$category_id', '$brand_id', '$product_name', '$product_qty', '$product_price', '$product_desc', '$product_keywords')");
+
+        if ($q) {
+            return json_encode(['status'=> 202, 'message'=> 'Product Added Successfully..!']);
+        } else {
+            return json_encode(['status'=> 303, 'message'=> 'Failed to run query']);
+        }
+    }
+}
 
 
 	public function editProductWithImage($pid,
@@ -344,7 +357,8 @@ if (isset($_POST['add_product'])) {
 	&& !empty($product_qty)
 	&& !empty($product_price)
 	&& !empty($product_keywords)
-	&& !empty($_FILES['product_image']['name'])) {
+	&& !empty($_FILES['product_image']['name'])
+	) {
 		
 
 		$p = new Products();

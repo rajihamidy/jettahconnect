@@ -1,0 +1,37 @@
+
+        /* Styles for the overlay and alert box */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1051; 
+        }
+        .alert-box {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .alert-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .alert-message {
+            margin-bottom: 20px;
+        }
+        .alert-button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    

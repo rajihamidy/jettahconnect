@@ -120,7 +120,8 @@ $userid = $_SESSION['admin_id'];
             <div class="col-12">
               <div class="form-group">
                 <label>Product Image <small>(format: jpg, jpeg, png)</small></label>
-                <input type="file" name="product_image" class="form-control">
+                <input type="file" name="product_image" class="form-control" accept=".jpg, .jpeg, .png">
+
               </div>
             </div>
             <input type="hidden" name="user_id" value="<?php echo $userid; ?>">
@@ -202,7 +203,7 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Product Image <small>(format: jpg, jpeg, png)</small></label>
                 <div class="custom-file">
-                  <input type="file" name="e_product_image" class="custom-file-input" id="editProductImage">
+                  <input type="file" name="e_product_image" class="custom-file-input" id="editProductImage" accept=".jpg, .jpeg, .png">
                   <label class="custom-file-label" for="editProductImage">Choose file</label>
                 </div>
                 <img src="../product_images/1.0x0.jpg" class="img-fluid" width="50">
@@ -212,7 +213,7 @@ $userid = $_SESSION['admin_id'];
             <input type="hidden" name="pid">
             <input type="hidden" name="edit_product" value="1">
             <div class="col-12">
-              <button type="button" class="btn btn-primary submit-edit-product">Add Product</button>
+              <button type="button" class="btn btn-primary submit-edit-product">Update Product</button>
             </div>
           </div>
 
@@ -223,9 +224,11 @@ $userid = $_SESSION['admin_id'];
 </div>
 <!-- Edit Product Modal end -->
 
+<?php require 'customAlert.php'; ?>
+
 <?php include_once("./templates/footer.php"); ?>
 
 
-
+<script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/products.js"></script>
 <script type="text/javascript" src="./js/sidebar.js"></script>
