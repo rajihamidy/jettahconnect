@@ -4,6 +4,10 @@ session_start();
 if (isset($_SESSION["uid"])) {
     header("location:profile.php");
 }
+
+if (isset($_GET["id"])) {
+	
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -123,33 +127,24 @@ if (isset($_SESSION["uid"])) {
     <div class="container">
         <div class="card mb-3">
             <div class="pt-4 pb-2">
-                <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                <p class="text-center small">Enter your username & password to login</p>
+                <h5 class="card-title text-center pb-0 fs-4">Forget Password</h5>
+              
             </div>
             <div class="card-body">
                 <div class="row centered-form">
 
                     <div class="panel-heading">
-                        <form onsubmit="return false" id="login" class="row g-3">
+                        <form onsubmit="return false" id="forgetpass" class="row g-3">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" required />
+                                <input type="email" class="form-control" name="email" placeholder="Enter Registered Email" id="email" required />
                             </div>
-                            <label for="email">Password</label>
+                           
 
-
-                            <div class="form-group">
-                                <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
-                                <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
-                            </div>
-
-                            <p><br /></p>
-                            <p>
+                            
                             <div class="" id="e_msg"></div>
                             </p>
-                            <input type="submit" class="btn btn-warning" value="Login"> <a href="forgetpass.php?id=1" class="btn btn-primary"> Forget password </a>
-<br>
-                            <a href="customer_registration.php?register=1" class="btn btn-outline-primary">Create Account Now</a>
+                            <input type="submit" class="btn btn-primary" value="Proceed >>"> 
                         </form>
                     </div>
 

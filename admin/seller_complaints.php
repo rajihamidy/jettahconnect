@@ -10,7 +10,8 @@ include 'checks.php';
     <?php // include "./templates/sidebar.php"; ?>
 
     <div class="row">
-      <div class="">
+      <div class="col-md-4">
+        
         <h2>Seller Complaints</h2>
       </div>
     </div>
