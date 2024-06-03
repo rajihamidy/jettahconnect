@@ -67,6 +67,11 @@
 
             </div>
             <div class="form-group">
+              <label for="mobile">Mobile</label>
+              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile Number">
+
+            </div>
+            <div class="form-group">
               <input id="password" name="password" type="password" class="form-control" placeholder="Password" required>
               <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
             </div>

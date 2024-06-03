@@ -64,6 +64,18 @@ class Customers
 		return ['status'=> 303, 'message'=> 'no complaints submitted yet'];
 	}
 
+	public function getRegisteredAdmin(){
+		$query = $this->con->query("SELECT * from masteradmin ");
+		$ar = [];
+		if (@$query->num_rows > 0) {
+			while ($row = $query->fetch_assoc()) {
+				$ar[] = $row;
+			}
+			return ['status'=> 202, 'message'=> $ar];
+		}
+		return ['status'=> 303, 'message'=> 'No Admin Registered Yet.'];
+	}
+
 }
 
 
@@ -102,4 +114,10 @@ if (isset($_POST["GET_SELLER_COMPLAINTS"])) {
 		exit();
 	}
 }
-?>
+if (isset($_POST["GET_REGISTERED_ADMIN"])) {
+	if (isset($_SESSION['masteradmin_id'])) {
+		$c = new Customers();
+		echo json_encode($c->getRegisteredAdmin());
+		exit();
+	}
+}

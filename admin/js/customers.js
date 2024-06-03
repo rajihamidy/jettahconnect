@@ -4,6 +4,7 @@ $(document).ready(function () {
 	getCustomerOrders();
 	getCustomerComplaints();
 	getSellerComplaints();
+	getRegisteredAdmin()
 	function getCustomers() {
 		$.ajax({
 			url: '../admin/classes/Customers.php',
@@ -186,6 +187,55 @@ $(document).ready(function () {
 		});
 	}
 
+	function getRegisteredAdmin() {
+		$.ajax({
+			url: '../admin/classes/Customers.php',
+			method: 'POST',
+			data: {
+				GET_REGISTERED_ADMIN: 1,
+				_: new Date().getTime() // Adding timestamp to prevent caching
+			},
+			success: function (response) {
+				console.log("Server response:", response);
+
+				var resp = $.parseJSON(response);
+				if (resp.status == 202) {
+					var customerOrderHTML = "";
+					sn = 0;
+
+					$.each(resp.message, function (index, value) {
+						
+
+						sn++;
+						var userId = (value.id !== undefined && value.id !== null) ? value.id : "N/A";
+						var name = (value.name !== undefined && value.name !== null) ? value.name : "N/A";
+						var email = (value.email !== undefined && value.email !== null) ? value.email : "N/A";
+						var phone = (value.mobile !== undefined && value.mobile !== null) ? value.mobile : "N/A";
+						var submDate = (value.regdate !== undefined && value.regdate !== null) ? value.regdate : "N/A";
+
+						customerOrderHTML += '<tr>' +
+							'<td>' + sn + '</td>' +
+							'<td>' + userId.toString().padStart(4, '0') + '</td>' +
+							'<td>' + name + '</td>' +
+							'<td>' + email + '</td>' +
+							'<td>' + phone + '</td>' +
+							//'<td>' + (fileName !== "No file" ? '<a href="../seller/complaints/' + encodeURIComponent(fileName) + '" download>' + fileName + '</a>' : fileName) + '</td>' +
+							'<td>' + submDate + '</td>' +
+							'</tr>';
+
+					});
+
+					$("#complaints_list").html(customerOrderHTML);
+
+				} else if (resp.status == 303) {
+					$("#complaints_list").html(resp.message);
+				}
+			},
+			error: function (xhr, status, error) {
+				console.error("Error in AJAX request:", status, error);
+			}
+		});
+	}
 
 
 

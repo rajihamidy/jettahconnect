@@ -5,13 +5,18 @@ session_start();
 
 if (isset($_POST["email"])) {
     $email = mysqli_real_escape_string($con, $_POST["email"]);
-    
+
     $sql = "SELECT * FROM user_info WHERE email = '$email'";
     $run_query = mysqli_query($con, $sql);
     $count = mysqli_num_rows($run_query);
-    
+
     if ($count == 1) {
-        $recovery_code = bin2hex(random_bytes(16));
+
+        //        $recovery_code = bin2hex(random_bytes(16));
+        $recovery_code = random_int(1000000, 9999999);
+
+        // Optionally, cast to string if needed
+        $recovery_code = (string)$recovery_code;
         $recovery_expiration = date("Y-m-d H:i:s", strtotime('+1 hour'));
 
         $update_sql = "UPDATE user_info SET recovery_code = '$recovery_code', recovery_expiration = '$recovery_expiration' WHERE email = '$email'";
@@ -26,7 +31,8 @@ if (isset($_POST["email"])) {
     }
 }
 
-function sendRecoveryEmail($email, $recovery_code) {
+function sendRecoveryEmail($email, $recovery_code)
+{
     $subject = "Password Recovery";
     $message = "Use the following recovery code to reset your password: $recovery_code\n\n";
     $message .= "This code will expire in 1 hour.";
@@ -34,5 +40,3 @@ function sendRecoveryEmail($email, $recovery_code) {
 
     mail($email, $subject, $message, $headers);
 }
-
-?>

@@ -11,13 +11,13 @@ if (!isset($_SESSION['masteradmin_id'])) {
 
 <div class="container-fluid">
   <div class="row">
-    <h2><center>Seller's Details</center></h2>
+    <h2><center>Shop Owner's Details</center></h2>
     <div class="table-responsive">
       <div class="row mb-3">
         <div class="col-md-3 offset-md-7">
           <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 py-3">
           <button class="btn btn-primary btn-block" id="searchButton">Search</button>
         </div>
       </div>

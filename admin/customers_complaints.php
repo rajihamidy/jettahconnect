@@ -10,7 +10,7 @@ include 'checks.php';
     <?php //include "./templates/sidebar.php"; ?>
 
     <div class="row">
-      <div class="">
+      <div class="row mb-3">
         <h2>Customer Complaints</h2>
       </div>
     </div>
