@@ -1,6 +1,7 @@
-<?php session_start(); 
-include "indexhead.php"; 
+<?php 
 include 'checks.php';
+include "indexhead.php";
+$masteradmin_email = isset($_SESSION['masteradmin_email']) ? $_SESSION['masteradmin_email'] : '';
 ?>
 <?php include_once("./templates/top.php"); ?>
 <?php // include_once("./templates/navbar.php"); ?>
@@ -35,6 +36,7 @@ include 'checks.php';
               <th>Complaints</th>
               <th>Uploaded file</th>
               <th>Submission Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="Selcomplaints_list">
@@ -54,6 +56,33 @@ include 'checks.php';
   </div>
 </div>
 
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Reply Email
+</button>
+-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <textarea class="form-control" id="replyTextArea" rows="5" cols="50" required></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary send-reply" id="sendReplyButton">Send Reply</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="replierEmail" value="<?php echo $masteradmin_email; ?>">
 
 
 
@@ -87,5 +116,35 @@ include 'checks.php';
         }
       });
     }
+    $('#sendReplyButton').click(function () {
+        var replierEmail = $("#replierEmail").val();
+        var reply = $("#replyTextArea").val();
+        var complaintID = $(".modal-body").find("p:contains('Complaint ID')").text().split(": ")[1];
+        var reply_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+        var dataToSend = {
+            check: 'reply_to_seller',
+            complaint_id: complaintID,
+            replierEmail: replierEmail,
+            reply: reply,
+            reply_date: reply_date
+        };
+
+ // Send data using AJAX
+ $.ajax({
+                type: 'POST',
+                url: 'save_reply.php', // Update this URL to your server endpoint
+                data: JSON.stringify(dataToSend),
+                contentType: 'application/json',
+                success: function(response) {
+                  alert(response);
+                  $('[data-dismiss="modal"]').trigger('click');
+                },
+                error: function(error) {
+                    console.log('Error saving data:', error);
+                }
+            });
+    });
+
   });
 </script>

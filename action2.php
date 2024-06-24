@@ -5,11 +5,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Get the posted JSON data
     $postData = file_get_contents("php://input");
 
+    // Log or print raw JSON data for debugging
+    // error_log("Received JSON data: " . $postData); // Uncomment to log data to error log
+    // echo "Received JSON data: " . $postData; // Uncomment to echo data for debugging
+
     // Decode the JSON data into PHP array
     $dataArray = json_decode($postData, true);
 
-    // Check if decoding was successful
-    if ($dataArray !== null) {
+    // Check if decoding was successful and if data array contains values
+    if ($dataArray !== null && !empty($dataArray)) {
         // Initialize arrays to store unique records
         $uniqueRecords = array();
 
@@ -52,31 +56,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Format the date and time
             $currentDateTime = $dateTime->format('Y-m-d H:i:s');
 
-
             // Insert the record into the orders table
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id,delM,addres, p_status, seller_id,orderdate) 
-                    VALUES ('$userId', '$productId', '$qty', '$trxId','$delM','$address', '$pStatus', '$sellerId', '$currentDateTime');";
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, delM, addres, p_status, seller_id, orderdate) 
+                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$delM', '$address', '$pStatus', '$sellerId', '$currentDateTime');";
 
             // Update the cart table for each record individually
             $sql .= "UPDATE cart SET order_status = 'Ordered' WHERE user_id = '$userId';";
         }
 
-        // Execute multi-query
-        if (mysqli_multi_query($con, $sql)) {
-            do {
-                // Check if there are more results
-                if ($result = mysqli_store_result($con)) {
-                    // Free result set
-                    mysqli_free_result($result);
-                }
-            } while (mysqli_next_result($con));
-            echo "Records inserted and cart updated successfully";
+        // Execute multi-query if there are SQL statements to execute
+        if (!empty($sql)) {
+            if (mysqli_multi_query($con, $sql)) {
+                do {
+                    // Check if there are more results
+                    if ($result = mysqli_store_result($con)) {
+                        // Free result set
+                        mysqli_free_result($result);
+                    }
+                } while (mysqli_next_result($con));
+                echo "Records inserted and cart updated successfully";
+            } else {
+                echo "Error: " . mysqli_error($con);
+            }
         } else {
-            echo "Error: " . mysqli_error($con);
+            echo "No valid data to process";
         }
     } else {
-        // JSON decoding failed
-        echo "Error decoding JSON data";
+        // JSON decoding failed or empty data array
+        echo "Error decoding JSON data or empty data array";
+        // Optional: Print JSON decoding error details for debugging
+        echo "JSON Error: " . json_last_error_msg();
     }
 } else {
     // Request method is not POST

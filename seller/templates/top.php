@@ -25,7 +25,13 @@
     <link href="./css/dashboard.css" rel="stylesheet">
     <link href="./css/alert.css" rel="stylesheet">
   </head>
-
+  <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
  <body>
   
  <div id="main">

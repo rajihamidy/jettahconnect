@@ -1,4 +1,4 @@
-<?php session_start();
+<?php 
 include 'checks.php';
 ?>
 <?php include_once("./templates/top.php"); ?>

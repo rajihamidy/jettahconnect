@@ -1,9 +1,7 @@
 <?php
+
 require "config/constants.php";
-session_start();
-if (!isset($_SESSION["uid"])) {
-	header("location:index.php");
-}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,14 +16,12 @@ if (!isset($_SESSION["uid"])) {
 	<script src="main2.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+	<script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
-	<?php require 'customAlert.php'; ?>
-	<script type="text/javascript" src="js/customalert.js"></script>
-	<link href="css/alert.css" rel="stylesheet">
+
 	<style>
 		/* CSS for scrollbar */
 		.container {
@@ -125,43 +121,47 @@ if (!isset($_SESSION["uid"])) {
 	</script>
 
 </body>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-	function payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile) {
-		var handler = PaystackPop.setup({
-			key: 'pk_live_0bff82479cc9dbf584a3aefcfc8a11b1676815fd', // Replace with your public key
-			//key: 'pk_test_ba6fc5ef2109b6e491d37ab4c0294d8fc8ee22eb', // Replace with your public key
-			email: buyer_email,
-			amount: total_amount * 100, // Amount is in kobo, hence multiply by 100
+	function payWithMonnify(total_amount, buyer_name, buyer_email, buyer_mobile) {
+		MonnifySDK.initialize({
+
+			amount: total_amount,
 			currency: "NGN",
-			ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a random reference number
-			metadata: {
-				custom_fields: [{
-						display_name: "Mobile Number",
-						variable_name: "mobile_number",
-						value: buyer_mobile
-					},
-					{
-						display_name: "Buyer Name",
-						variable_name: "buyer_name",
-						value: buyer_name
-					}
-				]
-			},
-			callback: function(response) {
-				// Implement what happens when transaction is completed.
+			fee: 20,
+			reference: new String((new Date()).getTime()),
+			customerFullName: buyer_name,
+			customerEmail: buyer_email,
+			customerMobileNumber: buyer_mobile,
+			apiKey: "MK_TEST_ENTY115CZW",
+			contractCode: "6073096540",
+			paymentDescription: "My depo",
+
+
+
+			// reference: '' + Math.floor((Math.random() * 1000000000) + 1),
+			//  customerName,
+			//  customerEmail,
+			//  customerMobileNumber,
+			//  apiKey: "", //Your api key
+			//  contractCode: "", //Your contract code
+			//  paymentDescription: "Payment of Product",
+			// isTestMode: true, //True or False for testmode
+			paymentMethods: ["CARD", "ACCOUNT_TRANSFER"],
+			onComplete: function(response) {
+				//Implement what happens when transaction is completed.
+				//console.log(response);
+				//alert('Payment made');
 				var prod_owner = [];
 				var user_id = [];
 				var product_id = [];
 				var qty = [];
 				var trx_id = [];
 				var seller_Email = [];
+				//var p_status = [];
 				var seller_id = [];
-				var delM = $("#delM").val();
+				var delM = $("#delM").val(); // Get the value of the select element
 				var address = $("#address").val();
-
+				// Iterate over each row
 				$(".row").each(function() {
 					var $row = $(this);
 					prod_owner.push($row.find("[name='prod_owner[]']").val());
@@ -170,9 +170,11 @@ if (!isset($_SESSION["uid"])) {
 					trx_id.push($row.find("[name='trx_id[]']").val());
 					seller_Email.push($row.find("[name='seller_Email[]']").val());
 					qty.push($row.find("[name='qty[]']").val());
+					//	p_status.push($row.find("[name='p_status[]']").val());
 					seller_id.push($row.find("[name='seller_id[]']").val());
 				});
 
+				// Combine arrays into an array of objects
 				var combinedArray = user_id.map(function(_, i) {
 					return {
 						prod_owner: prod_owner[i],
@@ -181,49 +183,41 @@ if (!isset($_SESSION["uid"])) {
 						qty: qty[i],
 						trx_id: trx_id[i],
 						seller_Email: seller_Email[i],
+						//		p_status: p_status[i],
 						seller_id: seller_id[i],
-						delM: delM,
-						address: address
+						delM: delM, // Add delM to each object
+						address: address // Add address to each object
 					};
 				});
 
+				// Filter out blank records
 				var filteredArray = combinedArray.filter(function(record) {
 					return Object.values(record).every(function(value) {
 						return value !== null && value !== undefined && value !== '';
 					});
 				});
-
 				$.ajax({
 					url: 'action3.php',
 					method: 'POST',
 					data: JSON.stringify(filteredArray),
 					contentType: 'application/json',
 					success: function(response) {
-						showCustomAlert(response);
+						alert(response);
 						location.reload();
 						window.location = 'profile.php';
 					},
 					error: function(xhr, status, error) {
-						showCustomAlert(error);
+						alert(error);
 					}
 				});
+				// End of Action to perform on complete
 			},
-			onClose: function() {
-				// Implement what should happen when the modal is closed here
-				showCustomAlert('Payment Window Closed.');
-
+			onClose: function(data) {
+				//Implement what should happen when the modal is closed here
+				console.log(data);
+				alert('Payment Window Closed.');
 			}
 		});
-		handler.openIframe();
-	}
-
-	function toggleAddressInput() {
-		var deliveryMethod = $('#delM').val();
-		if (deliveryMethod === "Home Delivery") {
-			$('#addressInput').show();
-		} else {
-			$('#addressInput').hide();
-		}
 	}
 </script>
 
@@ -231,7 +225,7 @@ if (!isset($_SESSION["uid"])) {
 	function toggleAddressInput() {
 		var deliveryMethod = document.getElementById("delM").value;
 		var addressInput = document.getElementById("addressInput");
-
+		
 		if (deliveryMethod === "Home Delivery") {
 			addressInput.style.display = "block";
 			$("#message").show();

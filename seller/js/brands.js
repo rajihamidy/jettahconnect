@@ -57,7 +57,7 @@ sn=0;
 
 		if (confirm("Are you sure to delete this brand")) {
 			$.ajax({
-				url : '../admin/classes/Products.php',
+				url : '../seller/classes/Products.php',
 				method : 'POST',
 				data : {DELETE_BRAND:1, bid:bid},
 				success : function(response){
@@ -93,7 +93,7 @@ sn=0;
 
 	$(".edit-brand-btn").on("click", function(){
 		$.ajax({
-			url : '../admin/classes/Products.php',
+			url : '../seller/classes/Products.php',
 			method : 'POST',
 			data : $("#edit-brand-form").serialize(),
 			success : function(response){

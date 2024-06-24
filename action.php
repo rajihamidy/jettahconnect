@@ -356,7 +356,7 @@ if (isset($_POST["Common"])) {
 
 
 	if (isset($_POST["checkOutDetails"])) {
-		error_reporting(0);
+	//	error_reporting(0);
 		if (mysqli_num_rows($query) > 0) {
 			//display user cart item with "Ready to checkout" button if user is not login
 			echo "<form method='post' action='login_form.php'>";
@@ -469,7 +469,7 @@ if (isset($_POST["Common"])) {
 				</div> 
 				<div class="col-sm-4"> 
 				<div id="addressInput" style="display: none;">
-    <input type="text" id="address" name="address" class="form-control" placeholder="Enter your address">
+    <input type="text" id="address" value="0" name="address" class="form-control" placeholder="Enter your address">
 </div>
 				</div>
 				</div>

@@ -42,6 +42,15 @@
  							<span data-feather="layers"></span>
  							Categories
  						</a>
+						<hr>
+						<a class="dropdown-item <?php echo ($page == 'inbox.php') ? 'active' : ''; ?>" href="inbox.php">
+ 							<span data-feather="inbox"></span>
+ 							Inbox
+ 						</a>
+						 <a class="dropdown-item <?php echo ($page == 'sent.php') ? 'active' : ''; ?>" href="sent.php">
+ 							<span data-feather="send"></span>
+ 							Sent
+ 						</a>
 						 <a class="dropdown-item <?php echo ($page == 'seller_complaints.php') ? 'active' : ''; ?>" href="seller_complaints.php">
  							<span data-feather="alert-triangle"></span>
  							Submit Complaints

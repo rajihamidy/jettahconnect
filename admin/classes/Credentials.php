@@ -56,6 +56,8 @@ class Credentials
 			if (password_verify($password, $row['password'])) {
 				$_SESSION['masteradmin_name'] = $row['name'];
 				$_SESSION['masteradmin_id'] = $row['id'];
+				$_SESSION['masteradmin_email'] = $row['email'];
+
 				return ['status' => 202, 'message' => 'Login Successful'];
 			} else {
 				return ['status' => 303, 'message' => 'Login Fail'];

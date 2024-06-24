@@ -71,7 +71,7 @@ if (!isset($_SESSION["uid"])) {
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://rajiypentdataservices.com">Young Programa</a></div>
+					<div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>

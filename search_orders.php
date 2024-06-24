@@ -39,7 +39,7 @@ if (isset($_POST["getOrders"])) {
 				<img style="float:right;" src="product_images/'. $row["product_image"].'" alt="Product Image" class="img-responsive img-thumbnail" />
 			</div>
 			<div class="col-md-6">
-				<table>
+				<table >
 					<tr>
 						<td>Serial Number</td>
 						<td><b> '.$sn.' </b> </td>

@@ -13,9 +13,7 @@ class Database
 	}
 }
 
-?>
 
-<?php
 
 
 $conn = mysqli_connect("localhost", "root", "", "jettahconnect");

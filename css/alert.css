@@ -13,14 +13,12 @@
             z-index: 1051; 
         }
         .alert-box {
-            background:#007BFF;
+            background: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-           
             text-align: center;
         }
-
         .alert-title {
             font-size: 18px;
             margin-bottom: 10px;

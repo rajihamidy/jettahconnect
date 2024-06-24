@@ -5,6 +5,9 @@ $(document).ready(function () {
 	getCustomerComplaints();
 	getSellerComplaints();
 	getRegisteredAdmin()
+	//$('[data-toggle="tooltip"]').tooltip(); 
+	$('#exampleModalCenter').tooltip();
+
 	function getCustomers() {
 		$.ajax({
 			url: '../admin/classes/Customers.php',
@@ -119,11 +122,33 @@ $(document).ready(function () {
 							'<td>' + complaints + '</td>' +
 							'<td>' + (fileName !== "No file" ? '<a href="../seller/complaints/' + encodeURIComponent(fileName) + '" download>' + fileName + '</a>' : fileName) + '</td>' +
 							'<td>' + submDate + '</td>' +
+							'<td><a class="btn btn-sm btn-info send-mail" data-target="#exampleModalCenter"  data-toggle="modal" data-placement="top" title="Send Reply"><span style="display:none;">' + JSON.stringify(value) + '</span><i class="fas fa-envelope"></i></a>&nbsp;</td>' +
 							'</tr>';
 
 					});
 
 					$("#Selcomplaints_list").html(customerOrderHTML);
+					// Add click event listener to the send-mail buttons
+					$(".send-mail").on("click", function () {
+						$("#replyTextArea").val('');
+						var complaintData = JSON.parse($(this).find("span").text());
+						// Populate modal with data
+						$("#exampleModalCenterTitle").text("Reply to Complaint");
+						$(".modal-body .new-content").remove();
+						$(".modal-body").prepend(`
+						<div class="new-content">
+							<p><strong>Complaint ID:</strong> ${complaintData.sn}</p>	
+						<p><strong>User ID:</strong> ${complaintData.user_id}</p>
+						<p><strong>Email:</strong> ${complaintData.email}</p> 
+						<p><strong>Phone:</strong> ${complaintData.phone}</p>
+						<p><strong>Complaints:</strong> ${complaintData.complaints}</p>
+						<p><strong>Reply:</strong></p>
+						  </div>
+						
+					`);
+						// Show the modal
+						$("#exampleModalCenter").modal("show");
+					});
 
 				} else if (resp.status == 303) {
 					$("#Selcomplaints_list").html(resp.message);
@@ -133,6 +158,7 @@ $(document).ready(function () {
 				console.error("Error in AJAX request:", status, error);
 			}
 		});
+		
 	}
 
 
@@ -171,14 +197,39 @@ $(document).ready(function () {
 							'<td>' + complaints + '</td>' +
 							'<td>' + (fileName !== "No file" ? '<a href="../seller/complaints/' + encodeURIComponent(fileName) + '" download>' + fileName + '</a>' : fileName) + '</td>' +
 							'<td>' + submDate + '</td>' +
+							'<td><a class="btn btn-sm btn-info send-mail" data-target="#exampleModalCenter"  data-toggle="modal" data-placement="top" title="Send Reply"><span style="display:none;">' + JSON.stringify(value) + '</span><i class="fas fa-envelope"></i></a>&nbsp;</td>' +
+							//'<td><a class="btn btn-sm btn-info send-mail" data-toggle="tooltip" data-placement="top" title="Send Reply"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-envelope"></i></a>&nbsp;</td>'+ //value.user_id
 							'</tr>';
 
 					});
 
-					$("#complaints_list").html(customerOrderHTML);
+					$("#Ccomplaints_list").html(customerOrderHTML);
+					// Add click event listener to the send-mail buttons
+					$(".send-mail").on("click", function () {
+						$("#replyTextArea").val('');
+						var complaintData = JSON.parse($(this).find("span").text());
+						// Populate modal with data
+						$("#exampleModalCenterTitle").text("Reply to Complaint");
+						$(".modal-body .new-content").remove();
+						$(".modal-body").prepend(`
+							<div class="new-content">
+							<p><strong>Complaint ID:</strong> ${complaintData.sn}</p>	
+							<p><strong>User ID:</strong> ${complaintData.user_id}</p>
+							<p><strong>Email:</strong> ${complaintData.email}</p>
+							<p><strong>Phone:</strong> ${complaintData.phone}</p>
+							<p><strong>Complaints:</strong> ${complaintData.complaints}</p>
+							<p><strong>Reply:</strong></p>
+							<div>
+							
+						`);
+						
+						// Show the modal
+						$("#exampleModalCenter").modal("show");
+					});
+					
 
 				} else if (resp.status == 303) {
-					$("#complaints_list").html(resp.message);
+					$("#Ccomplaints_list").html(resp.message);
 				}
 			},
 			error: function (xhr, status, error) {
@@ -186,7 +237,7 @@ $(document).ready(function () {
 			}
 		});
 	}
-
+	
 	function getRegisteredAdmin() {
 		$.ajax({
 			url: '../admin/classes/Customers.php',
@@ -204,7 +255,7 @@ $(document).ready(function () {
 					sn = 0;
 
 					$.each(resp.message, function (index, value) {
-						
+
 
 						sn++;
 						var userId = (value.id !== undefined && value.id !== null) ? value.id : "N/A";

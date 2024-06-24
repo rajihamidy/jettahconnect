@@ -1,10 +1,5 @@
 <?php 
-session_start();  
-if (!isset($_SESSION['masteradmin_id'])) {
-  header("location:login.php");
-}
-
-
+include 'checks.php';
 ?>
 
 <?php include "indexhead.php"; ?>
