@@ -98,8 +98,6 @@ if (!isset($_SESSION["uid"])) {
 					<div class="panel-heading">Cart Checkout</div>
 					<div class="panel-body">
 						<!--	<div class="row">
-
-
 							<div class="col-md-2 col-xs-2"><b>Action</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Image</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Name</b></div>
@@ -123,7 +121,7 @@ if (!isset($_SESSION["uid"])) {
 	<script>
 		var CURRENCY = '<?php echo CURRENCY; ?>';
 	</script>
-
+<a href="pay.php">Pay</a>
 </body>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -219,29 +217,24 @@ if (!isset($_SESSION["uid"])) {
 
 	function toggleAddressInput() {
 		var deliveryMethod = $('#delM').val();
-		if (deliveryMethod === "Home Delivery") {
-			$('#addressInput').show();
+		if (deliveryMethod === 'Pick-up at Store') {
+			$('#address').hide();
 		} else {
-			$('#addressInput').hide();
+			$('#address').show();
 		}
 	}
-</script>
 
-<script>
-	function toggleAddressInput() {
-		var deliveryMethod = document.getElementById("delM").value;
-		var addressInput = document.getElementById("addressInput");
+	$(document).ready(function() {
+		toggleAddressInput();
+		$('#delM').change(toggleAddressInput);
+	});
 
-		if (deliveryMethod === "Home Delivery") {
-			addressInput.style.display = "block";
-			$("#message").show();
-			$("#message").html("Note:<br>Home Delivery Charges is paid by the Buyer, and its subject to negotiation with the delivery man.").addClass("text-danger");
-			//alert("Home Delivery Charges is paid by the Buyer, and its subject to negotiation with the delivery man.");
-		} else {
-			addressInput.style.display = "none";
-			$("#message").hide();
-		}
-	}
+	function triggerCheckout(total_amount, buyer_name, buyer_email, buyer_mobile) {
+            // Notify the WebView about the checkout button click with necessary parameters
+            Android.triggerPaystackPayment(total_amount, buyer_name, buyer_email, buyer_mobile);
+			
+        }
+
 </script>
 
 </html>
