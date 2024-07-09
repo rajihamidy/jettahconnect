@@ -47,7 +47,10 @@ if (!isset($_SESSION['admin_id'])) {
               <th>Date/Time</th>
               <th>Amount</th>
               <th>Previous Balance</th>
-			  <th>New Balance</th>
+			        <th>New Balance</th>
+              <th>Bank Name</th>
+              <th>Account Number</th>
+              <th>Receiver Name</th>
               
 			  
             </tr>
@@ -66,6 +69,9 @@ if (!isset($_SESSION['admin_id'])) {
               <th>Amount</th>
               <th>Previous Balance</th>
 			  <th>New Balance</th>
+        <th>Bank Name</th>
+              <th>Account Number</th>
+              <th>Receiver Name</th>
               
 			  
             </tr>

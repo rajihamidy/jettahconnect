@@ -32,8 +32,10 @@ $(document).ready(function () {
                             '<td class="text-wrap">' + value.date_time + '</td>' +
                             '<td class="text-wrap">' + 'N' + parseFloat(value.amount).toLocaleString() + '</td>' +
                             '<td class="text-wrap">' + 'N' + parseFloat(value.previousbalance).toLocaleString() + '</td>' +
-                            '<td class="text-wrap">' + 'N' + parseFloat(value.newbalance).toLocaleString() + '</td>'
-
+                            '<td class="text-wrap">' + 'N' + parseFloat(value.newbalance).toLocaleString() + '</td>'+
+                            '<td class="text-wrap">' + value.bankname + '</td>' +
+                            '<td class="text-wrap">' + value.accountnumber + '</td>' +
+                            '<td class="text-wrap">' + value.accountname + '</td>' 
                         '</tr>';
 
                     });

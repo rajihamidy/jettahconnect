@@ -98,6 +98,9 @@ include "./templates/top.php";
                             var amount = res.data.amount+50;
                             var previousbalance = res.data.previousbalance;
                             var newbalance = res.data.newbalance;
+                            var bankname = res.data.bankname;
+                            var accountNumber = res.data.accountNumber;
+                            var receivername = res.data.receivername;
 
                             // Make the AJAX call to update_withdrawal.php
                             $.ajax({
@@ -110,7 +113,10 @@ include "./templates/top.php";
                                     date_time: date_time,
                                     amount: amount,
                                     previousbalance: previousbalance,
-                                    newbalance: newbalance
+                                    newbalance: newbalance,
+                                    bankname:bankname,
+                                    accountNumber:accountNumber,
+                                    receivername:receivername
                                 },
                                 success: function(response) {
                                     if (response.status) {

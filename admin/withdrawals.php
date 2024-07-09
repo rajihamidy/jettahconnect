@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'checks.php';
 ?>
 
@@ -6,7 +6,9 @@ include 'checks.php';
 
 <div class="container-fluid">
   <div class="row">
-    <h2><center>Shop Owner's Details</center></h2>
+    <h2>
+      <center>Shop Owner's Details</center>
+    </h2>
     <div class="table-responsive">
       <div class="row mb-3">
         <div class="col-md-3 offset-md-7">
@@ -18,47 +20,51 @@ include 'checks.php';
       </div>
       <table class="table table-striped table-sm">
         <thead>
-        <tr>
-              <th>SN</th>
-			 <th>Seller's Email</th> 
-			
-			  <th>Reference</th>
-			 
-              <th>Date/Time</th>
-              <th>Amount</th>
-              <th>Previous Balance</th>
-			  <th>New Balance</th>
-              
-			  
-            </tr>
+          <tr>
+            <th>SN</th>
+            <th>Seller's Email</th>
+
+            <th>Reference</th>
+
+            <th>Date/Time</th>
+            <th>Amount</th>
+            <th>Previous Balance</th>
+            <th>New Balance</th>
+            <th>Bank Name</th>
+            <th>Account Number</th>
+            <th>Receiver Name</th>
+
+          </tr>
         </thead>
         <tbody id="withdrawal_list">
           <!-- Dynamic content will be loaded here -->
         </tbody>
         <tfoot>
           <tr>
-              <th>SN</th>
-		  <th>Seller's Email</th> 
-			
-			  <th>Reference</th>
-			 
-              <th>Date/Time</th>
-              <th>Amount</th>
-              <th>Previous Balance</th>
-			  <th>New Balance</th>
-              
-			  
-            </tr>
-          </tfoot>
+            <th>SN</th>
+            <th>Seller's Email</th>
+
+            <th>Reference</th>
+
+            <th>Date/Time</th>
+            <th>Amount</th>
+            <th>Previous Balance</th>
+            <th>New Balance</th>
+            <th>Bank Name</th>
+            <th>Account Number</th>
+            <th>Receiver Name</th>
+
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
 </div>
 <p></p>
 <?php include 'footer.php' ?>
-<?php include "./templates/footer.php"; 
+<?php include "./templates/footer.php";
 
- ?>
+?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="./js/withdrawals.js"></script>
 

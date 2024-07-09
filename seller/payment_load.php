@@ -15,6 +15,7 @@ $response = array('status' => false, 'message' => 'An error occurred'); // Defau
 if (isset($_POST['bankName'])) {
     $bankname = $_POST['bankName'];
     $destinationAccountNumber = $_POST['accountNumber'];
+    $receivername = $_POST['customerName'];
     $destinationBankCode = $_POST['bankCode'];
     $amount = $_POST['amount'] + 50; // to be debited from his account
     $amount1 = $_POST['amount']; // to be debited from paystack and credit the sellers account
@@ -99,7 +100,10 @@ if (isset($_POST['bankName'])) {
                         'status' => $transferData['data']['status'],
                         'admin_email' => $admin_email,
                         'previousbalance' => $previousBalance,
-                        'newbalance' => $newBalance
+                        'newbalance' => $newBalance,
+                        'bankname' => $bankname,
+                        'accountNumber' => $destinationAccountNumber,
+                        'receivername' => $receivername
                     );
                 } else {
                     $response['message'] = 'Error occurred: ' . $transferData['message'];
