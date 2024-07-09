@@ -64,6 +64,8 @@ include "./templates/top.php";
         event.preventDefault();
     });
 </script>
+<p></p>
+<?php include 'footer.php' ?>
 </body>
 <?php require 'customAlert.php'; ?>
 <script type="text/javascript" src="./js/customalert.js"></script>

@@ -36,9 +36,10 @@ function submitForm() {
         showCustomAlert('Minimum value is #500');
         $('#amount').focus();
     } else {
-        var submitButton = $("button[onclick='submitForm();']");
-        submitButton.text('Processing...');
-        submitButton.prop('disabled', true);
+
+      //  var submitButton = $("button[onclick='submitForm();']");
+      //  submitButton.text('Processing...'); 
+      //  submitButton.prop('disabled', true);
         
         document.getElementById("customerName").value = "";
         var accountNumber = document.getElementById("accountNumber").value;
@@ -78,6 +79,9 @@ function submitForm() {
                             sessionStorage.setItem('accountNumber', accountNumber);
                             sessionStorage.setItem('amount', amount);
                             sessionStorage.setItem('customerName', data.data.account_name);
+        var submitButton = $("button[onclick='submitForm();']");
+        submitButton.text('Processing...'); 
+        submitButton.prop('disabled', true);
                             // Redirect to the next page
                             window.location.href = 'payment.php';
                         },
@@ -87,12 +91,14 @@ function submitForm() {
                         }
                     });
                 } else {
+                   
                     showCustomAlert(data.message);
+
                 }
             },
             error: function (xhr, status, error) {
                 console.error('AJAX error:', error);
-                alert('An error occurred while verifying account details.');
+                showCustomAlert('An error occurred while verifying account details.');
             }
         });
     }
