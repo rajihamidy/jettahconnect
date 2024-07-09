@@ -1,6 +1,18 @@
 <?php
 session_start();
 require_once "db.php";
+
+// Debug: Print session variables to check if 'uid' is set
+print_r($_SESSION);
+
+if (!isset($_SESSION["uid"])) {
+    header("location:index.php");
+ //   echo "Unauthorized access! Please log in.";
+    exit;
+}
+
+$user_id = $_SESSION["uid"];
+
 function formatCurrency($amount)
 {
 	// Format the amount as Naira
@@ -16,8 +28,6 @@ function formatCurrency($amount)
 }
 
 if (isset($_POST["getOrders"])) {
-	$user_id = $_SESSION["uid"];
-
 	$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate,o.deliveryStatus,o.received_Status, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
 							FROM orders o
 							INNER JOIN products p ON o.product_id = p.product_id
@@ -146,7 +156,6 @@ echo'
 	}
 }
 
-
 if (isset($_SESSION["uid"]) || isset($_POST["search"])) {
 	$user_id = $_SESSION["uid"];
 	//$keyword = $_GET['keyword'];
@@ -194,7 +203,7 @@ if (isset($_SESSION["uid"]) || isset($_POST["search"])) {
 					</tr>
 					<tr>
 						<td>Product Price</td>
-						<td><b> '. CURRENCY . $row["product_price"].'</b></td>
+						<td><b> '. formatCurrency($row["product_price"]).'</b></td>
 					</tr>
 					<tr>
 						<td>Quantity</td>
@@ -202,7 +211,7 @@ if (isset($_SESSION["uid"]) || isset($_POST["search"])) {
 					</tr>
 					<tr>
 						<td>Amount</td>
-						<td><b> '.CURRENCY  . $row["product_price"] * $row["qty"].'</b></td>
+						<td><b> '.formatCurrency($row["product_price"] * $row["qty"]).'</b></td>
 					</tr>
 					<tr>
 						<td>Transaction Id</td>
@@ -291,3 +300,4 @@ echo'
 } else {
 	echo "Unauthorized access!";
 }
+?>

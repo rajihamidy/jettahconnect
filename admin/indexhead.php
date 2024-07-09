@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="indexhead.css">
-   
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Jettah Connect</a>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,6 +64,10 @@
             <a class="dropdown-item <?php echo ($page == 'adminlist.php') ? 'active' : ''; ?>" href="adminlist.php">
                 <span data-feather="clipboard"></span>
                 View Admin Accounts
+            </a>
+            <a class="dropdown-item <?php echo ($page == 'withdrawals.php') ? 'active' : ''; ?>" href="withdrawals.php">
+                <span data-feather="credit-card"></span>
+                Withdrawals
             </a>
         </div>
     </div>

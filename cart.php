@@ -121,7 +121,7 @@ if (!isset($_SESSION["uid"])) {
 	<script>
 		var CURRENCY = '<?php echo CURRENCY; ?>';
 	</script>
-<a href="pay.php">Pay</a>
+<!--<a href="pay.php">Pay</a> -->
 </body>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -228,13 +228,6 @@ if (!isset($_SESSION["uid"])) {
 		toggleAddressInput();
 		$('#delM').change(toggleAddressInput);
 	});
-
-	function triggerCheckout(total_amount, buyer_name, buyer_email, buyer_mobile) {
-            // Notify the WebView about the checkout button click with necessary parameters
-            Android.triggerPaystackPayment(total_amount, buyer_name, buyer_email, buyer_mobile);
-			
-        }
-
 </script>
 
 </html>

@@ -147,6 +147,8 @@ if (!isset($_SESSION['admin_id'])) {
   </div>
 </div>
 <!-- Modal -->
+<p>
+<?php require 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 

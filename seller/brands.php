@@ -125,7 +125,9 @@ if (!isset($_SESSION['admin_id'])) {
   </div>
 </div>
 <!-- Modal -->
-
+<p>
+<?php require 'footer.php' ?>
+</p></body>
 <?php include_once("./templates/footer.php"); ?>
 
 <?php require 'customAlert.php'; ?>

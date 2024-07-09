@@ -235,6 +235,8 @@ $userid = $_SESSION['admin_id'];
 <!-- Edit Product Modal end -->
 
 
+<p>
+<?php require 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 

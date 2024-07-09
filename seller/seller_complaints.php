@@ -91,7 +91,7 @@ $userid = $_SESSION['admin_id'];
 
 
                         </h4>
-                        <div class="panel-footer mt-5">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+                      <!--  <div class="panel-footer mt-5">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div> -->
                     </div>
                 </div>
                 <div class="col-md-1"></div>
@@ -165,6 +165,8 @@ $userid = $_SESSION['admin_id'];
 </div>
 </div>
 
+<p>
+<?php require 'footer.php' ?>
 
 
 

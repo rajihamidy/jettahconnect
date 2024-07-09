@@ -22,8 +22,8 @@ include "./templates/top.php";
   </div>
   </div>
 </div>
-
+<?php require 'footer.php' ?>
 <?php include "./templates/footer.php"; ?>
 
-<script type="text/javascript" src="./js/admin.js"></script>
+<!--<script type="text/javascript" src="./js/admin.js"></script> -->
 <script type="text/javascript" src="./js/sidebar.js"></script>

@@ -25,9 +25,9 @@
   $daysRemaining = $interval->format('%r%a');
 
   // Display the result
-  //echo "Today's date: " . $today->format('Y-m-d') . "<br>";
-  echo "Registration date: " . $Regdate->format('Y-m-d') . "<br>";
-  echo "Number of days remaining: " . $daysRemaining . "<br>";
+  echo "<div class='text-primary fs-1'>Today's date: " . $today->format('Y-m-d') . " </div>";
+  echo " <div class='text-primary fs-1'>Registration date: " . $Regdate->format('Y-m-d') . "<br></div>";
+ /* echo "Number of days remaining: " . $daysRemaining . "<br>";
   if ($_SESSION['acctstatus'] == "Not Activated") {
     $adminid = $_SESSION['admin_id'];
     $Account_Balance = $_SESSION['accountbalance'];
@@ -46,7 +46,7 @@
                 <div class='card-body'>
                     <p class='card-title'>Available <span>| Balance</span> 
                         <span style='float: right;'>
-                            <a href=''><span class='badge badge-success' style='color:#fff;'>Withdraw Funds</span></a>
+                            <a href='withdrawal.php'><span class='badge badge-success' style='color:#fff;'>Withdraw Funds</span></a>
                         </span>
                     </p>
 
@@ -65,5 +65,54 @@
     </div>
 </div>
   ";
-  }
+  } */
+  echo "
+  <br/> <br>";
+  $adminid = $_SESSION['admin_id'];
+  $adminEmail = $_SESSION['admin_email'];
+  // Create a new database connection
+  $db = new Database();
+  $conn = $db->connect();
+
+  // Fetch the account balance from the admin table using the email
+  $query = "SELECT wallet FROM admin WHERE email = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("s", $adminEmail);
+  $stmt->execute();
+  $stmt->bind_result($account_balance);
+  $stmt->fetch();
+  $stmt->close();
+
+  // Format the account balance
+
+  $newAccount_Balance = number_format($account_balance, 2);
+    echo "
+  
+    <div class='col-lg-12'>
+    <div class='row'>
+        <div class='col-xl-6 col-md-6'>
+            <div class='card info-card sales-card'>
+
+                <div class='card-body'>
+                    <p class='card-title'>Available <span>| Balance</span> 
+                        <span style='float: right;'>
+                            <a href='withdrawal.php'><span class='badge badge-success' style='color:#fff;'>Withdraw Funds</span></a>
+                        </span>
+                    </p>
+
+                    <div class='d-flex align-items-center'>
+                        <div class='card-icon rounded-circle d-flex align-items-center justify-content-center'>
+                            <i class='fas fa-wallet'></i>
+                        </div>
+                        <div class='ps-3'>
+                            <h6>₦ $newAccount_Balance</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- End Sales Card -->
+    </div>
+</div>
+  ";
   ?>

@@ -35,7 +35,11 @@ $(document).ready(function(){
 					$("#admin-register-form").trigger("reset");
 					$(".message").html('<span class="text-success">' + resp.message + '</span>');
 					setTimeout(function() {
-						window.location.href = window.origin+"/seller/login.php";
+						if (window.location.origin.includes("localhost")) {
+							window.location.href = window.origin + "/jettahconnect/seller/index.php";
+						  } else {
+							window.location.href = window.origin + "/seller/index.php";
+						  }
 					}, 2000);
 					// Hide the success message after 30 seconds
 		/*			setTimeout(function() {
@@ -67,7 +71,11 @@ $(document).ready(function(){
 				if (resp.status == 202) {
 					$("#admin-login-form").trigger("reset");
 					//$(".message").html('<span class="text-success">'+resp.message+'</span>');
-					window.location.href = window.origin+"/jettahconnect/seller/index.php";
+					if (window.location.origin.includes("localhost")) {
+						window.location.href = window.origin + "/jettahconnect/seller/index.php";
+					  } else {
+						window.location.href = window.origin + "/seller/index.php";
+					  }
 					//window.location.href = "https://example.com/jettahconnect/seller/index.php";
 
 				}else if(resp.status == 303){
@@ -79,7 +87,12 @@ $(document).ready(function(){
 					$(".message").html('<span class="text-danger">'+resp.message+'</span>');
 					setTimeout(function() {
 						// Redirect to ActivateAccount.php
-						window.location.href = window.origin+"/jettahconnect/seller/ActivateAccount.php";
+						if (window.location.origin.includes("localhost")) {
+							window.location.href = window.origin+"/jettahconnect/seller/ActivateAccount.php";
+						  } else {
+							window.location.href = window.origin + "/seller/ActivateAccount.php";
+						  }
+						
 						//window.location.href = "https://example.com/jettahconnect/seller/index.php";
 					}, 2000);
 				

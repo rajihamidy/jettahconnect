@@ -35,12 +35,12 @@ $(document).ready(function () {
                 $('#address').focus();
                 return; // Exit function if address is empty
             } else {
-                triggerCheckout(total_amount, buyer_name, buyer_email, buyer_mobile);
-                 //payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
+         
+                 payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
             }
         } else {
-            triggerCheckout(total_amount, buyer_name, buyer_email, buyer_mobile);
-           //payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
+         
+           payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
         }
     });
 

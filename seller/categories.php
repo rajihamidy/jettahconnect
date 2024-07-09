@@ -116,6 +116,8 @@
   </div>
 </div>
 <!-- Modal -->
+<p>
+<?php require 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 

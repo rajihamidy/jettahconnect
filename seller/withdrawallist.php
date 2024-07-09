@@ -19,9 +19,13 @@ if (!isset($_SESSION['admin_id'])) {
     <?php include "./templates/sidebar2.php"; ?>
 
       <div class="row">
-      	<div class="col">
-      		<h2>Sent Message(s)</h2>
+        
+      	<div class="col-10 text-primary"> 
+           <h2> Hello, <?php echo $_SESSION['admin_name'];?> </h2><br> 
+      		
       	</div>
+          <h3>Withdrawal Records</h3>
+          <hr>
       </div>
       <div class="row mb-3">
         <div class="col-md-4 offset-md-4">
@@ -32,25 +36,38 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-striped table-sm  style='width: 70%;'">
+        <table class="table table-striped table-sm  style='width: 50%;'">
           <thead>
             <tr>
               <th>SN</th>
-              <th>Title</th>
-			  <th>Complaint</th>
-              <th>Date</th>
-			  		  
+			<!--  <th>Seller's Email</th> -->
+			
+			  <th>Reference</th>
+			 
+              <th>Date/Time</th>
+              <th>Amount</th>
+              <th>Previous Balance</th>
+			  <th>New Balance</th>
+              
+			  
             </tr>
           </thead>
-          <tbody id="seller_OutBox_list">
+          <tbody id="withdrawal_list">
            
           </tbody>
 		  <tfoot>
           <tr>
-            <th>SN</th>
-			  <th>Complaint</th>
-              <th>Date</th>
-			  		  
+              <th>SN</th>
+		<!--	  <th>Seller's Email</th> -->
+			
+			  <th>Reference</th>
+			 
+              <th>Date/Time</th>
+              <th>Amount</th>
+              <th>Previous Balance</th>
+			  <th>New Balance</th>
+              
+			  
             </tr>
           </tfoot>
         </table>
@@ -58,17 +75,14 @@ if (!isset($_SESSION['admin_id'])) {
     </main>
   </div>
 </div>
-
-
 <p>
 <?php require 'footer.php' ?>
-
 
 <?php include_once("./templates/footer.php"); ?>
 
 
 
-<script type="text/javascript" src="./js/messages.js"></script>
+<script type="text/javascript" src="./js/withdrawal.js"></script>
 <script type="text/javascript" src="./js/update_pay.js"></script>
 <script type="text/javascript" src="./js/sidebar.js"></script>
 <script type="text/javascript" src="./js/delivery_status.js"></script>
@@ -90,7 +104,7 @@ if (!isset($_SESSION['admin_id'])) {
 
     // Function to filter table rows
     function filterTable(searchTerm) {
-      $('#seller_OutBox_list tr').each(function() {
+      $('#withdrawal_list tr').each(function() {
         var rowText = $(this).text().toLowerCase();
         if (rowText.indexOf(searchTerm) === -1) {
           $(this).hide();

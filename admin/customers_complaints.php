@@ -162,6 +162,8 @@ $dateTime = date('d-m-Y H:i');
 </div>
 <input type="hidden" id="replierEmail" value="<?php echo $masteradmin_email; ?>">
 
+<p></p>
+<?php include 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 

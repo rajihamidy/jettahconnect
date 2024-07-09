@@ -55,6 +55,10 @@
  							<span data-feather="alert-triangle"></span>
  							Submit Complaints
  						</a>
+						 <a class="dropdown-item <?php echo ($page == 'withdrawallist.php') ? 'active' : ''; ?>" href="withdrawallist.php">
+ 							<span data-feather="credit-card"></span>
+ 							Withdrawals
+ 						</a>
  						<!--  <a class="dropdown-item <?php //echo ($page == 'customers.php') ? 'active' : ''; 
 														?>" href="customers.php">
               <span data-feather="users"></span>

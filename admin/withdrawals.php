@@ -18,20 +18,38 @@ include 'checks.php';
       </div>
       <table class="table table-striped table-sm">
         <thead>
-          <tr>
-            <th>SN</th>
-            <th>Name</th>
-            <th>Shop Name</th>
-            <th>Shop Address</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Seller Id</th>
-            
-          </tr>
+        <tr>
+              <th>SN</th>
+			 <th>Seller's Email</th> 
+			
+			  <th>Reference</th>
+			 
+              <th>Date/Time</th>
+              <th>Amount</th>
+              <th>Previous Balance</th>
+			  <th>New Balance</th>
+              
+			  
+            </tr>
         </thead>
-        <tbody id="admin_list">
+        <tbody id="withdrawal_list">
           <!-- Dynamic content will be loaded here -->
         </tbody>
+        <tfoot>
+          <tr>
+              <th>SN</th>
+		  <th>Seller's Email</th> 
+			
+			  <th>Reference</th>
+			 
+              <th>Date/Time</th>
+              <th>Amount</th>
+              <th>Previous Balance</th>
+			  <th>New Balance</th>
+              
+			  
+            </tr>
+          </tfoot>
       </table>
     </div>
   </div>
@@ -42,7 +60,7 @@ include 'checks.php';
 
  ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="./js/admin.js"></script>
+<script type="text/javascript" src="./js/withdrawals.js"></script>
 
 <script>
   $(document).ready(function() {
@@ -58,7 +76,7 @@ include 'checks.php';
 
     // Function to filter table rows
     function filterTable(searchTerm) {
-      $('#admin_list tr').each(function() {
+      $('#withdrawal_list tr').each(function() {
         var rowText = $(this).text().toLowerCase();
         if (rowText.indexOf(searchTerm) === -1) {
           $(this).hide();

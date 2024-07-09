@@ -123,6 +123,8 @@ include 'checks.php';
   </div>
 </div>
 <!-- Modal -->
+<p></p>
+<?php include 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 
