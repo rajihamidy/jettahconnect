@@ -53,7 +53,7 @@ class Credentials
 			// Set the timezone to your preferred timezone
 			date_default_timezone_set("Africa/Lagos");
 
-
+			/*
 			// Get today's date
 			$today = new DateTime();
 
@@ -66,7 +66,8 @@ class Credentials
 			$daysRemaining = $interval->format('%r%a');
 			if ($daysRemaining <= 0) {
 				return ['status' => 305, 'message' => 'Trial Expired'];
-			} elseif (password_verify($password, $row['password'])) {
+			} else */
+			if (password_verify($password, $row['password'])) {
 				$_SESSION['shopname'] = $row['shopname'];
 				$_SESSION['admin_name'] = $row['name'];
 				$_SESSION['admin_email'] = $row['email'];
