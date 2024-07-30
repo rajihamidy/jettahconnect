@@ -18,7 +18,7 @@
 					<span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
 				</div>
 				<input type="hidden" name="admin_login" value="1">
-				<button type="button" class="btn btn-success login-btn">Login</button>
+				<button type="button" class="btn btn-success login-btn">Login</button> <a href="forgetpass.php?id=1" > Forget password? </a>
 			</form>
 		</div>
 	</div>

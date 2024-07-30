@@ -108,10 +108,14 @@
                             <h6>₦ $newAccount_Balance</h6>
                         </div>
                     </div>
+                    
                 </div>
-
+                    
             </div>
         </div><!-- End Sales Card -->
+        <div> 
+        <a href='../chat/index.php'>View Chats </a>
+        </div>
     </div>
 </div>
   ";

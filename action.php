@@ -1,6 +1,12 @@
 <?php
 session_start();
+error_reporting(0);
+// Enable error reporting for debugging
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 include 'uniqueref.php';
+$buyer_id = $_SESSION['uid'];
 function formatCurrency($amount)
 {
 	// Format the amount as Naira
@@ -94,6 +100,7 @@ if (isset($_POST["getProduct"])) {
 			$sellerid = $row['user_id'];
 			$qty = $row['product_qty'];
 			$pro_image = $row['product_image'];
+			
 			echo '
 			
 					<div class="col-sm-6 col-md-4 col-lg-3 column mb-4">
@@ -109,7 +116,10 @@ if (isset($_POST["getProduct"])) {
                             <p class=" panel-footer">Available Qty in Stock: ' . $qty . '</p>
 							<div class="panel-footer">
 							<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
-								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs custom-button">Contact</button>
+							<button sellerid="' . $sellerid . '" style="float:right;" id="chat_seller" class="btn btn-danger btn-xs custom-button">Chat</button><br>	
+							<input type="hidden" id="buyer_id" value="' . $buyer_id . '" />
+							<br>
+							<button userid="' . $sellerid . '" style="float:left;" id="contacts" class="btn btn-block btn-danger btn-xs custom-button">Contact Seller</button>
 								<div class="clearfix"></div>
 								</div>
                         </div>
@@ -209,6 +219,8 @@ if (isset($_POST["contats"])) {
 	} else {
 	}
 }
+
+
 //}
 
 

@@ -53,20 +53,6 @@ class Credentials
 			// Set the timezone to your preferred timezone
 			date_default_timezone_set("Africa/Lagos");
 
-			/*
-			// Get today's date
-			$today = new DateTime();
-
-			// Example registration date (replace this with your actual registration date)
-
-			$expdate = new DateTime($row['expdate']);
-
-			// Calculate the difference in days
-			$interval = $today->diff($expdate);
-			$daysRemaining = $interval->format('%r%a');
-			if ($daysRemaining <= 0) {
-				return ['status' => 305, 'message' => 'Trial Expired'];
-			} else */
 			if (password_verify($password, $row['password'])) {
 				$_SESSION['shopname'] = $row['shopname'];
 				$_SESSION['admin_name'] = $row['name'];
@@ -76,6 +62,20 @@ class Credentials
 				$_SESSION['regdate'] = $row['regdate'];
 				$_SESSION['expdate'] = $row['expdate'];
 				$_SESSION['acctstatus'] = $row['acctstatus'];
+				 // Insert a new login detail record
+				 $sub_query = "
+				 INSERT INTO login_details (user_id) 
+				 VALUES ('".$row['id']."')
+				 ";
+				 $run_query = $this->con->query($sub_query);
+	 
+				 // Get the last inserted ID and store it in the session
+				 if ($run_query) {
+					 $_SESSION['login_details_id'] = $this->con->insert_id;
+				 } else {
+					 return ['status' => 303, 'message' => 'Login details insertion failed: ' . $this->con->error];
+				 }
+				
 				return ['status' => 202, 'message' => 'Login Successful'];
 			} else {
 				return ['status' => 303, 'message' => 'Login Fail'];

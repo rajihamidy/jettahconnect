@@ -20,6 +20,16 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
 		$_SESSION["buyer_email"] = $row["email"];
 		$_SESSION["buyer_name"] =$row["last_name"];
 		$_SESSION["buyer_mobile"] =$row["mobile"];
+				
+		$sub_query = "
+		INSERT INTO login_details 
+		 (user_id) 
+		 VALUES ('".$row['user_id']."')
+		";
+		$run_query = mysqli_query($con,$sub_query);
+		$_SESSION['login_details_id'] = mysqli_insert_id($con);
+		
+
 		$ip_add = getenv("REMOTE_ADDR");
 		//we have created a cookie in login_form.php page so if that cookie is available means user is not login
 			if (isset($_COOKIE["product_list"])) {

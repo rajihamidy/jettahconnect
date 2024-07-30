@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jettah Connect</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+        
+    
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* CSS for scrollbar */
+        .container {
+            overflow-x: auto;
+            /* Add scrollbar for vertical overflow */
+            width: 100vw;
+            /* Set height of container to full viewport height */
+        }
+
+        /* Adjust styles for small devices */
+        @media screen and (max-width: 768px) {
+
+            .col-md-2,
+            .col-md-8,
+            .col-md-1 {
+                width: 100%;
+                /* Make columns full width on small devices */
+            }
+        }
+
+        /* Center the form */
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* Adjust styles for small devices */
+        @media screen and (max-width: 768px) {
+            .centered-form {
+                padding: 0 15px;
+                /* Add some padding for small devices */
+            }
+        }
+    </style>
+     
+    <style>
+        /* Style to place the eye on the password button */
+        .form-group {
+            position: relative;
+        }
+
+        .field-icon {
+            position: absolute;
+            right: 10px;
+            /* Adjust this value according to your preference */
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .form-control {
+            padding-right: 30px;
+            /* Adjust this value according to the icon's size */
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+         document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+         });
+      });
+   </script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class=" row">
+
+                <div class="col-md-2 ">
+
+                    <a href="index.php" class="navbar-brand">Jettah Connect</a>
+                </div>
+                <div class="col-md-2 ">
+                    <li><a href="index.php" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+    <div style="margin-top: 55px;">
+
+    </div>
+
+    </header>
+
+    <div class="container">
+        <div class="card mb-3">
+            <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Forget Password</h5>
+              
+            </div>
+            <div class="card-body">
+                <div class="row centered-form">
+
+                    <div class="panel-heading">
+                        <form onsubmit="return false" id="forgetpass" class="row g-3">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter Registered Email" id="email" required />
+                            </div>
+                           
+
+                            
+                            <div class="" id="e_msg"></div>
+                            </p>
+                            <input type="submit" class="btn btn-primary" value="Proceed >>"> 
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+</body>
+<script type="text/javascript" src="./js/sidebar.js"></script>
+<script>
+    (function($) {
+        $(".password").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    })(jQuery);
+
+    // forget pass
+	$("#forgetpass").on("submit", function (event) {
+		event.preventDefault();
+		$(".overlay").show();
+		$.ajax({
+			url: "classes/forgetpass_script.php",
+			method: "POST",
+			data: $("#forgetpass").serialize(),
+			success: function (data) {
+
+				$("#e_msg").html(data);
+				// Clear the content of #e_msg after 10 seconds (10000 milliseconds)
+				setTimeout(function () {
+					window.location.href = 'reset_password_form.php';
+				}, 1000);
+
+			}
+		})
+	})
+	// end
+</script>
+
+</html>

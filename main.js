@@ -330,8 +330,29 @@ $(document).ready(function () {
 			}
 		})
 	})
-	//GET SELLER INFORMATION END HERE
+	
 
+	$("body").delegate("#chat_seller", "click", function (event) {
+		event.preventDefault();
+		var userid = $(this).attr("sellerid");
+		var buyerid = $("#buyer_id").val();
+			
+		$.ajax({
+			url: "chat/index.php",
+			method: "POST",
+			data: { userid: userid, buyerid: buyerid },
+			success: function (data) {
+			//	window.location.href = 'me.php';
+			window.location.href = 'chat/index.php?userid=' + userid + '&buyerid=' + buyerid;
+        
+				//alert(data);
+			//	$('#product_msg').html(data);
+			//	$('.overlay').hide();
+			//	$('html, body').animate({ scrollTop: 0 }, 'slow')
+			}
+		})
+	})
+	//GET SELLER INFORMATION END HERE
 
 
 	//Count user cart items funtion
