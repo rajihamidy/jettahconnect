@@ -85,16 +85,17 @@ sn++;
 				//alert(resp.message);
 				showCustomAlert(resp.message);
 				
+                    
 
 			} else if (resp.status == 303) {
 				showCustomAlert(resp.message);
 			} else {
-				console.error("Unexpected JSON response:", resp); // Log unexpected response for debugging
-				alert("Unexpected JSON response. Please try again later.");
+				//console.error("Unexpected JSON response:", resp); // Log unexpected response for debugging
+				showCustomAlert("Unexpected JSON response. Please try again later.");
 			}
 		} catch (error) {
-			console.error("Error parsing JSON:", error); // Log JSON parsing error for debugging
-			alert("Error parsing JSON response. Please try again later.");
+			//console.error("Error parsing JSON:", error); // Log JSON parsing error for debugging
+			showCustomAlert("Error parsing JSON response. Please try again later.");
 		}
 		
 	}
@@ -155,31 +156,30 @@ sn++;
 
 	});
 
-	$(document.body).on('click', '.delete-product', function(){
-
+	$(document.body).on('click', '.delete-product', function() {
 		var pid = $(this).attr('pid');
-		if (confirm("Are you sure to delete this item ?")) {
+		
+		$('#confirm_message').text('Are you sure you want to delete this product?');
+		$('#confirm_modal').modal('show');
+	
+		$('#confirm_yes').off('click').on('click', function() {
 			$.ajax({
-
-				url : '../admin/classes/Products.php',
-				method : 'POST',
-				data : {DELETE_PRODUCT: 1, pid:pid},
-				success : function(response){
+				url: '../admin/classes/Products.php',
+				method: 'POST',
+				data: {DELETE_PRODUCT: 1, pid: pid},
+				success: function(response) {
 					console.log(response);
 					var resp = $.parseJSON(response);
 					if (resp.status == 202) {
 						getProducts();
-					}else if (resp.status == 303) {
+					} else if (resp.status == 303) {
 						showCustomAlert(resp.message);
 					}
 				}
-
 			});
-		}else{
-			alert('Cancelled');
-		}
-		
-
+			$('#confirm_modal').modal('hide');
+		});
 	});
+	
 
 });
