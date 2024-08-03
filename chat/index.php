@@ -10,7 +10,7 @@ if (!isset($_SESSION['uid']) && !isset($_SESSION['admin_id'])) {
     </script>";
     exit();
 }
-
+   
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve posted data
     $userid = isset($_POST['userid']) ? $_POST['userid'] : '';

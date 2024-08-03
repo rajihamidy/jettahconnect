@@ -11,7 +11,6 @@ $userid = $_SESSION['admin_id'];
 
 ?>
 
-<?php  ?>
 <div class="container-fluid">
   <div class="row">
 
@@ -34,7 +33,6 @@ $userid = $_SESSION['admin_id'];
         </div>
       </div>
 
-
     <div class="table-responsive">
       <table class="table table-striped table-sm">
         <thead>
@@ -50,23 +48,12 @@ $userid = $_SESSION['admin_id'];
           </tr>
         </thead>
         <tbody id="product_list">
-          <!-- <tr>
-              <td>1</td>
-              <td>ABC</td>
-              <td>FDGR.JPG</td>
-              <td>122</td>
-              <td>eLECTRONCS</td>
-              <td>aPPLE</td>
-              <td><a class="btn btn-sm btn-info"></a><a class="btn btn-sm btn-danger">Delete</a></td>
-            </tr> -->
+          <!-- Product rows will be inserted here via JavaScript -->
         </tbody>
       </table>
     </div>
-    </main>
   </div>
 </div>
-
-
 
 <!-- Add Product Modal start -->
 <div class="modal fade" id="add_product_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,18 +118,15 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Product Image <small>(format: jpg, jpeg, png)</small></label>
                 <input type="file" name="product_image" class="form-control" accept=".jpg, .jpeg, .png">
-
               </div>
             </div>
             <input type="hidden" name="user_id" value="<?php echo $userid; ?>">
             <input type="hidden" name="add_product" value="1">
 
-
             <div class="col-12">
               <button type="button" class="btn btn-primary add-product">Add Product</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
@@ -155,7 +139,7 @@ $userid = $_SESSION['admin_id'];
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -226,7 +210,6 @@ $userid = $_SESSION['admin_id'];
               <button type="button" class="btn btn-primary submit-edit-product">Update Product</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
@@ -234,19 +217,16 @@ $userid = $_SESSION['admin_id'];
 </div>
 <!-- Edit Product Modal end -->
 
-
 <p>
 <?php require 'footer.php' ?>
 
 <?php include_once("./templates/footer.php"); ?>
 
 <?php require 'customAlert.php'; ?>
+<?php require 'confirmation.php'; ?>
 <script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/products.js"></script>
-<script type="text/javascript" src="./js/sidebar.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
   $(document).ready(function() {
     $('#searchInput').on('keyup', function() {
@@ -272,3 +252,4 @@ $userid = $_SESSION['admin_id'];
     }
   });
 </script>
+

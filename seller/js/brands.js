@@ -1,113 +1,110 @@
-$(document).ready(function(){
+$(document).ready(function() {
+    getBrands();
 
-	getBrands();
-	
-	function getBrands(){
-		$.ajax({
-			url : '../seller/classes/Products.php',
-			method : 'POST',
-			data : {GET_BRAND:1},
-			success : function(response){
-				console.log(response);
-				var resp = $.parseJSON(response);
+    function getBrands() {
+        $.ajax({
+            url: '../seller/classes/Products.php',
+            method: 'POST',
+            data: { GET_BRAND: 1 },
+            success: function(response) {
+                var resp = $.parseJSON(response);
+                var brandHTML = '';
+                var sn = 0;
+                $.each(resp.message, function(index, value) {
+                    sn++;
+                    brandHTML += '<tr>'+
+                                    '<td>'+ sn +'</td>'+
+                                    '<td>'+ value.brand_title +'</td>'+
+                                    '<td>'+
+                                        '<a class="btn btn-sm btn-info edit-brand" data-id="'+ value.brand_id +'" data-name="'+ value.brand_title +'">'+
+                                            '<i class="fas fa-pencil-alt"></i>'+
+                                        '</a>&nbsp;'+
+                                        '<a class="btn btn-sm btn-danger delete-brand" bid="'+ value.brand_id +'">'+
+                                            '<i class="fas fa-trash-alt"></i>'+
+                                        '</a>'+
+                                    '</td>'+
+                                '</tr>';
+                });
+                $("#brand_list").html(brandHTML);
+            },
+            error: function() {
+                console.log("Error fetching brands.");
+            }
+        });
+    }
 
-				var brandHTML = '';
-sn=0;
-				$.each(resp.message, function(index, value){
-					sn++;
-					brandHTML += '<tr>'+
-									'<td>'+ sn +'</td>'+
-									'<td>'+ value.brand_title +'</td>'+
-									'<td><a class="btn btn-sm btn-info edit-brand"><span style="display:none;">'+JSON.stringify(value)+'</span><i class="fas fa-pencil-alt"></i></a>&nbsp;<a bid="'+value.brand_id+'" class="btn btn-sm btn-danger delete-brand"><i class="fas fa-trash-alt"></i></a></td>'+
-								'</tr>';
-				});
+    $(".add-brand").on("click", function() {
+        $.ajax({
+            url: '../seller/classes/Products.php',
+            method: 'POST',
+            data: $("#add-brand-form").serialize(),
+            success: function(response) {
+                var resp = $.parseJSON(response);
+                if (resp.status == 202) {
+                    getBrands();
+                    $("#add_brand_modal").modal('hide');
+                    showCustomAlert(resp.message);
+                } else if (resp.status == 303) {
+                    showCustomAlert(resp.message);
+                }
+            },
+            error: function() {
+                console.log("Error adding brand.");
+            }
+        });
+    });
 
-				$("#brand_list").html(brandHTML);
+    $(document.body).on('click', '.delete-brand', function() {
+        var bid = $(this).attr('bid');
+        
+        $('#confirm_message').text('Are you sure you want to delete this brand?');
+        $('#confirm_modal').modal('show');
 
-			}
-		})
-		
-	}
+        $('#confirm_yes').off('click').on('click', function() {
+            $.ajax({
+                url: '../seller/classes/Products.php',
+                method: 'POST',
+                data: { DELETE_BRAND: 1, bid: bid },
+                success: function(response) {
+                    var resp = $.parseJSON(response);
+                    if (resp.status == 202) {
+                        getBrands();
+                        showCustomAlert(resp.message);
+                    } else if (resp.status == 303) {
+                        showCustomAlert(resp.message);
+                    }
+                },
+                error: function() {
+                    console.log("Error deleting brand.");
+                }
+            });
+            $('#confirm_modal').modal('hide');
+        });
+    });
 
-	$(".add-brand").on("click", function(){
+    $(".edit-brand-btn").on("click", function() {
+        $.ajax({
+            url: '../seller/classes/Products.php',
+            method: 'POST',
+            data: $("#edit-brand-form").serialize(),
+            success: function(response) {
+                var resp = $.parseJSON(response);
+                if (resp.status == 202) {
+                    getBrands();
+                    $("#edit_brand_modal").modal('hide');
+                    showCustomAlert(resp.message);
+                } else if (resp.status == 303) {
+                    showCustomAlert(resp.message);
+                }
+            },
+            error: function() {
+                console.log("Error updating brand.");
+            }
+        });
+    });
 
-		$.ajax({
-			url : '../seller/classes/Products.php',
-			method : 'POST',
-			data : $("#add-brand-form").serialize(),
-			success : function(response){
-				var resp = $.parseJSON(response);
-				if (resp.status == 202) {
-					getBrands();
-					$("#add_brand_modal").modal('hide');
-					showCustomAlert(resp.message);
-					
-				}else if(resp.status == 303){
-					showCustomAlert(resp.message);
-				}
-				
-			}
-		})
-
-	});
-
-	$(document.body).on('click', '.delete-brand', function(){
-
-		var bid = $(this).attr('bid');
-
-		if (confirm("Are you sure to delete this brand")) {
-			$.ajax({
-				url : '../seller/classes/Products.php',
-				method : 'POST',
-				data : {DELETE_BRAND:1, bid:bid},
-				success : function(response){
-					var resp = $.parseJSON(response);
-					if (resp.status == 202) {
-						showCustomAlert(resp.message);
-						getBrands();
-					}else if(resp.status == 303){
-						showCustomAlert(resp.message);
-					}
-				}
-			});
-		}else{
-			alert('Cancelled');
-		}
-
-		
-
-	});
-
-	$(document.body).on("click", ".edit-brand", function(){
-
-		var brand = $.parseJSON($.trim($(this).children("span").html()));
-		console.log(brand);
-		$("input[name='e_brand_title']").val(brand.brand_title);
-		$("input[name='brand_id']").val(brand.brand_id);
-
-		$("#edit_brand_modal").modal('show');
-
-		
-
-	});
-
-	$(".edit-brand-btn").on("click", function(){
-		$.ajax({
-			url : '../seller/classes/Products.php',
-			method : 'POST',
-			data : $("#edit-brand-form").serialize(),
-			success : function(response){
-				var resp = $.parseJSON(response);
-				if (resp.status == 202) {
-					getBrands();
-					$("#edit_brand_modal").modal('hide');
-					showCustomAlert(resp.message);
-				}else if(resp.status == 303){
-					showCustomAlert(resp.message);
-				}
-				
-			}
-		});
-	});
-
+    function showCustomAlert(message) {
+        // Custom alert function to display success/error messages
+        console.log(message); // For now, just log the message. Replace with custom alert implementation.
+    }
 });
