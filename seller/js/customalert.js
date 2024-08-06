@@ -12,5 +12,18 @@
 
         
 
-       
+        function showCustomAlert(message, callback) {
+            // Set the alert message
+            document.querySelector('.alert-message').textContent = message;
+            // Show the alert box
+            document.getElementById('customAlert').style.display = 'flex';
+            
+            // Define the callback function for the OK button
+            document.querySelector('.alert-button').onclick = function() {
+                document.getElementById('customAlert').style.display = 'none';
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+            };
+        }
     

@@ -103,8 +103,8 @@ $(document).ready(function() {
         });
     });
 
-    function showCustomAlert(message) {
+ /*   function showCustomAlert(message) {
         // Custom alert function to display success/error messages
         console.log(message); // For now, just log the message. Replace with custom alert implementation.
-    }
+    } */
 });

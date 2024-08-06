@@ -25,13 +25,13 @@ $userid = $_SESSION['admin_id'];
       </div>
     </div>
     <div class="row mb-3">
-        <div class="col-md-4 offset-md-4">
-          <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
-        </div>
-        <div class="col-md-2 py-3">
-          <button class="btn btn-primary btn-block" id="searchButton">Search</button>
-        </div>
+      <div class="col-md-4 offset-md-4">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
       </div>
+      <div class="col-md-2 py-3">
+        <button class="btn btn-primary btn-block" id="searchButton">Search</button>
+      </div>
+    </div>
 
     <div class="table-responsive">
       <table class="table table-striped table-sm">
@@ -77,17 +77,35 @@ $userid = $_SESSION['admin_id'];
             <div class="col-12">
               <div class="form-group">
                 <label>Brand Name</label>
-                <select class="form-control brand_list" name="brand_id">
+                <div class="custom-select-container">
+                  <input type="text" class="form-control" id="brand_search" placeholder="Search Brand...">
+                  <select class="form-control brand_list" name="brand_id" id="brand_id" size="5">
+                    <option value="">Select Brand</option>
+
+                  </select>
+                </div>
+                <!--                <select class="form-control brand_list" name="brand_id" id="brand_id">
+
                   <option value="">Select Brand</option>
                 </select>
+
+-->
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
                 <label>Category Name</label>
-                <select class="form-control category_list" name="category_id">
+                <div class="custom-select-container">
+                  <input type="text" class="form-control" id="category_search" placeholder="Search Category...">
+                  <select class="form-control category_list" name="category_id" id="category_id" size="5">
+                    <option value="">Select Category</option>
+
+                  </select>
+                </div>
+<!--                <select class="form-control category_list" name="category_id">
                   <option value="">Select Category</option>
                 </select>
+-->
               </div>
             </div>
             <div class="col-12">
@@ -156,17 +174,32 @@ $userid = $_SESSION['admin_id'];
             <div class="col-12">
               <div class="form-group">
                 <label>Brand Name</label>
-                <select class="form-control brand_list" name="e_brand_id">
+                <div class="custom-select-container">
+                  <input type="text" class="form-control" id="e_brand_search" placeholder="Search Brand...">
+                  <select class="form-control brand_list" name="e_brand_id" id="e_brand_id" size="5">
+                    <option value="">Select Brand</option>
+
+                  </select>
+                </div>
+<!--                <select class="form-control brand_list" name="e_brand_id">
                   <option value="">Select Brand</option>
                 </select>
+-->
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
                 <label>Category Name</label>
+                <div class="custom-select-container">
+                  <input type="text" class="form-control" id="e_category_search" placeholder="Search Category...">
+                  <select class="form-control category_list" name="e_category_id" id="e_category_id" size="5">
+                    <option value="">Select Brand</option>
+
+                  </select>
+                </div><!--
                 <select class="form-control category_list" name="e_category_id">
                   <option value="">Select Category</option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="col-12">
@@ -218,38 +251,97 @@ $userid = $_SESSION['admin_id'];
 <!-- Edit Product Modal end -->
 
 <p>
-<?php require 'footer.php' ?>
+  <?php require 'footer.php' ?>
 
-<?php include_once("./templates/footer.php"); ?>
+  <?php include_once("./templates/footer.php"); ?>
 
-<?php require 'customAlert.php'; ?>
-<?php require 'confirmation.php'; ?>
-<script type="text/javascript" src="./js/customalert.js"></script>
-<script type="text/javascript" src="./js/customalert.js"></script>
-<script type="text/javascript" src="./js/products.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#searchInput').on('keyup', function() {
-      var searchTerm = $(this).val().toLowerCase();
-      filterTable(searchTerm);
-    });
-
-    $('#searchButton').on('click', function() {
-      var searchTerm = $('#searchInput').val().toLowerCase();
-      filterTable(searchTerm);
-    });
-
-    // Function to filter table rows
-    function filterTable(searchTerm) {
-      $('#product_list tr').each(function() {
-        var rowText = $(this).text().toLowerCase();
-        if (rowText.indexOf(searchTerm) === -1) {
-          $(this).hide();
-        } else {
-          $(this).show();
-        }
+  <?php require 'customAlert.php'; ?>
+  <?php require 'confirmation.php'; ?>
+  <script type="text/javascript" src="./js/customalert.js"></script>
+  <script type="text/javascript" src="./js/customalert.js"></script>
+  <script type="text/javascript" src="./js/products.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#searchInput').on('keyup', function() {
+        var searchTerm = $(this).val().toLowerCase();
+        filterTable(searchTerm);
       });
-    }
-  });
-</script>
 
+      $('#searchButton').on('click', function() {
+        var searchTerm = $('#searchInput').val().toLowerCase();
+        filterTable(searchTerm);
+      });
+
+      // Function to filter table rows
+      function filterTable(searchTerm) {
+        $('#product_list tr').each(function() {
+          var rowText = $(this).text().toLowerCase();
+          if (rowText.indexOf(searchTerm) === -1) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+        });
+      }
+    });
+  </script>
+  <script>
+    //to search or filter Brand name
+    document.getElementById('brand_search').addEventListener('keyup', function() {
+      var filter = this.value.toUpperCase();
+      var select = document.getElementById('brand_id');
+      var options = select.options;
+
+      for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    });
+    document.getElementById('category_search').addEventListener('keyup', function() {
+      var filter = this.value.toUpperCase();
+      var select = document.getElementById('category_id');
+      var options = select.options;
+
+      for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    });
+    // edit
+    document.getElementById('e_brand_search').addEventListener('keyup', function() {
+      var filter = this.value.toUpperCase();
+      var select = document.getElementById('e_brand_id');
+      var options = select.options;
+
+      for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    });
+    document.getElementById('e_category_search').addEventListener('keyup', function() {
+      var filter = this.value.toUpperCase();
+      var select = document.getElementById('e_category_id');
+      var options = select.options;
+
+      for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    });
+  </script>

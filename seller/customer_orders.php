@@ -3,8 +3,9 @@ if (!isset($_SESSION['admin_id'])) {
 	header("location:login.php");
   }
 ?>
-<script src="../js/bootstrap.min.js"></script>
+
 <?php include_once("./templates/top.php"); ?>
+<script src="../js/bootstrap.min.js"></script>
 <?php include_once("./templates/navbar.php"); ?>
 <style>
     /* Custom CSS to ensure text wrapping */
@@ -153,7 +154,9 @@ if (!isset($_SESSION['admin_id'])) {
 <?php include_once("./templates/footer.php"); ?>
 
 
+<?php require 'customAlert.php'; ?>
 
+<script type="text/javascript" src="./js/customalert.js"></script>
 <script type="text/javascript" src="./js/customers.js"></script>
 <script type="text/javascript" src="./js/update_pay.js"></script>
 <script type="text/javascript" src="./js/sidebar.js"></script>
