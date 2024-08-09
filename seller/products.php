@@ -17,7 +17,7 @@ $userid = $_SESSION['admin_id'];
     <?php include "./templates/sidebar2.php"; ?>
 
     <div class="row">
-      <div class="col-10">
+      <div class="col-12">
         <h2>Product List</h2>
       </div>
       <div class="col-2">
@@ -80,7 +80,7 @@ $userid = $_SESSION['admin_id'];
                 <div class="custom-select-container">
                   <input type="text" class="form-control" id="brand_search" placeholder="Search Brand...">
                   <select class="form-control brand_list" name="brand_id" id="brand_id" size="5">
-                    <option value="">Select Brand</option>
+                    <option value="" selected >Select Brand</option>
 
                   </select>
                 </div>
@@ -287,61 +287,73 @@ $userid = $_SESSION['admin_id'];
   </script>
   <script>
     //to search or filter Brand name
-    document.getElementById('brand_search').addEventListener('keyup', function() {
-      var filter = this.value.toUpperCase();
-      var select = document.getElementById('brand_id');
-      var options = select.options;
+    $('#brand_search').on('keyup', function() {
+  var filter = $(this).val().toUpperCase();
+  var $options = $('#brand_id option');
 
-      for (var i = 0; i < options.length; i++) {
-        var txtValue = options[i].textContent || options[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          options[i].style.display = "";
-        } else {
-          options[i].style.display = "none";
-        }
-      }
-    });
-    document.getElementById('category_search').addEventListener('keyup', function() {
-      var filter = this.value.toUpperCase();
-      var select = document.getElementById('category_id');
-      var options = select.options;
+  $options.each(function() {
+    var txtValue = $(this).text();
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
 
-      for (var i = 0; i < options.length; i++) {
-        var txtValue = options[i].textContent || options[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          options[i].style.display = "";
-        } else {
-          options[i].style.display = "none";
-        }
-      }
-    });
-    // edit
-    document.getElementById('e_brand_search').addEventListener('keyup', function() {
-      var filter = this.value.toUpperCase();
-      var select = document.getElementById('e_brand_id');
-      var options = select.options;
+$('#category_search').on('keyup', function() {
+  var filter = $(this).val().toUpperCase();
+  var $options = $('#category_id option');
 
-      for (var i = 0; i < options.length; i++) {
-        var txtValue = options[i].textContent || options[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          options[i].style.display = "";
-        } else {
-          options[i].style.display = "none";
-        }
-      }
-    });
-    document.getElementById('e_category_search').addEventListener('keyup', function() {
-      var filter = this.value.toUpperCase();
-      var select = document.getElementById('e_category_id');
-      var options = select.options;
+  $options.each(function() {
+    var txtValue = $(this).text();
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
 
-      for (var i = 0; i < options.length; i++) {
-        var txtValue = options[i].textContent || options[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          options[i].style.display = "";
-        } else {
-          options[i].style.display = "none";
-        }
-      }
-    });
+// Edit
+$('#e_brand_search').on('keyup', function() {
+  var filter = $(this).val().toUpperCase();
+  var $options = $('#e_brand_id option');
+
+  $options.each(function() {
+    var txtValue = $(this).text();
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+
+$('#e_category_search').on('keyup', function() {
+  var filter = $(this).val().toUpperCase();
+  var $options = $('#e_category_id option');
+
+  $options.each(function() {
+    var txtValue = $(this).text();
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+$(document).ready(function() {
+    $('#e_brand_id').attr('size', '5');
+    $('#brand_id').attr('size', '5');
+    $('#e_category_id').attr('size', '5');
+    $('#category_id').attr('size', '5');
+});
   </script>
+  <style>
+      #e_brand_id,#brand_id,#e_category_id,#category_id {
+    height: auto;
+    min-height: 100px; /* Adjust based on your requirement */
+}
+
+  </style>
