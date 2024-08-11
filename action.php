@@ -100,33 +100,53 @@ if (isset($_POST["getProduct"])) {
 			$sellerid = $row['user_id'];
 			$qty = $row['product_qty'];
 			$pro_image = $row['product_image'];
+			$pro_description= $row['product_desc'];
 			
 			echo '
-			
-					<div class="col-sm-6 col-md-4 col-lg-3 column mb-4">
-						<div class="panel panel-info">
-							<div class="panel-heading text-nowrap">' . $pro_title . '</div>
-							<div class="panel-body">
-							<div class="img-container">
-							<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '">
-										  </div>
-							</div>
-							 <div class="card-footer text-center">
-                            <p class=" panel-footer">' . formatCurrency($pro_price) . '</p>
-                            <p class=" panel-footer">Available Qty in Stock: ' . $qty . '</p>
-							<div class="panel-footer">
-							<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
-							<button sellerid="' . $sellerid . '" style="float:right;" id="chat_seller" class="btn btn-danger btn-xs custom-button">Chat</button><br>	
-							<input type="hidden" id="buyer_id" value="' . $buyer_id . '" />
-							<br>
-							<button userid="' . $sellerid . '" style="float:left;" id="contacts" class="btn btn-block btn-danger btn-xs custom-button">Contact Seller</button>
-								<div class="clearfix"></div>
-								</div>
-                        </div>
-						</div>
-					</div>
-				
-			';
+<div class="col-sm-6 col-md-4 col-lg-3 column mb-4">
+    <div class="panel panel-info">
+        <div class="panel-heading text-nowrap">' . $pro_title . '</div>
+        <div class="panel-body">
+            <div class="img-container">
+                <a href="#" data-toggle="modal" data-target="#productModal' . $pro_id . '" title="Click to view details">
+                    <img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '">
+                </a>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <p class="panel-footer">' . formatCurrency($pro_price) . '</p>
+            <p class="panel-footer">Available Qty in Stock: ' . $qty . '</p>
+            <div class="panel-footer">
+                <button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs custom-button">Add To Cart</button>
+                <button sellerid="' . $sellerid . '" style="float:right;" id="chat_seller" class="btn btn-danger btn-xs custom-button">Chat</button><br>    
+                <input type="hidden" id="buyer_id" value="' . $buyer_id . '" />
+                <br>
+                <button userid="' . $sellerid . '" style="float:left;" id="contacts" class="btn btn-block btn-danger btn-xs custom-button">Contact Seller</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Modal -->
+<div class="modal fade" id="productModal' . $pro_id . '" tabindex="-1" role="dialog" aria-labelledby="productModalLabel' . $pro_id . '" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel' . $pro_id . '">' . $pro_title.' Description' . '</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ' . $pro_description . '
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>';
 		}
 	}
 }
@@ -610,27 +630,47 @@ if (isset($_POST["getProducts"])) {
 			$sellerid = $row['user_id'];
 			$qty = $row['product_qty'];
 			$pro_image = $row['product_image'];
+			$pro_description= $row['product_desc'];
 			echo '
-			
-					<div class="col-sm-6 col-md-4 col-lg-3 column">
-						<div class="panel panel-info">
-							<div class="panel-heading text-nowrap">' . $pro_title . '</div>
-							<div class="panel-body">
-								<div class="img-container">
-									<img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
-								</div>
-							</div>
-							<div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
-							<div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
-							<div class="panel-footer">
-								<button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
-								<button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-				
-			';
+<div class="col-sm-6 col-md-4 col-lg-3 column">
+    <div class="panel panel-info">
+        <div class="panel-heading text-nowrap">' . $pro_title . '</div>
+        <div class="panel-body">
+            <div class="img-container">
+                <a href="#" data-toggle="modal" data-target="#productModal' . $pro_id . '" title="Click to view details">
+                    <img src="product_images/' . $pro_image . '" class="img-fluid" alt="' . $pro_title . '" style="object-fit: cover; display: block;">
+                </a>
+            </div>
+        </div>
+        <div class="panel-footer" style="text-align: center;">'  . formatCurrency($pro_price) . '</div>
+        <div class="panel-footer" style="text-align: center;">Available Qty in Stock: ' . $qty . '</div>
+        <div class="panel-footer">
+            <button pid="' . $pro_id . '" style="float:left;" id="product" class="btn btn-danger btn-xs">Add To Cart</button>
+            <button userid="' . $sellerid . '" style="float:right;" id="contacts" class="btn btn-danger btn-xs">Contact</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Modal -->
+<div class="modal fade" id="productModal' . $pro_id . '" tabindex="-1" role="dialog" aria-labelledby="productModalLabel' . $pro_id . '" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel' . $pro_id . '">' . $pro_title.' Description' . '</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ' . $pro_description . '
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>';
 		}
 	}else{
 		echo'<div class="text-danger text-black-50">No Product Uploaded by this Seller, Check another Seller. </div>';
