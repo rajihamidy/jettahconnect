@@ -78,8 +78,8 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Brand Name</label>
                 <div class="custom-select-container">
-                  <input type="text" class="form-control" id="brand_search" placeholder="Search Brand...">
-                  <select class="form-control brand_list" name="brand_id" id="brand_id" size="5">
+           <!--       <input type="text" class="form-control" id="brand_search" placeholder="Search Brand..."> -->
+                  <select class="form-control brand_list" name="brand_id" id="brand_id" >
                     <option value="" selected >Select Brand</option>
 
                   </select>
@@ -96,8 +96,8 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Category Name</label>
                 <div class="custom-select-container">
-                  <input type="text" class="form-control" id="category_search" placeholder="Search Category...">
-                  <select class="form-control category_list" name="category_id" id="category_id" size="5">
+            <!--      <input type="text" class="form-control" id="category_search" placeholder="Search Category..."> -->
+                  <select class="form-control category_list" name="category_id" id="category_id" >
                     <option value="">Select Category</option>
 
                   </select>
@@ -175,8 +175,8 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Brand Name</label>
                 <div class="custom-select-container">
-                  <input type="text" class="form-control" id="e_brand_search" placeholder="Search Brand...">
-                  <select class="form-control brand_list" name="e_brand_id" id="e_brand_id" size="5">
+<!--                  <input type="text" class="form-control" id="e_brand_search" placeholder="Search Brand..."> -->
+                  <select class="form-control brand_list" name="e_brand_id" id="e_brand_id" >
                     <option value="">Select Brand</option>
 
                   </select>
@@ -191,8 +191,8 @@ $userid = $_SESSION['admin_id'];
               <div class="form-group">
                 <label>Category Name</label>
                 <div class="custom-select-container">
-                  <input type="text" class="form-control" id="e_category_search" placeholder="Search Category...">
-                  <select class="form-control category_list" name="e_category_id" id="e_category_id" size="5">
+                  <!-- <input type="text" class="form-control" id="e_category_search" placeholder="Search Category...">-->
+                  <select class="form-control category_list" name="e_category_id" id="e_category_id" >
                     <option value="">Select Brand</option>
 
                   </select>
@@ -286,7 +286,7 @@ $userid = $_SESSION['admin_id'];
     });
   </script>
   <script>
-    //to search or filter Brand name
+  /*  //to search or filter Brand name
     $('#brand_search').on('keyup', function() {
   var filter = $(this).val().toUpperCase();
   var $options = $('#brand_id option');
@@ -348,12 +348,8 @@ $(document).ready(function() {
     $('#brand_id').attr('size', '5');
     $('#e_category_id').attr('size', '5');
     $('#category_id').attr('size', '5');
-});
+}); */
   </script>
-  <style>
-      #e_brand_id,#brand_id,#e_category_id,#category_id {
-    height: auto;
-    min-height: 100px; /* Adjust based on your requirement */
-}
+  
 
   </style>

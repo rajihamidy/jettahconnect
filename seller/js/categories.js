@@ -35,6 +35,7 @@ $(document).ready(function () {
                 var resp = $.parseJSON(response);
                 if (resp.status == 202) {
                     getCategories();
+                    $("#add-category-form")[0].reset();
                     showCustomAlert(resp.message);
                 } else if (resp.status == 303) {
                     showCustomAlert(resp.message);

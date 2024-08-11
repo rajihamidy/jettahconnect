@@ -79,8 +79,9 @@ sn++;
 		try {
 			var resp = $.parseJSON(response);
 			if (resp.status == 202) {
-				$("#add-product-form").trigger("reset");
+				//$("#add-product-form").trigger("reset");
 				$("#add_product_modal").modal('hide');
+				$("#add-product-form")[0].reset();
 				getProducts();
 				//alert(resp.message);
 				showCustomAlert(resp.message);

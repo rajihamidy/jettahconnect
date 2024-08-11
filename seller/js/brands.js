@@ -43,6 +43,7 @@ $(document).ready(function() {
                 if (resp.status == 202) {
                     getBrands();
                     $("#add_brand_modal").modal('hide');
+                    $("#add-brand-form")[0].reset();
                     showCustomAlert(resp.message);
                 } else if (resp.status == 303) {
                     showCustomAlert(resp.message);
