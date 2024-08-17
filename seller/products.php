@@ -32,7 +32,7 @@ $userid = $_SESSION['admin_id'];
         <button class="btn btn-primary btn-block" id="searchButton">Search</button>
       </div>
     </div>
-
+    
     <div class="table-responsive">
       <table class="table table-striped table-sm">
         <thead>
@@ -79,10 +79,13 @@ $userid = $_SESSION['admin_id'];
                 <label>Brand Name</label>
                 <div class="custom-select-container">
            <!--       <input type="text" class="form-control" id="brand_search" placeholder="Search Brand..."> -->
-                  <select class="form-control brand_list" name="brand_id" id="brand_id" >
+                  <select class="form-control select2 brand_list" name="brand_id" id="brand_id" >
                     <option value="" selected >Select Brand</option>
 
                   </select>
+     
+
+   
                 </div>
                 <!--                <select class="form-control brand_list" name="brand_id" id="brand_id">
 
@@ -97,7 +100,7 @@ $userid = $_SESSION['admin_id'];
                 <label>Category Name</label>
                 <div class="custom-select-container">
             <!--      <input type="text" class="form-control" id="category_search" placeholder="Search Category..."> -->
-                  <select class="form-control category_list" name="category_id" id="category_id" >
+                  <select class="form-control  category_list" name="category_id" id="category_id" >
                     <option value="">Select Category</option>
 
                   </select>
@@ -260,6 +263,14 @@ $userid = $_SESSION['admin_id'];
   <script type="text/javascript" src="./js/customalert.js"></script>
   <script type="text/javascript" src="./js/customalert.js"></script>
   <script type="text/javascript" src="./js/products.js"></script>
+  
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap4-theme@1.2.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
   <script>
     $(document).ready(function() {
       $('#searchInput').on('keyup', function() {
@@ -286,70 +297,67 @@ $userid = $_SESSION['admin_id'];
     });
   </script>
   <script>
-  /*  //to search or filter Brand name
-    $('#brand_search').on('keyup', function() {
-  var filter = $(this).val().toUpperCase();
-  var $options = $('#brand_id option');
-
-  $options.each(function() {
-    var txtValue = $(this).text();
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-});
-
-$('#category_search').on('keyup', function() {
-  var filter = $(this).val().toUpperCase();
-  var $options = $('#category_id option');
-
-  $options.each(function() {
-    var txtValue = $(this).text();
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-});
-
-// Edit
-$('#e_brand_search').on('keyup', function() {
-  var filter = $(this).val().toUpperCase();
-  var $options = $('#e_brand_id option');
-
-  $options.each(function() {
-    var txtValue = $(this).text();
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-});
-
-$('#e_category_search').on('keyup', function() {
-  var filter = $(this).val().toUpperCase();
-  var $options = $('#e_category_id option');
-
-  $options.each(function() {
-    var txtValue = $(this).text();
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-});
+//Adding filter to select items using select2 class
 $(document).ready(function() {
-    $('#e_brand_id').attr('size', '5');
-    $('#brand_id').attr('size', '5');
-    $('#e_category_id').attr('size', '5');
-    $('#category_id').attr('size', '5');
-}); */
-  </script>
-  
+    $('#brand_id').select2({
+        placeholder: 'Select a brand',
+        allowClear: true,
+        dropdownParent: $('#add_product_modal') // Ensures the dropdown works properly within a modal
+    });
+
+    // Re-initialize Select2 when the modal is shown (if necessary)
+    $('#add_product_modal').on('shown.bs.modal', function () {
+        $('#brand_id').select2({
+            placeholder: 'Select a brand',
+            allowClear: true,
+            dropdownParent: $('#add_product_modal') // Ensures the dropdown works properly within a modal
+        });
+    });
+
+    $('#category_id').select2({
+        placeholder: 'Select a category',
+        allowClear: true,
+        dropdownParent: $('#add_product_modal') // Ensures the dropdown works properly within a modal
+    });
+
+    // Re-initialize Select2 when the modal is shown (if necessary)
+    $('#add_product_modal').on('shown.bs.modal', function () {
+        $('#category_id').select2({
+            placeholder: 'Select a category',
+            allowClear: true,
+            dropdownParent: $('#add_product_modal') // Ensures the dropdown works properly within a modal
+        });
+    });
+});
+
+$('#e_brand_id').select2({
+        placeholder: 'Select a brand',
+        allowClear: true,
+        dropdownParent: $('#edit_product_modal') // Ensures the dropdown works properly within a modal
+    });
+
+    // Re-initialize Select2 when the modal is shown (if necessary)
+    $('#edit_product_modal').on('shown.bs.modal', function () {
+        $('#e_brand_id').select2({
+            placeholder: 'Select a brand',
+            allowClear: true,
+            dropdownParent: $('#edit_product_modal') // Ensures the dropdown works properly within a modal
+        });
+        $('#e_category_id').select2({
+        placeholder: 'Select a category',
+        allowClear: true,
+        dropdownParent: $('#edit_product_modal') // Ensures the dropdown works properly within a modal
+    });
+
+    // Re-initialize Select2 when the modal is shown (if necessary)
+    $('#edit_product_modal').on('shown.bs.modal', function () {
+        $('#e_category_id').select2({
+            placeholder: 'Select a category',
+            allowClear: true,
+            dropdownParent: $('#edit_product_modal') // Ensures the dropdown works properly within a modal
+        });
+    });
+    });
+</script>
 
   </style>
