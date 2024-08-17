@@ -28,7 +28,7 @@ function formatCurrency($amount)
 }
 
 if (isset($_POST["getOrders"])) {
-	$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate,o.deliveryStatus,o.received_Status, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
+	$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate,o.deliveryStatus,o.received_Status,o.payMethod, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
 							FROM orders o
 							INNER JOIN products p ON o.product_id = p.product_id
 							INNER JOIN admin a ON o.seller_id = a.id
@@ -108,6 +108,10 @@ if (isset($_POST["getOrders"])) {
 echo'
 					</tr>
 					<tr>
+						<td>Payment Method</td>
+						<td><b>'. $row["payMethod"].'</b></td>
+					</tr>
+					<tr>
 						<td>Delivery</td>
 						';
 						if ($row["deliveryStatus"] === "Delivered") {
@@ -161,14 +165,14 @@ if (isset($_SESSION["uid"]) || isset($_POST["search"])) {
 	//$keyword = $_GET['keyword'];
 	if ((isset($_POST["keyword"]))) {
 		$keyword = $_POST["keyword"];
-		$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate, o.deliveryStatus, o.received_Status, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
+		$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate, o.deliveryStatus, o.received_Status,o.payMethod, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
                     FROM orders o
                     INNER JOIN products p ON o.product_id = p.product_id
                     INNER JOIN admin a ON o.seller_id = a.id
                     WHERE o.user_id = '$user_id' AND p.product_title LIKE '%$keyword%'
                     ORDER BY o.orderdate DESC";
 	} else {
-		$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate, o.deliveryStatus, o.received_Status, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
+		$orders_list = "SELECT o.order_id, o.user_id, o.product_id, o.qty, o.trx_id, o.p_status, o.orderdate, o.deliveryStatus, o.received_Status,o.payMethod, p.product_title, p.product_price, p.product_image, a.name, a.email, a.mobile, a.shopaddress 
                     FROM orders o
                     INNER JOIN products p ON o.product_id = p.product_id
                     INNER JOIN admin a ON o.seller_id = a.id
@@ -249,6 +253,10 @@ if (isset($_SESSION["uid"]) || isset($_POST["search"])) {
 						}
 						
 echo'
+					</tr>
+					<tr>
+						<td>Payment Method</td>
+						<td><b>'. $row["payMethod"] .'</b></td>
 					</tr>
 					<tr>
 						<td>Delivery</td>
