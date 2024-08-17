@@ -3,7 +3,7 @@ session_start();
 require_once "db.php";
 
 // Debug: Print session variables to check if 'uid' is set
-print_r($_SESSION);
+//print_r($_SESSION);
 
 if (!isset($_SESSION["uid"])) {
     header("location:index.php");
