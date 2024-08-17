@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
             $delM = mysqli_real_escape_string($con, $record['delM']);
             $address = mysqli_real_escape_string($con, $record['address']);
-
+            $payMethod= 'Offline';
             // Set the time zone
             $timeZone = new DateTimeZone('Africa/Lagos');
 
@@ -57,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $currentDateTime = $dateTime->format('Y-m-d H:i:s');
 
             // Insert the record into the orders table
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, delM, addres, p_status, seller_id, orderdate) 
-                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$delM', '$address', '$pStatus', '$sellerId', '$currentDateTime');";
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id, delM, addres, p_status, seller_id, orderdate,payMethod) 
+                    VALUES ('$userId', '$productId', '$qty', '$trxId', '$delM', '$address', '$pStatus', '$sellerId', '$currentDateTime','$payMethod');";
 
             // Update the cart table for each record individually
             $sql .= "UPDATE cart SET order_status = 'Ordered' WHERE user_id = '$userId';";

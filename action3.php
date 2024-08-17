@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $qty = mysqli_real_escape_string($con, $record['qty']);
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
             $pStatus = 'Completed';
+            $payMethod= 'Online';
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
             $delM = mysqli_real_escape_string($con, $record['delM']);
             $address = mysqli_real_escape_string($con, $record['address']);
@@ -85,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $timeZone = new DateTimeZone('Africa/Lagos');
             $dateTime = new DateTime('now', $timeZone);
             $currentDateTime = $dateTime->format('Y-m-d H:i:s');
-            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id,delM,addres, p_status, seller_id, orderdate) 
-                    VALUES ('$userId', '$productId', '$qty', '$trxId','$delM','$address', '$pStatus', '$sellerId', '$currentDateTime');";
+            $sql .= "INSERT INTO orders (user_id, product_id, qty, trx_id,delM,addres, p_status, seller_id, orderdate,payMethod) 
+                    VALUES ('$userId', '$productId', '$qty', '$trxId','$delM','$address', '$pStatus', '$sellerId', '$currentDateTime','$payMethod');";
 
             // Update the cart table for each record individually
             $sql .= "UPDATE cart SET order_status = 'Ordered' WHERE user_id = '$userId';";
