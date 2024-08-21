@@ -46,6 +46,7 @@ if (!isset($_SESSION['admin_id'])) {
               <th>Trx Id</th>
 			  <th>Order Date</th>
               <th>Payment Status</th>
+              <th>Payment Method</th>
 			  <th>Delivery</th>
 			  
             </tr>
@@ -65,6 +66,7 @@ if (!isset($_SESSION['admin_id'])) {
               <th>Trx Id</th>
 			  <th>Order Date</th>
               <th>Payment Status</th>
+              <th>Payment Method</th>
 			  <th>Delivery</th>
 			  
             </tr>
