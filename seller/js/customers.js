@@ -71,6 +71,7 @@ $(document).ready(function () {
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
 								'<td class="text-wrap">' + value.orderdate + '</td>' +
 								'<td><button class="btn btn-danger" onclick="submitPaymentInfo(\'' + value.trx_id + '\')">Payment Received?</button></td>' +
+								'<td class="text-wrap text-success">' + value.payMethod + '</td>' +
 								'<td><button class="btn btn-danger" onclick="UpdateDeliveryInfo(\'' + value.trx_id + '\')">Delivered?</button></td>' +
 
 								'</tr>';
@@ -88,6 +89,7 @@ $(document).ready(function () {
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
 								'<td class="text-wrap">' + value.orderdate + '</td>' +
 								'<td class="text-wrap text-primary">' + value.p_status + '</td>' +
+								'<td class="text-wrap text-success">' + value.payMethod + '</td>' +
 								'<td><button class="btn btn-danger" onclick="UpdateDeliveryInfo(\'' + value.trx_id + '\')">Delivered?</button></td>' +
 
 								'</tr>';
@@ -106,6 +108,7 @@ $(document).ready(function () {
 								'<td class="text-wrap">' + value.trx_id + '</td>' +
 								'<td class="text-wrap">' + value.orderdate + '</td>' +
 								'<td class="text-wrap text-primary">' + value.p_status + '</td>' +
+								'<td class="text-wrap text-success">' + value.payMethod + '</td>' +
 								'<td class="text-wrap text-primary">' + value.deliveryStatus + '</td>' +
 								'</tr>';
 						}
