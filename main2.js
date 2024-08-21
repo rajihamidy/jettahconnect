@@ -45,9 +45,48 @@ $(document).ready(function () {
     });
 
     // END OF ONLINE PAYMENT PROCESSING
+    $("body").delegate("#paystackPay", "click", function () {
+        var delM = $('#delM').val();
+        var addressInput = $('#addressInput');
+        var address = $('#address').val();
+        var total_amount1 = $('#net_totals').val();
+        var total_amount = parseFloat(total_amount1) + (2 / 100 * (total_amount1)); // Adding 2% for admin charges
+        var buyer_email = $('#buyer_email').val();
+        var buyer_name = $('#buyer_name').val();
+        var buyer_mobile = $('#buyer_mobile').val();
+
+        if (delM === "") {
+            $("#message").html("Select Delivery Method").addClass("text-danger");
+
+            setTimeout(function () {
+                $("#message").html(""); // Remove the content
+            }, 10000); // 10 seconds in milliseconds
+            $('#delM').focus();
+            return; // Exit function if delivery method is not selected
+        } else if (addressInput.css("display") !== "none") {
+            var address = $('#address').val();
+            if (address === "") {
+                $("#message").html("Enter Delivery Address.").addClass("text-danger");
+
+                setTimeout(function () {
+                    $("#message").html(""); // Remove the content
+                }, 10000); // 10 seconds in milliseconds
+                $('#address').focus();
+                return; // Exit function if address is empty
+            } else {
+         
+                 payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
+            }
+        } else {
+         
+           payWithPaystack(total_amount, buyer_name, buyer_email, buyer_mobile);
+        }
+    });
+
+    // END OF ONLINE PAYMENT PROCESSING
 
     // Handler for #delivarypay click event
-    $("body").delegate("#delivarypay", "click", function () {
+    $("body").delegate("#payCash", "click", function () {
         var delM = $('#delM').val();
         var address = $('#address').val();
         var addressInput = $('#addressInput');

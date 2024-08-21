@@ -513,8 +513,17 @@ if (isset($_POST["Common"])) {
 <div id="message" > </div>
 </div>
 </div>
-<input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment online"> 
-<input style="float:right;margin-right:80px;" type="button" id="delivarypay" class=" btn btn-primary btn-lg" name="submit2" value="Payment at Delivery"> 
+<input style="float:right;margin-right:80px;" type="button" id="payonline2"  class=" btn btn-primary btn-lg" name="submit"  value="Make Payment Now"> 
+<div class="dropdown" style="float:right;margin-right:80px;">
+  <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="deliverypays" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Payment at Delivery
+  </button>
+  <div class="dropdown-menu" aria-labelledby="deliverypays">
+    <a class="dropdown-item" href="#" id="payCash">Pay Cash</a> <br>
+    <a class="dropdown-item" href="#" id="paystackPay">Pay with Paystack</a>
+  </div>
+</div>
+
 								</form>';
 				//echo   
 				'
