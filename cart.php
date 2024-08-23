@@ -121,7 +121,7 @@ if (!isset($_SESSION["uid"])) {
 	<script>
 		var CURRENCY = '<?php echo CURRENCY; ?>';
 	</script>
-<!--<a href="pay.php">Pay</a> -->
+	<!--<a href="pay.php">Pay</a> -->
 </body>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -215,18 +215,15 @@ if (!isset($_SESSION["uid"])) {
 		handler.openIframe();
 	}
 
-	function toggleAddressInput() {
-		var deliveryMethod = $('#delM').val();
-		if (deliveryMethod === 'Pick-up at Store') {
-			$('#address').hide();
-		} else {
-			$('#address').show();
-		}
-	}
-
 	$(document).ready(function() {
-		toggleAddressInput();
-		$('#delM').change(toggleAddressInput);
+		$('#delM').change(function() {
+			if ($(this).val() === 'Home Delivery') {
+				$('#address').val(''); // Clear the address input field
+				$('#addressInput').show(); // Show the address input field
+			} else {
+				$('#addressInput').hide(); // Hide the address input field
+			}
+		});
 	});
 </script>
 
