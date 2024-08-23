@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
             $delM = mysqli_real_escape_string($con, $record['delM']);
             $address = mysqli_real_escape_string($con, $record['address']);
-            $payMethod= 'At Delivery/Cash';
+            $payMethod= 'At Delivery/Paystack';
             // Set the time zone
             $timeZone = new DateTimeZone('Africa/Lagos');
 

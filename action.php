@@ -520,7 +520,7 @@ if (isset($_POST["Common"])) {
   </button>
   <div class="dropdown-menu" aria-labelledby="deliverypays">
     <a class="dropdown-item" href="#" id="payCash">Pay Cash</a> <br>
-    <a class="dropdown-item" href="#" id="paystackPay">Pay with Paystack</a>
+    <a class="dropdown-item" href="#" id="paystackPayAtDelivery">Pay with Paystack</a>
   </div>
 </div>
 

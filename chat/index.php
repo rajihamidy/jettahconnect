@@ -2,7 +2,11 @@
 include('database_connection.php');
 
 session_start();
-
+if (isset($_GET['start_chat']) && $_GET['start_chat'] == 'true') {
+    $_SESSION['start_chat'] = true;
+    header("Location: index.php");
+    exit();
+}
 if (!isset($_SESSION['uid']) && !isset($_SESSION['admin_id'])) {
     echo "<script>
     customAlert('Kindly Login to Chat with the Seller');

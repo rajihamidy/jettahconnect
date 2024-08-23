@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $qty = mysqli_real_escape_string($con, $record['qty']);
             $trxId = mysqli_real_escape_string($con, $record['trx_id']);
             $pStatus = 'Completed';
-            $payMethod= 'Online';
+            $payMethod= 'Online During Registration';
             $sellerId = mysqli_real_escape_string($con, $record['seller_id']);
             $delM = mysqli_real_escape_string($con, $record['delM']);
             $address = mysqli_real_escape_string($con, $record['address']);

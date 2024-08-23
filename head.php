@@ -43,7 +43,7 @@
                             <hr>
                             <li><a href="inbox.php"><span class="glyphicon glyphicon-inbox"></span> Inbox</a></li>
                             <li><a href="sent.php"><span class="glyphicon glyphicon-send"></span> Sent</a></li>
-                            <li><a href="chat/index.php"><span class="glyphicon glyphicon-comment"></span> chat</a></li>
+                            <li><a href="chat/index.php?start_chat=true"><span class="glyphicon glyphicon-comment"></span> Chat</a></li>
                             <li><a href="customer_complaints.php"><span class="glyphicon glyphicon-exclamation-sign"></span> Submit Complaints</a></li>
                         </ul>
                     </div>

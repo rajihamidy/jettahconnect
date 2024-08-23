@@ -42,6 +42,7 @@ if (isset($_POST["getOrders"])) {
 		echo 'Total Orders: ' . $count;
 		while ($row = mysqli_fetch_array($query)) {
 			$sn++;
+			$payMethod= $row["payMethod"];
 			echo '
 			
 			<div class="row">
@@ -111,6 +112,22 @@ echo'
 						<td>Payment Method</td>
 						<td><b>'. $row["payMethod"].'</b></td>
 					</tr>
+					';
+					if ($row["payMethod"] === "At Delivery/Paystack") {
+						$trx_id = $row["trx_id"];
+						echo'	
+						<td colspan="2"><button class="btn btn-primary btn-block" onclick="PayWithPaystack(\'' . $trx_id . '\')"> Pay Now ?</button>
+						';
+						
+					} else if ($row["payMethod"] === "At Delivery/Cash") {
+						$trx_id = $row["trx_id"];
+						echo'	
+						<td colspan="2"><button class="btn btn-primary btn-block" onclick="UpdatePayment_Status(\'' . $trx_id . '\')"> Paid ?</button>
+						';
+					}else{
+						//Nothing
+					}
+					echo'
 					<tr>
 						<td>Delivery</td>
 						';
