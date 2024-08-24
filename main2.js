@@ -26,7 +26,7 @@ $(document).ready(function () {
             return; // Exit function if delivery method is not selected
         } else if (addressInput.css("display") !== "none") {
             var address = $('#address').val();
-            if (address === "0") {
+            if (address === "0") { 
                 $("#message").html("Enter Delivery Address.").addClass("text-danger");
 
                 setTimeout(function () {
