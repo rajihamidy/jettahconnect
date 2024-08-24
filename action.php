@@ -492,7 +492,7 @@ if (isset($_POST["Common"])) {
 				<label for="items">Delivery Method</label>
 				<div class="row">
 				<div class="col-sm-4">
-				<select id="delM" name="delM" class="form-control" onchange="toggleAddressInput()" required>
+				<select id="delM" name="delM" class="form-control"  required>
 					<option value="">---Select Delivery Method---</option>
 					<option value="In-Store Pickup">In-store Pickup</option>
 					<option value="Home Delivery">Home Delivery</option>
@@ -500,6 +500,7 @@ if (isset($_POST["Common"])) {
 				</select>
 				</div> 
 				<div class="col-sm-4"> 
+				
 				<div id="addressInput" style="display: none;">
     <input type="text" id="address" value="0" name="address" class="form-control" placeholder="Enter your address">
 </div>

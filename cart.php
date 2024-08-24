@@ -11,14 +11,14 @@ if (!isset($_SESSION["uid"])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Jettah Connect</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<script src="js/jquery2.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="main.js"></script>
 	<script src="main2.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
@@ -123,6 +123,7 @@ if (!isset($_SESSION["uid"])) {
 	</script>
 	<!--<a href="pay.php">Pay</a> -->
 </body>
+
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -215,16 +216,42 @@ if (!isset($_SESSION["uid"])) {
 		handler.openIframe();
 	}
 
-	$(document).ready(function() {
-		$('#delM').change(function() {
-			if ($(this).val() === 'Home Delivery') {
-				$('#address').val(''); // Clear the address input field
-				$('#addressInput').show(); // Show the address input field
-			} else {
-				$('#addressInput').hide(); // Hide the address input field
-			}
-		});
-	});
+
+
+	$(window).on('load', function() {
+    $(document).ready(function() {
+        // The function to execute when cart_checkout is updated
+        function checkDelMElement() {
+            // Check if the #delM element exists
+            if ($('#delM').length > 0) {
+                var previousValue = $('#delM').val();
+
+                // Listen for changes in the selection
+                $('#delM').change(function() {
+                    var currentValue = $(this).val();
+                    if (currentValue === 'Home Delivery') {
+                        $('#address').val(''); // Clear the address input field
+                        $('#addressInput').css('display', 'block');
+                    } else {
+                        $('#addressInput').css('display', 'none');
+                    }
+                });
+            } else {
+       //         alert('Absent'); 
+            }
+        }
+
+        // Call checkDelMElement after cart_checkout content is loaded
+        $("#cart_checkout").on('DOMSubtreeModified', function() {
+            checkDelMElement();
+        });
+
+        // Call the function initially in case the element is already there
+        checkDelMElement();
+    });
+});
+
+
 </script>
 
 </html>
