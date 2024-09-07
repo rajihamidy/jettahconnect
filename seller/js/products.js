@@ -163,7 +163,45 @@ sn++;
 	});
 
 	$(".submit-edit-product").on('click', function(){
-
+    // Validation for required fields
+    var productName = $("input[name='e_product_name']").val().trim();
+    var brandId = $("select[name='e_brand_id']").val();
+    var categoryId = $("select[name='e_category_id']").val();
+    var productDesc = $("textarea[name='e_product_desc']").val().trim();
+    var productQty = $("input[name='e_product_qty']").val();
+    var productPrice = $("input[name='e_product_price']").val();
+	var productkeywords = $("input[name='e_product_keywords']").val();
+    //var productImage = $("input[name='e_product_image']").val();
+    
+    // Check if any required field is empty
+    if (!productName) {
+        showCustomAlert("Product Name is required.");
+        return;
+    }
+    if (!brandId) {
+        showCustomAlert("Please select a Brand.");
+        return;
+    }
+    if (!categoryId) {
+        showCustomAlert("Please select a Category.");
+        return;
+    }
+    if (!productDesc) {
+        showCustomAlert("Product Description is required.");
+        return;
+    }
+    if (!productQty || productQty <= 0) {
+        showCustomAlert("Please enter a valid Product Quantity.");
+        return;
+    }
+    if (!productPrice || productPrice <= 0) {
+        showCustomAlert("Please enter a valid Product Price.");
+        return;
+    }
+	if (!productkeywords) {
+        showCustomAlert("Product keywords is required.");
+        return;
+    }
 		$.ajax({
 
 			url : '../seller/classes/Products.php',
