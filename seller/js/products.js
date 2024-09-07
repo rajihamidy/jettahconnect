@@ -64,46 +64,80 @@ sn++;
 
 	getProducts();
 
-	$(".add-product").on("click", function(){
-
-		$.ajax({
-
-			url : '../seller/classes/Products.php',
-			method : 'POST',
-			data : new FormData($("#add-product-form")[0]),
-			contentType : false,
-	cache : false,
-	processData : false,
-	success : function(response){
-		console.log(response);
-		try {
-			var resp = $.parseJSON(response);
-			if (resp.status == 202) {
-				//$("#add-product-form").trigger("reset");
-				$("#add_product_modal").modal('hide');
-				$("#add-product-form")[0].reset();
-				getProducts();
-				//alert(resp.message);
-				showCustomAlert(resp.message);
-				
-                    
-
-			} else if (resp.status == 303) {
-				showCustomAlert(resp.message);
-			} else {
-				//console.error("Unexpected JSON response:", resp); // Log unexpected response for debugging
-				showCustomAlert("Unexpected JSON response. Please try again later.");
-			}
-		} catch (error) {
-			//console.error("Error parsing JSON:", error); // Log JSON parsing error for debugging
-			showCustomAlert("Error parsing JSON response. Please try again later.");
+	$(".add-product").on("click", function() {
+		// Validation for required fields
+		var productName = $("input[name='product_name']").val().trim();
+		var brandId = $("select[name='brand_id']").val();
+		var categoryId = $("select[name='category_id']").val();
+		var productDesc = $("textarea[name='product_desc']").val().trim();
+		var productQty = $("input[name='product_qty']").val();
+		var productPrice = $("input[name='product_price']").val();
+		var productkeywords = $("input[name='product_keywords']").val();
+		var productImage = $("input[name='product_image']").val();
+	
+		// Check if any required field is empty
+		if (!productName) {
+			showCustomAlert("Product Name is required.");
+			return;
 		}
-		
-	}
-
+		if (!brandId) {
+			showCustomAlert("Please select a Brand.");
+			return;
+		}
+		if (!categoryId) {
+			showCustomAlert("Please select a Category.");
+			return;
+		}
+		if (!productDesc) {
+			showCustomAlert("Product Description is required.");
+			return;
+		}
+		if (!productQty || productQty <= 0) {
+			showCustomAlert("Please enter a valid Product Quantity.");
+			return;
+		}
+		if (!productPrice || productPrice <= 0) {
+			showCustomAlert("Please enter a valid Product Price.");
+			return;
+		}
+		if (!productkeywords) {
+			showCustomAlert("Please Enter Product Keywords.");
+			return;
+		}
+		if (!productImage) {
+			showCustomAlert("Please upload a Product Image.");
+			return;
+		}
+	
+		// If all fields are valid, proceed with AJAX call
+		$.ajax({
+			url: '../seller/classes/Products.php',
+			method: 'POST',
+			data: new FormData($("#add-product-form")[0]),
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+				console.log(response);
+				try {
+					var resp = $.parseJSON(response);
+					if (resp.status == 202) {
+						$("#add_product_modal").modal('hide');
+						$("#add-product-form")[0].reset();
+						getProducts();
+						showCustomAlert(resp.message);
+					} else if (resp.status == 303) {
+						showCustomAlert(resp.message);
+					} else {
+						showCustomAlert("Unexpected JSON response. Please try again later.");
+					}
+				} catch (error) {
+					showCustomAlert("Error parsing JSON response. Please try again later.");
+				}
+			}
 		});
-
 	});
+	
 			
 		
 
