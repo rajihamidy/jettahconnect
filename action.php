@@ -581,10 +581,19 @@ if (isset($_POST["getSeller"])) {
 		echo'<table class="table table-striped">';
 		echo '<tr>
         
+		<td>
+			<input type="text" class="form-control" id="search1" placeholder="Search Shop.." onkeyup="filterShops()">
+		</td>
+	</tr>
+	';
+		echo '<tr>
+        
         <td>
             <a href="#" onclick="postShopId(' . $idx . '); return false;">' . $shopnamex . '</a>
         </td>
-    </tr>';
+    </tr>
+	';
+	
 		while ($rows = mysqli_fetch_array($exec)) {
 			$n++;
 			$shopname = $rows["shopname"];

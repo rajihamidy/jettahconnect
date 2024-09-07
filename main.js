@@ -393,7 +393,7 @@ $(document).ready(function () {
 			}
 		})
 	}
-
+	
 
 	//Fetch Cart item from Database to dropdown menu
 
@@ -555,4 +555,26 @@ function postShopId(id) {
 			// Handle errors
 		}
 	});
+}
+function filterShops() {
+	// Get the value of the input
+	var input = document.getElementById("search1");
+	var filter = input.value.toUpperCase();
+
+	// Get the table and all rows
+	var table = document.querySelector(".table-striped");
+	var tr = table.getElementsByTagName("tr");
+
+	// Loop through all table rows, and hide those that don't match the search query
+	for (var i = 1; i < tr.length; i++) {
+		var td = tr[i].getElementsByTagName("td")[0]; // Get the first <td> element in the row
+		if (td) {
+			var txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = ""; // Show row if it matches the search query
+			} else {
+				tr[i].style.display = "none"; // Hide row if it doesn't match
+			}
+		}
+	}
 }
