@@ -9,12 +9,8 @@ include "./templates/top.php";
 ?>
 
 <?php include "./templates/navbar.php"; ?>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/myJs.js"></script>
 
-<?php include "./templates/footer.php"; ?>
 <div class="container">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4">
         <div class="content">
@@ -63,12 +59,27 @@ include "./templates/top.php";
     document.addEventListener("contextmenu", (event) => {
         event.preventDefault();
     });
+
 </script>
+<script>
+        // Initialize Select2 on the select element
+        $(document).ready(function() {
+            $('#bankName').select2({
+                class:"form-control",
+                allowClear: true
+            });
+        });
+        $('#bankName').next('.select2-container').addClass('form-control');
+        $('#bankName').addClass('form-control');
+    </script>
+
 <p></p>
 <?php include 'footer.php' ?>
+
 </body>
 <?php require 'customAlert.php'; ?>
 <script type="text/javascript" src="./js/customalert.js"></script>
 
 <script type="text/javascript" src="./js/sidebar.js"></script>
+
 </html>
