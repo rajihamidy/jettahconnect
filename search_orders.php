@@ -111,19 +111,23 @@ echo'
 					<tr>
 						<td>Payment Method</td>
 						<td><b>'. $row["payMethod"].'</b></td>
-					</tr>
+					</tr>  
 					';
 					if ($row["payMethod"] === "At Delivery/Paystack") {
 						$trx_id = $row["trx_id"];
+						$amount = formatCurrency($row["product_price"] * $row["qty"]);
+						$amountx = $row["product_price"] * $row["qty"];
+						$buyer_Email = $_SESSION["buyer_email"];
 						echo'	
-						<td colspan="2"><button class="btn btn-primary btn-block" onclick="PayWithPaystack(\'' . $trx_id . '\')"> Pay Now ?</button>
+						<td colspan="2"><button class="btn btn-primary btn-block" onclick="payWithPaystack(\'' . $trx_id . '\', \'' . $amountx . '\', \'' . $buyer_Email . '\')"> Pay Now ?</button>
 						';
 						
 					} else if ($row["payMethod"] === "At Delivery/Cash") {
 						$trx_id = $row["trx_id"];
-						echo'	
+					/*	echo'	
 						<td colspan="2"><button class="btn btn-primary btn-block" onclick="UpdatePayment_Status(\'' . $trx_id . '\')"> Paid ?</button>
 						';
+						*/
 					}else{
 						//Nothing
 					}
