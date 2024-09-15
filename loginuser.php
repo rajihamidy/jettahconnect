@@ -150,16 +150,18 @@ if (isset($_SESSION["uid"])) {
                             <input type="submit" class="btn btn-warning" value="Login"> <a href="forgetpass.php?id=1" class="btn btn-primary"> Forget password </a>
 <br>
                             <a href="customer_registration.php?register=1" class="btn btn-outline-primary">Create Account Now</a>
-                        </form>
-                    </div>
-
+                        </form> <br>
+                        <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+                    </div> 
+                    
                 </div>
+                
             </div>
         </div>
-
+        
     </div>
 
-    <div class="panel-footer">&copy; <?php echo date("Y"); ?> | Developed By <a href="https://ypdatahub.com.ng">Young Programa</a></div>
+    
 </body>
 <script type="text/javascript" src="./js/sidebar.js"></script>
 <script>
